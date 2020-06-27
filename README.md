@@ -32,5 +32,7 @@ The author does not actively monitor issues.
 
 See [License](LICENSE) for details about the source code license.
 
+Two XML files from iTunes Movie Trailers are included with the project for reference and educational purposes. The [License](LICENSE) does not cover these XML files.
+
 The Apple Logo, AirPlay, iOS, and iTunes are trademarks of Apple Inc., registered in the U.S. and other countries.  
 Greyhound is © Copyright 1969-2020 Apple.
