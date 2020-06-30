@@ -11,6 +11,7 @@ struct TrailerListView: View {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @State var model: [MovieInfo]
+    @State var settingsShown = false
     
     var body: some View {
         GeometryReader { geo in
@@ -23,6 +24,14 @@ struct TrailerListView: View {
                 }
                 .navigationTitle("Theatrical Trailers")
                 .navigationBarTitleDisplayMode(.large)
+                .navigationBarItems(trailing: Button(action: {
+                    settingsShown = true
+                }, label: {
+                    Image(systemName: "gearshape")
+                        .accessibility(label: Text("Settings"))
+                }))
+            }.sheet(isPresented: $settingsShown, onDismiss: nil) {
+                SettingsView()
             }
         }
     }
@@ -31,5 +40,7 @@ struct TrailerListView: View {
 struct TrailerListView_Previews: PreviewProvider {
     static var previews: some View {
         TrailerListView(model: [MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII])
+            .colorScheme(.dark)
+            .background(Color.black)
     }
 }

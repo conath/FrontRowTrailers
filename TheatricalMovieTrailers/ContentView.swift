@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var settings = Settings.instance()
     @EnvironmentObject var sceneDelegate: SceneDelegate
     
     var body: some View {
             ZStack {
                 if sceneDelegate.model != nil {
                     TrailerListView(model: sceneDelegate.model)
+                }
+                if settings.prefersDarkAppearance {
+                    Group {}
                 }
             }
             .overlay(
@@ -22,8 +26,7 @@ struct ContentView: View {
                         ProgressView()
                     }
                 }
-                .background(Color.black)
             )
-            .colorScheme(.dark)
+            .modifier(CustomDarkAppearance())
     }
 }

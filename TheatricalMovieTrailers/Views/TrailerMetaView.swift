@@ -32,6 +32,8 @@ struct TrailerMetaView: View {
 struct TrailerMetaView_Previews: PreviewProvider {
     static var previews: some View {
         TrailerMetaView(model: .constant(MovieInfo.Example.AQuietPlaceII))
+            .colorScheme(.dark)
+            .background(Color.black)
             .previewLayout(.sizeThatFits)
     }
 }
