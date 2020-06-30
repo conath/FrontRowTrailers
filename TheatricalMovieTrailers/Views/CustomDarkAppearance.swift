@@ -14,11 +14,17 @@ struct CustomDarkAppearance: ViewModifier {
         if settings.prefersDarkAppearance {
             return AnyView(
                 content
-                    .background(Color.black)
-                    .colorScheme(.dark)
+                    .preferredColorScheme(.dark)
             )
         } else {
-            return AnyView(content)
+            return AnyView(
+                content
+                    .preferredColorScheme(
+                        // using .none does cause the ContentView to update properly
+                        //  if prefersDarkAppearance was switched from true to false
+                        UITraitCollection().userInterfaceStyle == .dark ? .dark : .light
+                    )
+            )
         }
     }
 }

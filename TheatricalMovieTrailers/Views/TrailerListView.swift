@@ -28,6 +28,7 @@ struct TrailerListView: View {
                     settingsShown = true
                 }, label: {
                     Image(systemName: "gearshape")
+                        .clipShape(Rectangle())
                         .accessibility(label: Text("Settings"))
                 }))
             }.sheet(isPresented: $settingsShown, onDismiss: nil) {
