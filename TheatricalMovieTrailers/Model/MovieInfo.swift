@@ -20,8 +20,21 @@ struct MovieInfo: Identifiable, Hashable {
     let director: String
     let actors: [String]
     let genres: [String]
-    let releaseDate: String
+    let releaseDate: Date?
     let copyright: String
+    
+    var releaseDateString: String {
+        get {
+            if let releaseDate = releaseDate {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .long
+                dateFormatter.timeStyle = .none
+                return dateFormatter.string(from: releaseDate)
+            } else {
+                return "Unknown"
+            }
+        }
+    }
     
     #if DEBUG
     struct Example {
@@ -39,7 +52,7 @@ struct MovieInfo: Identifiable, Hashable {
             director: "John Krasinski",
             actors: ["Emily Blunt", "Cillian Murphy", "Millicent Simmonds", "Noah Jupe", "Djimon Hounsou"],
             genres: ["Horror", "Thriller"],
-            releaseDate: "2020-09-04",
+            releaseDate: Date().addingTimeInterval(60*60*24*7), // one week in the future
             copyright: "© Copyright 2020 Paramount Pictures"
         )
     }
@@ -90,7 +103,7 @@ fileprivate class MutableMovieInfo {
     var director = ""
     var actors = [String]()
     var genres = [String]()
-    var releaseDate = ""
+    var releaseDate: Date? = nil
     var copyright = ""
     
     private var expectedValue: ExpectedValue = .title
@@ -126,7 +139,15 @@ fileprivate class MutableMovieInfo {
             genres.append(value)
             return // this is made up of multiple detected strings, so keep appending
         case .releaseDate:
-            releaseDate = value
+            let dateFormatter = DateFormatter()
+            dateFormatter.calendar = Calendar(identifier: .gregorian)
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date = dateFormatter.date(from: value)
+            // assertions only run in debug configurations, so this will alert
+            //  developers to an API change or bug but users won't notice except
+            //  for missing release date
+            assert(date != nil, "Failed to parse Date from releaseDate string \(value)")
+            releaseDate = date
         case .copyright:
             copyright = value
         }
@@ -154,7 +175,11 @@ class MovieInfoXMLParserDelegate: NSObject, XMLParserDelegate {
             // new movie entry, save previous one
             resultMI.append(mutableMI.movieInfo)
             mutableMI = MutableMovieInfo()
-            mutableMI.id = Int(attributeDict["id"]!)!
+            if let idString = attributeDict["id"], let int = Int(idString) {
+                mutableMI.id = int
+            } else {
+                assertionFailure("Failed to get id integer from string \(attributeDict["id"] ?? "nil")")
+            }
         case "title":
             mutableMI.expectValue(.title)
         case "runtime":

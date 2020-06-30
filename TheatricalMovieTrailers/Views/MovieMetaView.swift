@@ -42,7 +42,7 @@ struct MovieMetaView: View {
                 
                 MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), width: titleWidth)
                 
-                MovieMetaRow(title: "Release", value: model.releaseDate, width: titleWidth)
+                MovieMetaRow(title: "Release", value: model.releaseDateString, width: titleWidth)
                 
                 HStack(alignment: .top) {
                     Spacer()
