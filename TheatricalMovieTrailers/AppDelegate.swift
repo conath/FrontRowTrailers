@@ -10,13 +10,17 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
-    @Published var selectedTrailerModel: MovieInfo! = nil {
+    @Published var selectedTrailerModel: MovieInfo? = nil {
         didSet {
-            self.posterImage = idsAndImages[selectedTrailerModel.id]!
+            if let model = selectedTrailerModel {
+                self.posterImage = idsAndImages[model.id] ?? nil
+            }
             if isPlaying {
                 isPlaying = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.isPlaying = true
+                if selectedTrailerModel != nil {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.isPlaying = true
+                    }
                 }
             }
         }
@@ -33,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
     func fetchImagesFor(model movies: [MovieInfo]) {
         DispatchQueue.global(qos: .userInitiated).async {
             movies.forEach { movieInfo in
-                if let data = try? Data(contentsOf: URL(string: movieInfo.posterURL)!) {
+                if let url = URL(string: movieInfo.posterURL), let data = try? Data(contentsOf: url) {
                     let image = UIImage(data: data)
                     DispatchQueue.main.async {
                         self.idsAndImages.updateValue(image, forKey: movieInfo.id)

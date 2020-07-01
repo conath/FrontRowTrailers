@@ -9,17 +9,17 @@ import SwiftUI
 import AVKit
 
 struct ExternalTrailerView: View {
-    @Binding var model: MovieInfo
+    @State var model: MovieInfo
     @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @Binding var posterImage: UIImage?
     
     let avPlayer: AVPlayer?
     
-    init(model: Binding<MovieInfo>, image: Binding<UIImage?>) {
-        self._model = model
+    init(model: MovieInfo, image: Binding<UIImage?>) {
+        self._model = State(initialValue: model)
         self._posterImage = image
         
-        if let url = URL(string: model.wrappedValue.trailerURL) {
+        if let url = URL(string: model.trailerURL) {
             let avPlayer: AVPlayer? = AVPlayer(url: url)
             self.avPlayer = avPlayer
         } else {
@@ -72,7 +72,7 @@ struct ExternalTrailerView: View {
 
 struct ExternalTrailerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExternalTrailerView(model: .constant(MovieInfo.Example.AQuietPlaceII), image: .constant(UIImage()))
+        ExternalTrailerView(model: MovieInfo.Example.AQuietPlaceII, image: .constant(UIImage()))
             .previewLayout(.fixed(width: 1280, height: 720))
     }
 }

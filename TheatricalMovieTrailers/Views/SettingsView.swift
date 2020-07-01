@@ -19,8 +19,11 @@ struct SettingsView: View {
         NavigationView {
             VStack(alignment: .leading) {
                 Toggle("Always use dark mode", isOn: $prefersDarkAppearance)
-                    .onChange(of: prefersDarkAppearance) { value in
-                        settings.prefersDarkAppearance = value
+                    .onTapGesture {
+                        withAnimation {
+                            prefersDarkAppearance.toggle()
+                            settings.prefersDarkAppearance = prefersDarkAppearance
+                        }
                     }
                 if prefersDarkAppearance {
                     Text("The app will always be in dark mode.")

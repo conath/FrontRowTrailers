@@ -52,8 +52,12 @@ struct MovieTrailerView: View {
                                     appDelegate.selectedTrailerModel = model
                                 }
                             }, label: {
-                                Image(systemName: isPlaying ? "pause" : "play")
+                                Image(systemName: isPlaying ? "pause" : "play.fill")
+                                    .frame(width: 60, height: 60)
                             })
+                            .background(Color(UIColor.tertiarySystemBackground))
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            
                             Spacer()
                         }
                         .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
