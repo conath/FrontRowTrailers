@@ -215,8 +215,16 @@ class MovieInfoXMLParserDelegate: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
+        let movies = Array(self.resultMI.dropFirst())
+        let sorted = movies.sorted(by: { // release ascending
+            if let r0 = $0.releaseDate, let r1 = $1.releaseDate {
+                return r0 < r1
+            } else {
+                return $0.title < $1.title
+            }
+        })
         DispatchQueue.main.async {
-            self.completion(Array(self.resultMI.dropFirst()))
+            self.completion(sorted)
             self.completion = nil
         }
     }
