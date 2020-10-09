@@ -10,7 +10,7 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
-    @Published var selectedTrailerModel: MovieInfo? = nil {
+    @Published var selectedTrailerModel: MovieInfo! {
         didSet {
             if let model = selectedTrailerModel {
                 self.posterImage = idsAndImages[model.id] ?? nil

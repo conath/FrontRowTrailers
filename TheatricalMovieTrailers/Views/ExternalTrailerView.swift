@@ -9,31 +9,19 @@ import SwiftUI
 import AVKit
 
 struct ExternalTrailerView: View {
-    @State var model: MovieInfo
+    @Binding var model: MovieInfo!
     @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @Binding var posterImage: UIImage?
     
-    let avPlayer: AVPlayer?
-    
-    init(model: MovieInfo, image: Binding<UIImage?>) {
-        self._model = State(initialValue: model)
-        self._posterImage = image
-        
-        if let url = URL(string: model.trailerURL) {
-            let avPlayer: AVPlayer? = AVPlayer(url: url)
-            self.avPlayer = avPlayer
-        } else {
-            avPlayer = nil
-        }
-    }
+    @State private var avPlayer: AVPlayer?
     
     var body: some View {
-        return GeometryReader { geo in
+        GeometryReader { geo in
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack {
                         // Title, subtitle, trailer duration
-                        TrailerMetaView(model: $model)
+                        TrailerMetaView(model: $model, largeTitle: true)
                         if let image = posterImage {
                             HStack() {
                                 Image(uiImage: image)
@@ -45,6 +33,7 @@ struct ExternalTrailerView: View {
                         }
                     }
                     .padding(.leading)
+                    .frame(width: geo.size.width * 0.23)
                     // Trailer Video Player
                     VideoPlayer(player: avPlayer)
                         .onChange(of: appDelegate.isPlaying) { isPlaying in
@@ -54,25 +43,39 @@ struct ExternalTrailerView: View {
                                 avPlayer?.pause()
                             }
                         }
-                        .onDisappear {
-                            avPlayer?.pause()
-                        }
                         .frame(minHeight: geo.size.height * 0.7, maxHeight: .infinity)
                 }.frame(minWidth: geo.size.width * (2/3), minHeight: geo.size.height * 0.7, maxHeight: .infinity)
                 
                 // Meta details
-                MovieMetaView(scrolls: false, model: $model)
+                ExternalMovieMetaView(model: $model)
             }
             .colorScheme(.dark)
             .background(Color.black)
             .statusBar(hidden: true)
+            .onAppear(perform: {
+                if let url = URL(string: model.trailerURL) {
+                    let avPlayer: AVPlayer? = AVPlayer(url: url)
+                    self.avPlayer = avPlayer
+                    self.avPlayer?.play()
+                }
+            })
+            .onChange(of: model, perform: { model in
+                self.avPlayer?.pause()
+                if let url = URL(string: model!.trailerURL) {
+                    let avPlayer: AVPlayer? = AVPlayer(url: url)
+                    self.avPlayer = avPlayer
+                    self.avPlayer?.play()
+                }
+            })
         }
     }
 }
 
+#if DEBUG
 struct ExternalTrailerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExternalTrailerView(model: MovieInfo.Example.AQuietPlaceII, image: .constant(UIImage()))
+        ExternalTrailerView(model: .constant(Optional(MovieInfo.Example.AQuietPlaceII)), posterImage: .constant(UIImage()))
             .previewLayout(.fixed(width: 1280, height: 720))
     }
 }
+#endif

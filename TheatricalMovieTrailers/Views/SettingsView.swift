@@ -9,23 +9,12 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var settings = Settings.instance()
-    @State var prefersDarkAppearance: Bool
-    
-    init() {
-        _prefersDarkAppearance = State<Bool>(initialValue: Settings.instance().prefersDarkAppearance)
-    }
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Toggle("Always use dark mode", isOn: $prefersDarkAppearance)
-                    .onTapGesture {
-                        withAnimation {
-                            prefersDarkAppearance.toggle()
-                            settings.prefersDarkAppearance = prefersDarkAppearance
-                        }
-                    }
-                if prefersDarkAppearance {
+                Toggle("Always use dark mode", isOn: $settings.prefersDarkAppearance)
+                if settings.prefersDarkAppearance {
                     Text("The app will always be in dark mode.")
                         .font(.subheadline)
                 } else {

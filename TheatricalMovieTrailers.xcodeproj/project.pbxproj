@@ -20,6 +20,7 @@
 		831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F424ABE34A008EDC6F /* Settings.swift */; };
 		831CD8F924ABE8C4008EDC6F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F824ABE8C4008EDC6F /* SettingsView.swift */; };
 		831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */; };
+		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
@@ -42,6 +43,7 @@
 		831CD8F424ABE34A008EDC6F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		831CD8F824ABE8C4008EDC6F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDarkAppearance.swift; sourceTree = "<group>"; };
+		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
 		8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListView.swift; sourceTree = "<group>"; };
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				83D5252824A661760086707E /* MovieMetaView.swift */,
 				8380C5A224A6721A00CA1EB4 /* ExternalView.swift */,
 				8316E10124A64CD500467F14 /* ExternalTrailerView.swift */,
+				8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */,
 				831CD8F824ABE8C4008EDC6F /* SettingsView.swift */,
 				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 			);
@@ -217,6 +220,7 @@
 				831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */,
 				8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */,
 				8316E0E824A64AD300467F14 /* ContentView.swift in Sources */,
+				8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */,
 				8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */,
 				8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */,
 				831CD8F924ABE8C4008EDC6F /* SettingsView.swift in Sources */,
@@ -358,7 +362,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -367,8 +373,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.TheatricalMovieTrailers;
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -379,7 +386,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -388,8 +397,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.TheatricalMovieTrailers;
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

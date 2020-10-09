@@ -9,17 +9,17 @@ import AVKit
 import SwiftUI
 
 struct MovieTrailerView: View {
-    @Binding var model: MovieInfo
+    @Binding var model: MovieInfo!
     @ObservedObject var appDelegate: AppDelegate
     @State var isPlaying: Bool
     
     var avPlayer: AVPlayer? = nil
     
-    init(model: Binding<MovieInfo>) {
+    init(model: Binding<MovieInfo?>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self._model = model
         self._isPlaying = State<Bool>(initialValue: (UIApplication.shared.delegate as! AppDelegate).isPlaying)
-        if !appDelegate.isExternalScreenConnected, let url = URL(string: model.wrappedValue.trailerURL) {
+        if !appDelegate.isExternalScreenConnected, let url = URL(string: model.wrappedValue!.trailerURL) {
             let avPlayer: AVPlayer? = AVPlayer(url: url)
             self.avPlayer = avPlayer
         } else {
@@ -28,10 +28,10 @@ struct MovieTrailerView: View {
     }
     
     var body: some View {
-        return GeometryReader { geo in
+        GeometryReader { geo in
             VStack(alignment: .leading) {
-                TrailerMetaView(model: $model)
-                    .padding(.leading)
+                TrailerMetaView(model: $model, largeTitle: false)
+                    .padding([.leading, .trailing])
                 
                 VStack(alignment: .center) {
                     if appDelegate.isExternalScreenConnected {
@@ -77,18 +77,26 @@ struct MovieTrailerView: View {
                         .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                     }
                 
-                    MovieMetaView(scrolls: true, model: $model)
+                    MovieMetaView(model: $model)
                 }
             }
         }
     }
 }
 
+#if DEBUG
 struct MovieDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieTrailerView(model: .constant(MovieInfo.Example.AQuietPlaceII))
-            .colorScheme(.dark)
-            .background(Color.black)
-            .previewLayout(.sizeThatFits)
+        Group {
+            MovieTrailerView(model: .constant(MovieInfo.Example.AQuietPlaceII))
+                .colorScheme(.dark)
+                .background(Color.black)
+                .previewLayout(.sizeThatFits)
+            MovieTrailerView(model: .constant(MovieInfo.Example.AQuietPlaceII))
+                .colorScheme(.dark)
+                .background(Color.black)
+                .previewLayout(.fixed(width: 1024, height: 1024))
+        }
     }
 }
+#endif

@@ -8,32 +8,37 @@
 import SwiftUI
 
 struct TrailerMetaView: View {
-    @Binding var model: MovieInfo
+    @Binding var model: MovieInfo!
+    @State var largeTitle: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             // Title
             Text(model.title)
-                .font(.largeTitle)
+                .font(largeTitle ? .largeTitle : .title)
                 .bold()
                 .padding([.top, .trailing])
-                .padding(.bottom, 5)
-            // Studio
-            Text(model.studio)
-                .font(.title)
-                .padding(.bottom, 5)
-            // Trailer length
-            Text("Trailer: \(model.trailerLength)")
-                .font(.title3)
+            HStack {
+                // Studio
+                Text(model.studio)
+                    .font(largeTitle ? .title3 : .callout)
+                Spacer()
+                // Trailer length
+                Text("Trailer: \(model.trailerLength)")
+                    .font(largeTitle ? .title3 : .callout)
+            }
+            .padding(.bottom, 4)
         }
     }
 }
 
+#if DEBUG
 struct TrailerMetaView_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerMetaView(model: .constant(MovieInfo.Example.AQuietPlaceII))
+        TrailerMetaView(model: .constant(MovieInfo.Example.AQuietPlaceII), largeTitle: false)
             .colorScheme(.dark)
             .background(Color.black)
             .previewLayout(.sizeThatFits)
     }
 }
+#endif
