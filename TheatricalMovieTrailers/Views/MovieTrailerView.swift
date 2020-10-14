@@ -34,53 +34,59 @@ struct MovieTrailerView: View {
                     .padding([.leading, .trailing])
                 
                 VStack(alignment: .center) {
-                    if appDelegate.isExternalScreenConnected {
-                        HStack {
-                            // poster image
-                            if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
-                                Spacer()
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            }
+                    HStack {
+                        // poster image
+                        if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
                             Spacer()
-                            // Play/Pause button
-                            Button(action: {
-                                isPlaying.toggle()
-                                appDelegate.isPlaying = isPlaying
-                                if isPlaying {
-                                    appDelegate.selectedTrailerModel = model
-                                }
-                            }, label: {
-                                Image(systemName: isPlaying ? "pause" : "play.fill")
-                                    .frame(width: 60, height: 60)
-                            })
-                            .background(Color(UIColor.tertiarySystemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            
-                            Spacer()
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                         }
-                        .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
-                    } else {
-                        // Trailer Video if no external screen connected
-                        TrailerPlayerView(avPlayer: .constant(avPlayer!), isPlaying: $isPlaying)
-                        .onChange(of: model.trailerURL, perform: { url in
-                            if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
-                                let avPlayer: AVPlayer? = AVPlayer(url: url)
-                                self.avPlayer = avPlayer
-                                print("new trailer url \(url)")
-                            } else {
-                                avPlayer = nil
+                        Spacer()
+                        // Play/Pause button
+                        Button(action: {
+                            isPlaying.toggle()
+                            appDelegate.isPlaying = isPlaying
+                            if isPlaying {
+                                appDelegate.selectedTrailerModel = model
                             }
+                        }, label: {
+                            Image(systemName: isPlaying ? "pause" : "play.fill")
+                                .frame(width: 60, height: 60)
                         })
-                        .onDisappear {
-                            isPlaying = false
-                        }
-                        .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
+                        .background(Color(UIColor.tertiarySystemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        
+                        Spacer()
                     }
-                
-                    MovieMetaView(model: $model)
+                    .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
+                    .onChange(of: model.trailerURL, perform: { url in
+                        if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
+                            let avPlayer: AVPlayer? = AVPlayer(url: url)
+                            self.avPlayer = avPlayer
+                            print("new trailer url \(url)")
+                        } else {
+                            avPlayer = nil
+                        }
+                    })
+                    .overlay(
+                        Group {
+                            // Trailer Video if no external screen connected
+                            if !appDelegate.isExternalScreenConnected && avPlayer != nil && isPlaying {
+                                TrailerPlayerView(avPlayer: .constant(avPlayer!), isPlaying: $isPlaying, avPlayerRateChangeHandler: { (player, change) in
+                                    guard let newRate = change.newValue else { return }
+                                    appDelegate.isPlaying = newRate > 0
+                                })
+                                .onDisappear {
+                                    isPlaying = false
+                                }
+                                .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
+                            }
+                        }
+                    )
                 }
+                
+                MovieMetaView(model: $model)
             }
         }
     }
