@@ -13,7 +13,7 @@ struct MovieTrailerView: View {
     @ObservedObject var appDelegate: AppDelegate
     @State var isPlaying: Bool
     
-    var avPlayer: AVPlayer? = nil
+    @State var avPlayer: AVPlayer? = nil
     
     init(model: Binding<MovieInfo?>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -21,7 +21,7 @@ struct MovieTrailerView: View {
         self._isPlaying = State<Bool>(initialValue: (UIApplication.shared.delegate as! AppDelegate).isPlaying)
         if !appDelegate.isExternalScreenConnected, let url = URL(string: model.wrappedValue!.trailerURL) {
             let avPlayer: AVPlayer? = AVPlayer(url: url)
-            self.avPlayer = avPlayer
+            self._avPlayer = State<AVPlayer?>(initialValue: avPlayer)
         } else {
             avPlayer = nil
         }
@@ -63,16 +63,18 @@ struct MovieTrailerView: View {
                         .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                     } else {
                         // Trailer Video if no external screen connected
-                        VideoPlayer(player: avPlayer, videoOverlay: {
-                            Spacer()
-                        })
-                        .onAppear {
-                            if isPlaying {
-                                avPlayer?.play()
+                        TrailerPlayerView(avPlayer: .constant(avPlayer!), isPlaying: $isPlaying)
+                        .onChange(of: model.trailerURL, perform: { url in
+                            if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
+                                let avPlayer: AVPlayer? = AVPlayer(url: url)
+                                self.avPlayer = avPlayer
+                                print("new trailer url \(url)")
+                            } else {
+                                avPlayer = nil
                             }
-                        }
+                        })
                         .onDisappear {
-                            avPlayer?.pause()
+                            isPlaying = false
                         }
                         .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                     }

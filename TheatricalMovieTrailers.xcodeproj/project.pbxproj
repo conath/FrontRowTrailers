@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830AA4192536FB94006A3AEB /* TrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */; };
 		8316E0E424A64AD300467F14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0E324A64AD300467F14 /* AppDelegate.swift */; };
 		8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0E524A64AD300467F14 /* SceneDelegate.swift */; };
 		8316E0E824A64AD300467F14 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0E724A64AD300467F14 /* ContentView.swift */; };
@@ -24,10 +25,12 @@
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
+		83AE012E25370A2E00A416FC /* TrailerListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE012D25370A2E00A416FC /* TrailerListRow.swift */; };
 		83D5252924A661760086707E /* MovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5252824A661760086707E /* MovieMetaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerView.swift; sourceTree = "<group>"; };
 		8316E0E024A64AD300467F14 /* TheatricalMovieTrailers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheatricalMovieTrailers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8316E0E324A64AD300467F14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8316E0E524A64AD300467F14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
 		8396CA1924A6A756007734F0 /* current_720p.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = current_720p.xml; sourceTree = "<group>"; };
 		8396CA1B24A6A766007734F0 /* current.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = current.xml; sourceTree = "<group>"; };
+		83AE012D25370A2E00A416FC /* TrailerListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListRow.swift; sourceTree = "<group>"; };
 		83D5252824A661760086707E /* MovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMetaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +139,8 @@
 				8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */,
 				831CD8F824ABE8C4008EDC6F /* SettingsView.swift */,
 				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
+				830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */,
+				83AE012D25370A2E00A416FC /* TrailerListRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				8316E0E824A64AD300467F14 /* ContentView.swift in Sources */,
 				8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */,
 				8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */,
+				83AE012E25370A2E00A416FC /* TrailerListRow.swift in Sources */,
+				830AA4192536FB94006A3AEB /* TrailerPlayerView.swift in Sources */,
 				8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */,
 				831CD8F924ABE8C4008EDC6F /* SettingsView.swift in Sources */,
 			);
