@@ -13,7 +13,7 @@ struct MovieTrailerView: View {
     @ObservedObject var appDelegate: AppDelegate
     @State var isPlaying: Bool
     
-    var avPlayer: AVPlayer? = nil
+    @State var avPlayer: AVPlayer? = nil
     
     init(model: Binding<MovieInfo?>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -21,7 +21,7 @@ struct MovieTrailerView: View {
         self._isPlaying = State<Bool>(initialValue: (UIApplication.shared.delegate as! AppDelegate).isPlaying)
         if !appDelegate.isExternalScreenConnected, let url = URL(string: model.wrappedValue!.trailerURL) {
             let avPlayer: AVPlayer? = AVPlayer(url: url)
-            self.avPlayer = avPlayer
+            self._avPlayer = State<AVPlayer?>(initialValue: avPlayer)
         } else {
             avPlayer = nil
         }
@@ -34,51 +34,59 @@ struct MovieTrailerView: View {
                     .padding([.leading, .trailing])
                 
                 VStack(alignment: .center) {
-                    if appDelegate.isExternalScreenConnected {
-                        HStack {
-                            // poster image
-                            if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
-                                Spacer()
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            }
+                    HStack {
+                        // poster image
+                        if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
                             Spacer()
-                            // Play/Pause button
-                            Button(action: {
-                                isPlaying.toggle()
-                                appDelegate.isPlaying = isPlaying
-                                if isPlaying {
-                                    appDelegate.selectedTrailerModel = model
-                                }
-                            }, label: {
-                                Image(systemName: isPlaying ? "pause" : "play.fill")
-                                    .frame(width: 60, height: 60)
-                            })
-                            .background(Color(UIColor.tertiarySystemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            
-                            Spacer()
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                         }
-                        .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
-                    } else {
-                        // Trailer Video if no external screen connected
-                        VideoPlayer(player: avPlayer, videoOverlay: {
-                            Spacer()
-                        })
-                        .onAppear {
+                        Spacer()
+                        // Play/Pause button
+                        Button(action: {
+                            isPlaying.toggle()
+                            appDelegate.isPlaying = isPlaying
                             if isPlaying {
-                                avPlayer?.play()
+                                appDelegate.selectedTrailerModel = model
+                            }
+                        }, label: {
+                            Image(systemName: isPlaying ? "pause" : "play.fill")
+                                .frame(width: 60, height: 60)
+                        })
+                        .background(Color(UIColor.tertiarySystemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        
+                        Spacer()
+                    }
+                    .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
+                    .onChange(of: model.trailerURL, perform: { url in
+                        if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
+                            let avPlayer: AVPlayer? = AVPlayer(url: url)
+                            self.avPlayer = avPlayer
+                            print("new trailer url \(url)")
+                        } else {
+                            avPlayer = nil
+                        }
+                    })
+                    .overlay(
+                        Group {
+                            // Trailer Video if no external screen connected
+                            if !appDelegate.isExternalScreenConnected && avPlayer != nil && isPlaying {
+                                TrailerPlayerView(avPlayer: .constant(avPlayer!), isPlaying: $isPlaying, avPlayerRateChangeHandler: { (player, change) in
+                                    guard let newRate = change.newValue else { return }
+                                    appDelegate.isPlaying = newRate > 0
+                                })
+                                .onDisappear {
+                                    isPlaying = false
+                                }
+                                .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
                         }
-                        .onDisappear {
-                            avPlayer?.pause()
-                        }
-                        .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
-                    }
-                
-                    MovieMetaView(model: $model)
+                    )
                 }
+                
+                MovieMetaView(model: $model)
             }
         }
     }
