@@ -12,21 +12,21 @@ struct ContentView: View {
     @EnvironmentObject var sceneDelegate: SceneDelegate
     
     var body: some View {
-            ZStack {
-                if sceneDelegate.model != nil {
-                    TrailerListView(model: sceneDelegate.model)
-                }
-                if settings.prefersDarkAppearance {
-                    Group {}
+        ZStack {
+            if sceneDelegate.model != nil {
+                TrailerListView(model: sceneDelegate.model)
+            }
+            if settings.prefersDarkAppearance {
+                Group {}
+            }
+        }
+        .overlay(
+            Group {
+                if sceneDelegate.model == nil {
+                    ProgressView()
                 }
             }
-            .overlay(
-                Group {
-                    if sceneDelegate.model == nil {
-                        ProgressView()
-                    }
-                }
-            )
-            .modifier(CustomDarkAppearance())
+        )
+        .modifier(CustomDarkAppearance())
     }
 }
