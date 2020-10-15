@@ -38,9 +38,9 @@ struct MovieTrailerView: View {
                         // poster image
                         if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
                             Spacer()
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
+                            FramedImage(uiImage: image)
+                                //.resizable()
+                                .aspectRatio(0.7063020214, contentMode: .fit)
                         }
                         Spacer()
                         // Play/Pause button

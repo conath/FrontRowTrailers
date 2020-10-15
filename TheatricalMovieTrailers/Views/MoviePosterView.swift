@@ -11,18 +11,21 @@ struct MoviePosterView: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     @ObservedObject private var appDelegate: AppDelegate
     
-    var id: Int
+    @State var id: Int
+    @State var reflectionDistance: CGFloat
     @State private var image: UIImage? = nil
     
-    init(id: Int) {
-        self.id = id
+    init(id: Int, reflectionDistance: CGFloat = 20.0) {
+        self._id = State<Int>(initialValue: id)
+        self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     #if DEBUG
-    init(id: Int, image: UIImage?) {
+    init(id: Int, image: UIImage?, reflectionDistance: CGFloat = 20.0) {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.id = id
+        self._id = State<Int>(initialValue: id)
+        self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
         self.image = image
     }
     #endif
@@ -42,7 +45,7 @@ struct MoviePosterView: View {
         return GeometryReader { geo in
             HStack {
                 Spacer()
-                VStack(alignment: .center, spacing: 20) {
+                VStack(alignment: .center, spacing: reflectionDistance) {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -69,7 +72,7 @@ struct MoviePosterView: View {
 #if DEBUG
 struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"))
+        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10)
     }
 }
 #endif
