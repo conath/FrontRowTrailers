@@ -11,20 +11,10 @@ import SwiftUI
 struct MovieTrailerView: View {
     @Binding var model: MovieInfo!
     @ObservedObject var appDelegate: AppDelegate
-    @State var isPlaying: Bool
-    
-    @State var avPlayer: AVPlayer? = nil
     
     init(model: Binding<MovieInfo?>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self._model = model
-        self._isPlaying = State<Bool>(initialValue: (UIApplication.shared.delegate as! AppDelegate).isPlaying)
-        if !appDelegate.isExternalScreenConnected, let url = URL(string: model.wrappedValue!.trailerURL) {
-            let avPlayer: AVPlayer? = AVPlayer(url: url)
-            self._avPlayer = State<AVPlayer?>(initialValue: avPlayer)
-        } else {
-            avPlayer = nil
-        }
     }
     
     var body: some View {
@@ -38,20 +28,19 @@ struct MovieTrailerView: View {
                         // poster image
                         if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
                             Spacer()
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
+                            FramedImage(uiImage: image)
+                                //.resizable()
+                                .aspectRatio(0.7063020214, contentMode: .fit)
                         }
                         Spacer()
                         // Play/Pause button
                         Button(action: {
-                            isPlaying.toggle()
-                            appDelegate.isPlaying = isPlaying
-                            if isPlaying {
+                            appDelegate.isPlaying.toggle()
+                            if appDelegate.isPlaying {
                                 appDelegate.selectedTrailerModel = model
                             }
                         }, label: {
-                            Image(systemName: isPlaying ? "pause" : "play.fill")
+                            Image(systemName: appDelegate.isPlaying ? "pause" : "play.fill")
                                 .frame(width: 60, height: 60)
                         })
                         .background(Color(UIColor.tertiarySystemBackground))
@@ -60,25 +49,24 @@ struct MovieTrailerView: View {
                         Spacer()
                     }
                     .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
-                    .onChange(of: model.trailerURL, perform: { url in
-                        if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
-                            let avPlayer: AVPlayer? = AVPlayer(url: url)
-                            self.avPlayer = avPlayer
-                            print("new trailer url \(url)")
-                        } else {
-                            avPlayer = nil
-                        }
-                    })
+//                    .onChange(of: model.trailerURL, perform: { url in
+//                        if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
+//                            let avPlayer: AVPlayer? = AVPlayer(url: url)
+//                            self.avPlayer = avPlayer
+//                        } else {
+//                            avPlayer = nil
+//                        }
+//                    })
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if !appDelegate.isExternalScreenConnected && avPlayer != nil && isPlaying {
-                                TrailerPlayerView(avPlayer: .constant(avPlayer!), isPlaying: $isPlaying, avPlayerRateChangeHandler: { (player, change) in
+                            if !appDelegate.isExternalScreenConnected && appDelegate.isPlaying {
+                                TrailerPlayerView(avPlayer: .constant(AVPlayer(url: URL(string: model.trailerURL)!)), isPlaying: $appDelegate.isPlaying, avPlayerRateChangeHandler: { (player, change) in
                                     guard let newRate = change.newValue else { return }
                                     appDelegate.isPlaying = newRate > 0
                                 })
                                 .onDisappear {
-                                    isPlaying = false
+                                    appDelegate.isPlaying = false
                                 }
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
@@ -87,6 +75,7 @@ struct MovieTrailerView: View {
                 }
                 
                 MovieMetaView(model: $model)
+                    .padding(.bottom, 100)
             }
         }
     }

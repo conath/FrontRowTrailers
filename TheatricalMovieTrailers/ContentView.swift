@@ -9,24 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var settings = Settings.instance()
+    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @EnvironmentObject var sceneDelegate: SceneDelegate
     
     var body: some View {
+        ZStack {
+            if let model = sceneDelegate.model, appDelegate.idsAndImages.count == model.count {
+                MovieInfoOverView(model: model)
+            }
+            if settings.prefersDarkAppearance {
+                Color.clear
+            }
+        }
+        .overlay(
             ZStack {
-                if sceneDelegate.model != nil {
-                    TrailerListView(model: sceneDelegate.model)
-                }
-                if settings.prefersDarkAppearance {
-                    Group {}
+                if sceneDelegate.model == nil || appDelegate.idsAndImages.count != sceneDelegate.model!.count {
+                    ProgressView()
                 }
             }
-            .overlay(
-                Group {
-                    if sceneDelegate.model == nil {
-                        ProgressView()
-                    }
-                }
-            )
-            .modifier(CustomDarkAppearance())
+            .edgesIgnoringSafeArea(.all)
+        )
+        .transition(.opacity)
+        .modifier(CustomDarkAppearance())
+        .statusBar(hidden: true)
     }
 }

@@ -19,13 +19,13 @@ struct ExternalMovieMetaView: View {
             VStack(alignment: .center) {
                 HStack(alignment: .top) {
                     VStack {
-                        MovieMetaRow(title: "Director", value: model.director, width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
+                        ExtMovieMetaRow(title: "Director", value: model.director, width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
                         
-                        MovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
+                        ExtMovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
                         
-                        MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
+                        ExtMovieMetaRow(title: "Genre", value: model.genres.joined(separator: "ExtMovieMetaRow "), width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
                     
-                        MovieMetaRow(title: "Release", value: model.releaseDateString, width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
+                        ExtMovieMetaRow(title: "Release", value: model.releaseDateString, width: metaWidth / 3, font1: metaHeadlineFont, font2: metaBodyFont)
                     }
                     .frame(width: metaWidth)
                     
@@ -62,7 +62,7 @@ struct ExternalMovieMetaView_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate struct MovieMetaRow: View {
+fileprivate struct ExtMovieMetaRow: View {
     let title: String
     let value: String
     let width: CGFloat

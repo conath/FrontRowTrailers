@@ -10,7 +10,7 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
     
-    @Published var model: [MovieInfo]! = nil
+    @Published var model: [MovieInfo]? = nil
 
     var window: UIWindow?
 
@@ -19,13 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         // Create the SwiftUI view that provides the window contents.
         let view = ContentView()
         let contentView = view.environmentObject(self)
         let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
             self.model = maybeModel
             if let model = maybeModel {
-                (UIApplication.shared.delegate as! AppDelegate).fetchImagesFor(model: model)
+                appDelegate.fetchImagesFor(model: model)
             }
         }
         if model == nil {

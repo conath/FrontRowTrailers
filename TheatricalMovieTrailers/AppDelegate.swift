@@ -10,7 +10,7 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
-    @Published var selectedTrailerModel: MovieInfo! {
+    @Published var selectedTrailerModel: MovieInfo? {
         didSet {
             if let model = selectedTrailerModel {
                 self.posterImage = idsAndImages[model.id] ?? nil
@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
                     DispatchQueue.main.async {
                         self.idsAndImages.updateValue(image, forKey: movieInfo.id)
                     }
+                } else {
+                    self.idsAndImages.updateValue(nil, forKey: movieInfo.id)
                 }
             }
         }

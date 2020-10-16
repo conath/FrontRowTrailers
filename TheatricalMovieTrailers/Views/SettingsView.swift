@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var settings = Settings.instance()
+    @Binding var isPresented: Bool
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,25 @@ struct SettingsView: View {
                         .font(.subheadline)
                 }
                 Spacer()
+                Button(action: {
+                    isPresented = false
+                    DispatchQueue.main.async {
+                        Settings.instance().isCoverFlow.toggle()
+                    }
+                }, label: {
+                        HStack {
+                            Image(systemName: Settings.instance().isCoverFlow ? "list.and.film" : "arrow.turn.up.forward.iphone.fill")
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                            Text(Settings.instance().isCoverFlow ? "Switch to List" : "Switch to Cover Flow")
+                                .foregroundColor(.primary)
+                                .padding([.top, .bottom, .trailing])
+                        }
+                        .background (
+                            RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        )
+                })
+                Spacer()
             }
             .padding([.leading, .trailing], 16)
             .navigationTitle("Settings")
@@ -32,6 +52,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(isPresented: .constant(true))
     }
 }

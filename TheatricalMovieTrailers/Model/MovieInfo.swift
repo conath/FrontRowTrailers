@@ -36,6 +36,22 @@ struct MovieInfo: Identifiable, Hashable {
         }
     }
     
+    /// Use as placeholder
+    static let Empty = MovieInfo(
+        id: -1,
+        title: "",
+        posterURL: "",
+        trailerURL: "",
+        trailerLength: "",
+        synopsis: "",
+        studio: "",
+        director: "",
+        actors: [""],
+        genres: [""],
+        releaseDate: nil,
+        copyright: ""
+    )
+    
     #if DEBUG
     struct Example {
         static let AQuietPlaceII = MovieInfo(
