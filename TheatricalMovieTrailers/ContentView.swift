@@ -31,5 +31,6 @@ struct ContentView: View {
         )
         .transition(.opacity)
         .modifier(CustomDarkAppearance())
+        .statusBar(hidden: true)
     }
 }

@@ -58,19 +58,13 @@ struct CompactTrailerListView: View {
     
     var body: some View {
         GeometryReader { geo in
-            NavigationView {
-                ScrollView(.vertical, showsIndicators: true) {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(model) { model in
-                            MovieTrailerView(model: .constant(model))
-                                .frame(width: geo.size.width * 0.95, height: geo.size.height)
-                                .background(Color(UIColor.secondarySystemBackground))
-                                .cornerRadius(geo.size.width * 0.07)
-                                .padding([.leading, .bottom], geo.size.width * 0.025)
-                        }
-                    }
-                    .navigationTitle("Theatrical Trailers")
-                    .navigationBarItems(leading:
+            ScrollView(.vertical, showsIndicators: true) {
+                LazyVStack(alignment: .leading) {
+                    Text("Theatrical Trailers")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding()
+                    HStack {
                         Button(action: {
                             let nextMode = sortingMode.nextMode()
                             DispatchQueue.global(qos: .userInteractive).async {
@@ -85,15 +79,27 @@ struct CompactTrailerListView: View {
                                 Image(systemName: "arrow.up.arrow.down")
                                 Text(sortingMode.rawValue)
                             }
-                        }), trailing:
-                            Button(action: {
-                                showingSettings = true
-                            }, label: {
-                                Image(systemName: "gearshape")
-                                    .clipShape(Rectangle())
-                                    .accessibility(label: Text("Settings"))
-                            })
-                    )
+                        })
+                                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showingSettings = true
+                        }, label: {
+                            Image(systemName: "gearshape")
+                                .clipShape(Rectangle())
+                                .accessibility(label: Text("Settings"))
+                        })
+                    }
+                    .padding(.horizontal)
+                    
+                    ForEach(model) { model in
+                        MovieTrailerView(model: .constant(model))
+                            .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.8)
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .cornerRadius(geo.size.width * 0.07)
+                            .padding([.leading, .bottom], geo.size.width * 0.025)
+                    }
                 }
             }
         }
