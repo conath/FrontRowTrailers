@@ -22,6 +22,8 @@
 		831CD8F924ABE8C4008EDC6F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F824ABE8C4008EDC6F /* SettingsView.swift */; };
 		831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */; };
 		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
+		834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */; };
+		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
@@ -50,6 +52,8 @@
 		831CD8F824ABE8C4008EDC6F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDarkAppearance.swift; sourceTree = "<group>"; };
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
+		834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoOverView.swift; sourceTree = "<group>"; };
+		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
 		8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListView.swift; sourceTree = "<group>"; };
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
@@ -136,7 +140,7 @@
 		8380C5A124A6713300CA1EB4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */,
+				834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */,
 				8316E0F924A64B3F00467F14 /* MovieTrailerView.swift */,
 				8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */,
 				83D5252824A661760086707E /* MovieMetaView.swift */,
@@ -146,8 +150,10 @@
 				831CD8F824ABE8C4008EDC6F /* SettingsView.swift */,
 				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 				830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */,
+				8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */,
 				83AE012D25370A2E00A416FC /* TrailerListRow.swift */,
 				83CBE5112537600F00E22FAE /* CoverFlowListView.swift */,
+				834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */,
 				838403482538B7B80056E50A /* MoviePosterView.swift */,
 				83BAC28D2538CC56004D59BC /* FramedImage.swift */,
 			);
@@ -231,10 +237,12 @@
 				83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */,
 				8316E0FE24A64B6900467F14 /* Undefined.swift in Sources */,
 				83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */,
+				834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */,
 				8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */,
 				831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */,
 				8316E0FA24A64B3F00467F14 /* MovieTrailerView.swift in Sources */,
 				831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */,
+				834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */,
 				8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */,
 				8316E0E824A64AD300467F14 /* ContentView.swift in Sources */,
 				8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */,

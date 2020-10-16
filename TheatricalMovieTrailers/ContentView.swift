@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             if sceneDelegate.model != nil {
-                TrailerListView(model: sceneDelegate.model)
+                MovieInfoOverView(model: sceneDelegate.model)
             }
             if settings.prefersDarkAppearance {
                 Group {}

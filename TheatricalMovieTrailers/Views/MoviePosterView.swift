@@ -53,6 +53,7 @@ struct MoviePosterView: View {
                     Image(uiImage: UIImage(cgImage: fadeImage))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .opacity(0.5)
                         .frame(maxHeight: geo.size.height * 2 / 3)
                         .rotationEffect(.degrees(180), anchor: .center)
                         .rotation3DEffect(
