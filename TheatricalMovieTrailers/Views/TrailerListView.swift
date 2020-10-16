@@ -101,6 +101,9 @@ struct TrailerListView: View {
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .padding(.leading)
             }
+            .sheet(isPresented: $settingsShown, content: {
+                SettingsView(isPresented: $settingsShown)
+            })
         }
     }
 }
