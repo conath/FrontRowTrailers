@@ -13,19 +13,22 @@ struct MoviePosterView: View {
     
     @State var id: Int
     @State var reflectionDistance: CGFloat
+    @State var onTap: () -> ()
     @State private var image: UIImage? = nil
     
-    init(id: Int, reflectionDistance: CGFloat = 20.0) {
+    init(id: Int, reflectionDistance: CGFloat = 20.0, onTapGesture: @escaping () -> ()) {
         self._id = State<Int>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
+        self._onTap = State<() -> ()>(initialValue: onTapGesture)
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     #if DEBUG
-    init(id: Int, image: UIImage?, reflectionDistance: CGFloat = 20.0) {
+    init(id: Int, image: UIImage?, reflectionDistance: CGFloat = 20.0, onTapGesture: @escaping () -> ()) {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         self._id = State<Int>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
+        self._onTap = State<() -> ()>(initialValue: onTapGesture)
         self.image = image
     }
     #endif
@@ -53,7 +56,7 @@ struct MoviePosterView: View {
                     Image(uiImage: UIImage(cgImage: fadeImage))
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .opacity(0.5)
+                        .opacity(0.7)
                         .frame(maxHeight: geo.size.height * 2 / 3)
                         .rotationEffect(.degrees(180), anchor: .center)
                         .rotation3DEffect(
@@ -64,7 +67,7 @@ struct MoviePosterView: View {
                 Spacer()
             }
             .onTapGesture(count: 1, perform: {
-                print("selected movie \(id)")
+                onTap()
             })
         }
     }
@@ -73,7 +76,7 @@ struct MoviePosterView: View {
 #if DEBUG
 struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10)
+        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10, onTapGesture: {})
     }
 }
 #endif

@@ -9,39 +9,60 @@ import SwiftUI
 
 struct CoverFlowListView: View {
     @Binding var model: [MovieInfo]
+    @State private var selectedMovie: MovieInfo? = nil
     
     var body: some View {
-        /// Insert spacer at front and back of list to make sure the first and last movie poster is centered in the view
-        var displayModel: [MovieInfo] = [.Empty]
-        displayModel.append(contentsOf: model)
-        displayModel.append(.Empty)
-        
-        return GeometryReader { geo in
-            ScrollView(.horizontal, showsIndicators: true) {
-                VStack {
-                    Spacer().frame(height: geo.size.height * 0.1)
-                    HStack(alignment: .center, spacing: itemWidth(geo) * -0.5) {
-                        ForEach(displayModel) { model in
-                            if model.id > -1 {
-                                CoverFlowRotatingView(envGeo: geo, content:
-                                                        MoviePosterView(id: model.id, reflectionDistance: 0)
-                                )
-                                .frame(width: itemWidth(geo) * 1.5)
-                            } else {
-                                // spacer at the front
-                                Color.clear
-                                    .frame(width: itemWidth(geo) * 0.75)
+        GeometryReader { frame in
+            ScrollView(.horizontal, showsIndicators: false) {
+                ScrollViewReader { reader in
+                    VStack {
+                        Spacer().frame(height: frame.size.height * 0.1)
+                        HStack(alignment: .center, spacing: itemWidth(frame) * -0.5) {
+                            ForEach(model) { model in
+                                GeometryReader { movGeo in
+                                    ZStack {
+                                        CoverFlowRotatingView(envGeo: frame, content:
+                                            MoviePosterView(id: model.id, reflectionDistance: 0) {
+                                                if isCenteredX(container: frame, movGeo) {
+                                                self.selectedMovie = model
+                                                } else {
+                                                    withAnimation {
+                                                        reader.scrollTo(model.id, anchor: .center)
+                                                    }
+                                                }
+                                            }
+                                        )
+                                        Text(model.title)
+                                            .font(.headline)
+                                            .padding(.top, 25)
+                                            .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
+                                            .animation(.easeIn)
+                                    }
+                                }
+                                .frame(width: itemWidth(frame) * 1.5)
+                                .id(model.id)
                             }
                         }
                     }
+                    .padding(.horizontal, itemWidth(frame) * 0.25)
                 }
             }
-            .edgesIgnoringSafeArea(.top)
         }
+        .sheet(item: $selectedMovie, content: { model in
+            MovieTrailerView(model: .constant(model))
+                .modifier(CustomDarkAppearance())
+        })
+        .edgesIgnoringSafeArea(.top)
     }
     
     private func itemWidth(_ geo: GeometryProxy) -> CGFloat {
         return min(geo.size.width * 0.5, 200)
+    }
+    
+    private func isCenteredX(container frame: GeometryProxy, _ geo: GeometryProxy, allowance: CGFloat = 0.1) -> Bool {
+        let outerCenter = frame.frame(in: .local).midX
+        let center = geo.frame(in: .global).midX
+        return abs(outerCenter - center) < frame.size.width * allowance
     }
 }
 
