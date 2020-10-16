@@ -55,7 +55,7 @@ struct TrailerListView: View {
     //@ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @Binding var model: [MovieInfo]
-    @State var settingsShown = false
+    @Binding var settingsShown: Bool
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
@@ -100,9 +100,6 @@ struct TrailerListView: View {
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .padding(.leading)
-                .sheet(isPresented: $settingsShown, onDismiss: nil) {
-                    SettingsView()
-                }
             }
         }
     }
@@ -111,7 +108,7 @@ struct TrailerListView: View {
 #if DEBUG
 struct TrailerListView_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]))
+        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]), settingsShown: .constant(false))
             .colorScheme(.dark)
             .background(Color.black)
     }

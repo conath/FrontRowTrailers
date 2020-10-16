@@ -7,8 +7,12 @@
 
 import Foundation
 
+fileprivate extension String {
+    static let autoDark = "isAutoDarkAppearance"
+    static let coverFlow = "isCoverFlow"
+}
+
 class Settings: ObservableObject {
-    private let DefaultsKey = "isAutoDarkAppearance"
     private let ValueAlwaysDark = 0
     private let ValueAutomaticDark = 1
     
@@ -24,15 +28,24 @@ class Settings: ObservableObject {
         didSet {
             let newValue = prefersDarkAppearance ? ValueAlwaysDark : ValueAutomaticDark
             let defaults = UserDefaults()
-            defaults.setValue(newValue, forKey: DefaultsKey)
+            defaults.setValue(newValue, forKey: .autoDark)
+            defaults.synchronize()
+        }
+    }
+    @Published var isCoverFlow = true {
+        didSet {
+            let defaults = UserDefaults()
+            defaults.setValue(isCoverFlow, forKey: .coverFlow)
             defaults.synchronize()
         }
     }
     
     private init() {
-        let isAutoDark = UserDefaults().integer(forKey: DefaultsKey) == ValueAutomaticDark
+        let defaults = UserDefaults()
+        let isAutoDark = defaults.integer(forKey: .autoDark) == ValueAutomaticDark
         if isAutoDark {
             prefersDarkAppearance = false
         }
+        isCoverFlow = defaults.bool(forKey: .coverFlow)
     }
 }

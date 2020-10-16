@@ -9,24 +9,27 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var settings = Settings.instance()
+    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @EnvironmentObject var sceneDelegate: SceneDelegate
     
     var body: some View {
         ZStack {
-            if sceneDelegate.model != nil {
-                MovieInfoOverView(model: sceneDelegate.model)
+            if let model = sceneDelegate.model, appDelegate.idsAndImages.count == model.count {
+                MovieInfoOverView(model: model)
             }
             if settings.prefersDarkAppearance {
-                Group {}
+                Color.clear
             }
         }
         .overlay(
-            Group {
-                if sceneDelegate.model == nil {
+            ZStack {
+                if sceneDelegate.model == nil || appDelegate.idsAndImages.count != sceneDelegate.model!.count {
                     ProgressView()
                 }
             }
+            .edgesIgnoringSafeArea(.all)
         )
+        .transition(.opacity)
         .modifier(CustomDarkAppearance())
     }
 }

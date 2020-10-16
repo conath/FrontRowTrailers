@@ -30,23 +30,23 @@ struct MovieMetaView: View {
                     .frame(minHeight: 100, maxHeight: 150)
                     
                     Divider()
-                    MovieMetaRow(title: "Director", value: model.director, width: titleWidth)
+                    MovieMetaRow(title: "Director", value: model.director, labelWidth: titleWidth)
                     
-                    MovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), width: titleWidth)
+                    MovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), labelWidth: titleWidth)
                     
-                    MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), width: titleWidth)
+                    MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), labelWidth: titleWidth)
                     
-                    MovieMetaRow(title: "Release", value: model.releaseDateString, width: titleWidth)
+                    MovieMetaRow(title: "Release", value: model.releaseDateString, labelWidth: titleWidth)
                 } else {
                     HStack(alignment: .top) {
                         VStack {
-                            MovieMetaRow(title: "Director", value: model.director, width: metaWidth)
+                            MovieMetaRow(title: "Director", value: model.director, labelWidth: metaWidth)
                             
-                            MovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), width: metaWidth)
+                            MovieMetaRow(title: "Actors", value: model.actors.joined(separator: ", "), labelWidth: metaWidth)
                             
-                            MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), width: metaWidth)
+                            MovieMetaRow(title: "Genre", value: model.genres.joined(separator: ", "), labelWidth: metaWidth)
                         
-                            MovieMetaRow(title: "Release", value: model.releaseDateString, width: metaWidth)
+                            MovieMetaRow(title: "Release", value: model.releaseDateString, labelWidth: metaWidth)
                         }
                         .frame(width: geo.size.width / 3)
                         
@@ -68,8 +68,6 @@ struct MovieMetaView: View {
                 }
             }
             .padding(.all, 8)
-            
-            Spacer()
         }
     }
 }
@@ -90,10 +88,10 @@ struct MovieMetaView_Previews: PreviewProvider {
 }
 #endif
 
-fileprivate struct MovieMetaRow: View {
+struct MovieMetaRow: View {
     let title: String
     let value: String
-    let width: CGFloat
+    let labelWidth: CGFloat
     
     var body: some View {
         HStack(alignment: .top) {
@@ -102,7 +100,7 @@ fileprivate struct MovieMetaRow: View {
                 Text(title)
                     .font(.headline)
             }
-            .frame(width: width)
+            .frame(width: labelWidth)
             .padding(.trailing, 5)
             Text(value)
                 .font(.body)

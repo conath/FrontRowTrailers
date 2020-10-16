@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct MovieInfoOverView: View {
+    enum ViewMode {
+        case list, coverFlow
+    }
+    
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
+    @ObservedObject private var settings = Settings.instance()
+    @State private var showingSettings = false
     @State var model: [MovieInfo]
     
     var body: some View {
-        if verticalSizeClass == .compact || horizontalSizeClass == .compact {
-            CoverFlowListView(model: $model)
-        } else {
-            // iPad gets a nice sidebar with posters
-            TrailerListView(model: $model)
+        Group {
+            if verticalSizeClass == .compact || horizontalSizeClass == .compact {
+                if settings.isCoverFlow {
+                    CoverFlowListView(/*showingSettings: $showingSettings,*/ model: $model)
+                } else {
+                    CompactTrailerListView(model: $model, settingsShown: $showingSettings)
+                }
+            } else {
+                // iPad gets a nice sidebar with posters
+                TrailerListView(model: $model, settingsShown: $showingSettings)
+            }
         }
     }
 }

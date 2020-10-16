@@ -10,7 +10,7 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
     
-    @Published var model: [MovieInfo]! = nil
+    @Published var model: [MovieInfo]? = nil
 
     var window: UIWindow?
 

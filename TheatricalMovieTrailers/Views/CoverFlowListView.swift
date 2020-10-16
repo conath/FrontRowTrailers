@@ -61,12 +61,13 @@ struct CoverFlowListView: View {
         }
     }
     
+//    @Binding var showingSettings: Bool
     @Binding var model: [MovieInfo]
     @State private var selectedMovie: MovieInfo? = nil
     @State private var hasSelectedMovieBefore = false
     
     var body: some View {
-        var displayedModel: [CoverFlowItem] = [.settings, .list]
+        var displayedModel: [CoverFlowItem] = [/*.settings,*/ .list]
         if model.count > 0 {
             displayedModel.append(contentsOf: model.map { CoverFlowItem.movie(info: $0) })
         } else {
@@ -91,13 +92,13 @@ struct CoverFlowListView: View {
                                                     if isCenteredX(container: frame, movGeo) {
                                                         switch model {
                                                         case .settings:
-                                                            print("TODO Settings")
+                                                            break//showingSettings = true
                                                         case .list:
-                                                            print("TODO List")
+                                                            Settings.instance().isCoverFlow = false
                                                         case .movie(let info):
                                                             self.selectedMovie = info
                                                         default:
-                                                            return
+                                                            break
                                                         }
                                                     } else {
                                                         withAnimation {
@@ -107,11 +108,28 @@ struct CoverFlowListView: View {
                                                     }
                                                 }
                                             )
-                                            Text(model.text)
-                                                .font(.headline)
-                                                .padding(.top, 25)
-                                                .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
-                                                .animation(.easeIn)
+                                            VStack {
+                                                Text(model.text)
+                                                    .font(.headline)
+                                                    .lineLimit(4)
+                                                    .multilineTextAlignment(.center)
+                                                    .padding(.init(top: movGeo.size.height / 2, leading: 16, bottom: 16, trailing: 32))
+                                                    .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
+                                                    .animation(Animation.easeIn)
+                                                
+                                                if case let .movie(info) = model {
+                                                    Spacer()
+                                                    
+                                                    CoverFlowMovieMetaView(model: info/*, movGeo: movGeo*/, onTap: { selected in
+                                                        self.selectedMovie = selected
+                                                        (UIApplication.shared.delegate as! AppDelegate).isPlaying = true
+                                                    })
+                                                    .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
+                                                    .animation(Animation.easeIn)
+                                                } else {
+                                                    Spacer()
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -135,10 +153,15 @@ struct CoverFlowListView: View {
             }
         }
         .sheet(item: $selectedMovie, content: { model in
-            MovieTrailerView(model: .constant(model))
-                .modifier(CustomDarkAppearance())
+            NavigationView {
+                VStack {
+                    MovieTrailerView(model: .constant(model))
+                    Spacer()
+                }
+                .navigationBarHidden(true)
+            }
+            .modifier(CustomDarkAppearance())
         })
-        .edgesIgnoringSafeArea(.top)
     }
     
     private func itemWidth(_ geo: GeometryProxy) -> CGFloat {
@@ -155,7 +178,7 @@ struct CoverFlowListView: View {
 #if DEBUG
 struct CoverFlowListView_Previews: PreviewProvider {
     static var previews: some View {
-        CoverFlowListView(model: .constant([MovieInfo.Example.AQuietPlaceII]))
+        CoverFlowListView(/*showingSettings: .constant(false),*/ model: .constant([MovieInfo.Example.AQuietPlaceII]))
     }
 }
 #endif
