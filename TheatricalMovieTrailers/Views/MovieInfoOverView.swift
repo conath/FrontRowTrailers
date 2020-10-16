@@ -16,20 +16,19 @@ struct MovieInfoOverView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @ObservedObject private var settings = Settings.instance()
-    @State private var showingSettings = false
     @State var model: [MovieInfo]
     
     var body: some View {
         Group {
             if verticalSizeClass == .compact || horizontalSizeClass == .compact {
                 if settings.isCoverFlow {
-                    CoverFlowListView(/*showingSettings: $showingSettings,*/ model: $model)
+                    CoverFlowListView(model: $model)
                 } else {
-                    CompactTrailerListView(model: $model, settingsShown: $showingSettings)
+                    CompactTrailerListView(model: $model)
                 }
             } else {
                 // iPad gets a nice sidebar with posters
-                TrailerListView(model: $model, settingsShown: $showingSettings)
+                TrailerListView(model: $model)
             }
         }
     }

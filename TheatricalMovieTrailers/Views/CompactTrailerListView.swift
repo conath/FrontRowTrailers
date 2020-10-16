@@ -53,7 +53,7 @@ struct CompactTrailerListView: View {
     }
     
     @Binding var model: [MovieInfo]
-    @Binding var settingsShown: Bool
+    @State private var showingSettings = false
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
@@ -63,7 +63,7 @@ struct CompactTrailerListView: View {
                     LazyVStack(alignment: .leading) {
                         ForEach(model) { model in
                             MovieTrailerView(model: .constant(model))
-                                .frame(width: geo.size.width * 0.95)
+                                .frame(width: geo.size.width * 0.95, height: geo.size.height)
                                 .background(Color(UIColor.secondarySystemBackground))
                                 .cornerRadius(geo.size.width * 0.07)
                                 .padding([.leading, .bottom], geo.size.width * 0.025)
@@ -87,7 +87,7 @@ struct CompactTrailerListView: View {
                             }
                         }), trailing:
                             Button(action: {
-                                settingsShown = true
+                                showingSettings = true
                             }, label: {
                                 Image(systemName: "gearshape")
                                     .clipShape(Rectangle())
@@ -97,8 +97,8 @@ struct CompactTrailerListView: View {
                 }
             }
         }
-        .sheet(isPresented: $settingsShown, content: {
-            SettingsView(isPresented: $settingsShown)
+        .sheet(isPresented: $showingSettings, content: {
+            SettingsView(isPresented: $showingSettings)
         })
     }
 }
@@ -106,7 +106,7 @@ struct CompactTrailerListView: View {
 #if DEBUG
 struct CompactTrailerListView_Previews: PreviewProvider {
     static var previews: some View {
-        CompactTrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]), settingsShown: .constant(false))
+        CompactTrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]))
             .colorScheme(.dark)
             .background(Color.black)
     }

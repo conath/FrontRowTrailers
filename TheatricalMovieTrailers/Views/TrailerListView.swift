@@ -55,8 +55,8 @@ struct TrailerListView: View {
     //@ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @Binding var model: [MovieInfo]
-    @Binding var settingsShown: Bool
     @State var sortingMode = SortingMode.ReleaseAscending
+    @State private var settingsShown = false
     
     var body: some View {
         GeometryReader { geo in
@@ -108,7 +108,7 @@ struct TrailerListView: View {
 #if DEBUG
 struct TrailerListView_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]), settingsShown: .constant(false))
+        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]))
             .colorScheme(.dark)
             .background(Color.black)
     }

@@ -23,6 +23,7 @@
 		831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */; };
 		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
 		833CB25F253A03C800E1D15C /* CompactTrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */; };
+		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
@@ -55,6 +56,7 @@
 		831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDarkAppearance.swift; sourceTree = "<group>"; };
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
 		833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactTrailerListView.swift; sourceTree = "<group>"; };
+		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoOverView.swift; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				833CB264253A147500E1D15C /* UIApplication+version+build.swift */,
 				8396CA1924A6A756007734F0 /* current_720p.xml */,
 				8396CA1B24A6A766007734F0 /* current.xml */,
 				8316E0E524A64AD300467F14 /* SceneDelegate.swift */,
@@ -245,6 +248,7 @@
 				8316E0FE24A64B6900467F14 /* Undefined.swift in Sources */,
 				83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */,
 				834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */,
+				833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */,
 				8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */,
 				833CB25F253A03C800E1D15C /* CompactTrailerListView.swift in Sources */,
 				831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */,

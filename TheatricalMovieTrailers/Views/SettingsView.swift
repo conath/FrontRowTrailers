@@ -26,14 +26,14 @@ struct SettingsView: View {
                 Button(action: {
                     isPresented = false
                     DispatchQueue.main.async {
-                        Settings.instance().isCoverFlow = true
+                        Settings.instance().isCoverFlow.toggle()
                     }
                 }, label: {
                         HStack {
-                            Image(systemName: "arrow.turn.up.forward.iphone.fill")
+                            Image(systemName: Settings.instance().isCoverFlow ? "list.and.film" : "arrow.turn.up.forward.iphone.fill")
                                 .foregroundColor(.primary)
                                 .padding(.leading)
-                            Text("Switch to Cover Flow")
+                            Text(Settings.instance().isCoverFlow ? "Switch to List" : "Switch to Cover Flow")
                                 .foregroundColor(.primary)
                                 .padding([.top, .bottom, .trailing])
                         }

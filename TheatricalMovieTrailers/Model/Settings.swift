@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 fileprivate extension String {
+    static let lastBuildNumber = "lastBuildNumber"
     static let autoDark = "isAutoDarkAppearance"
     static let coverFlow = "isCoverFlow"
 }
@@ -23,7 +25,7 @@ class Settings: ObservableObject {
         }
         return singleton
     }
-    
+    // Present since the beginning
     @Published var prefersDarkAppearance = true {
         didSet {
             let newValue = prefersDarkAppearance ? ValueAlwaysDark : ValueAutomaticDark
@@ -32,6 +34,7 @@ class Settings: ObservableObject {
             defaults.synchronize()
         }
     }
+    // Added in Build 22
     @Published var isCoverFlow = true {
         didSet {
             let defaults = UserDefaults()
@@ -42,10 +45,22 @@ class Settings: ObservableObject {
     
     private init() {
         let defaults = UserDefaults()
-        let isAutoDark = defaults.integer(forKey: .autoDark) == ValueAutomaticDark
-        if isAutoDark {
-            prefersDarkAppearance = false
+        // check for version upgrade
+        let lastBuild = defaults.string(forKey: .lastBuildNumber)
+        if lastBuild == nil {
+            defaults.setValue(UIApplication.shared.build, forKey: .lastBuildNumber)
+            // set default values
+            isCoverFlow = true
+            prefersDarkAppearance = true
+        } else if let prevBuild = lastBuild, prevBuild != UIApplication.shared.build {
+            // TODO upgrade settings - depends on how old prevBuild is.
+        } else {
+            // load settings
+            let isAutoDark = defaults.integer(forKey: .autoDark) == ValueAutomaticDark
+            if isAutoDark {
+                prefersDarkAppearance = false
+            }
+            isCoverFlow = defaults.bool(forKey: .coverFlow)
         }
-        isCoverFlow = defaults.bool(forKey: .coverFlow)
     }
 }

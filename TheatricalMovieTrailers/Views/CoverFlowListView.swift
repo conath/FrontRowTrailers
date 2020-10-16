@@ -61,13 +61,13 @@ struct CoverFlowListView: View {
         }
     }
     
-//    @Binding var showingSettings: Bool
     @Binding var model: [MovieInfo]
-    @State private var selectedMovie: MovieInfo? = nil
+    @State private var showingSheet = false
+    @State private var selectedItem: CoverFlowItem? = nil
     @State private var hasSelectedMovieBefore = false
     
     var body: some View {
-        var displayedModel: [CoverFlowItem] = [/*.settings,*/ .list]
+        var displayedModel: [CoverFlowItem] = [.settings, .list]
         if model.count > 0 {
             displayedModel.append(contentsOf: model.map { CoverFlowItem.movie(info: $0) })
         } else {
@@ -91,12 +91,10 @@ struct CoverFlowListView: View {
                                                                     MoviePosterView(id: model.id, image: model.image) {
                                                     if isCenteredX(container: frame, movGeo) {
                                                         switch model {
-                                                        case .settings:
-                                                            break//showingSettings = true
+                                                        case .settings, .movie(_):
+                                                            selectedItem = model
                                                         case .list:
                                                             Settings.instance().isCoverFlow = false
-                                                        case .movie(let info):
-                                                            self.selectedMovie = info
                                                         default:
                                                             break
                                                         }
@@ -121,7 +119,7 @@ struct CoverFlowListView: View {
                                                     Spacer()
                                                     
                                                     CoverFlowMovieMetaView(model: info/*, movGeo: movGeo*/, onTap: { selected in
-                                                        self.selectedMovie = selected
+                                                        selectedItem = model
                                                         (UIApplication.shared.delegate as! AppDelegate).isPlaying = true
                                                     })
                                                     .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
@@ -152,15 +150,19 @@ struct CoverFlowListView: View {
                 }
             }
         }
-        .sheet(item: $selectedMovie, content: { model in
-            NavigationView {
-                VStack {
-                    MovieTrailerView(model: .constant(model))
-                    Spacer()
+        .sheet(item: $selectedItem, content: { item in
+            if case let .movie(model) = item {
+                NavigationView {
+                    VStack {
+                        MovieTrailerView(model: .constant(model))
+                        Spacer()
+                    }
+                    .navigationBarHidden(true)
                 }
-                .navigationBarHidden(true)
+                .modifier(CustomDarkAppearance())
+            } else {
+                SettingsView(isPresented: $showingSheet)
             }
-            .modifier(CustomDarkAppearance())
         })
     }
     
@@ -178,7 +180,7 @@ struct CoverFlowListView: View {
 #if DEBUG
 struct CoverFlowListView_Previews: PreviewProvider {
     static var previews: some View {
-        CoverFlowListView(/*showingSettings: .constant(false),*/ model: .constant([MovieInfo.Example.AQuietPlaceII]))
+        CoverFlowListView(model: .constant([MovieInfo.Example.AQuietPlaceII]))
     }
 }
 #endif
