@@ -11,34 +11,35 @@ struct MoviePosterView: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     @ObservedObject private var appDelegate: AppDelegate
     
-    @State var id: Int
-    @State var reflectionDistance: CGFloat
-    @State var onTap: () -> ()
+    @State private var id: Int?
+    @State private var reflectionDistance: CGFloat
+    @State private var onTap: (() -> ())?
     @State private var image: UIImage? = nil
     
-    init(id: Int, reflectionDistance: CGFloat = 20.0, onTapGesture: @escaping () -> ()) {
-        self._id = State<Int>(initialValue: id)
+    init(id: Int? = nil, reflectionDistance: CGFloat = 0.0, onTapGesture: (() -> ())? = nil) {
+        self._id = State<Int?>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
-        self._onTap = State<() -> ()>(initialValue: onTapGesture)
+        self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
-    #if DEBUG
-    init(id: Int, image: UIImage?, reflectionDistance: CGFloat = 20.0, onTapGesture: @escaping () -> ()) {
+    init(id: Int? = nil, image: UIImage?, reflectionDistance: CGFloat = 0.0, onTapGesture: (() -> ())? = nil) {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self._id = State<Int>(initialValue: id)
+        self._id = State<Int?>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
-        self._onTap = State<() -> ()>(initialValue: onTapGesture)
-        self.image = image
+        self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
+        self._image = State<UIImage?>(initialValue: image)
     }
-    #endif
     
     var body: some View {
         var image: UIImage!
         if let posterImage = self.image {
             image = posterImage
-        } else if let maybe = appDelegate.idsAndImages[id], let posterImage = maybe {
-                image = posterImage
+            if image.isSymbolImage {
+                image = posterImage.withTintColor(.white)
+            }
+        } else if let id = id, let maybe = appDelegate.idsAndImages[id], let posterImage = maybe {
+            image = posterImage
         } else {
             image = UIImage(named: "moviePosterPlaceholder")
         }
@@ -67,7 +68,7 @@ struct MoviePosterView: View {
                 Spacer()
             }
             .onTapGesture(count: 1, perform: {
-                onTap()
+                onTap?()
             })
         }
     }
@@ -76,7 +77,7 @@ struct MoviePosterView: View {
 #if DEBUG
 struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10, onTapGesture: {})
+        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10)
     }
 }
 #endif
