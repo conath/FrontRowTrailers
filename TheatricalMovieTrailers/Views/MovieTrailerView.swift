@@ -61,11 +61,13 @@ struct MovieTrailerView: View {
                         Group {
                             // Trailer Video if no external screen connected
                             if !appDelegate.isExternalScreenConnected && appDelegate.isPlaying {
-                                TrailerPlayerView(avPlayer: .constant(AVPlayer(url: URL(string: model.trailerURL)!)), isPlaying: $appDelegate.isPlaying, avPlayerRateChangeHandler: { (player, change) in
+                                let avPlayer = AVPlayer(url: URL(string: model.trailerURL)!)
+                                TrailerPlayerView(avPlayer: .constant(avPlayer), isPlaying: $appDelegate.isPlaying, avPlayerRateChangeHandler: { (player, change) in
                                     guard let newRate = change.newValue else { return }
                                     appDelegate.isPlaying = newRate > 0
                                 })
                                 .onDisappear {
+                                    avPlayer.pause()
                                     appDelegate.isPlaying = false
                                 }
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
