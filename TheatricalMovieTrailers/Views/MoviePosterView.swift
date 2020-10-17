@@ -16,14 +16,14 @@ struct MoviePosterView: View {
     @State private var onTap: (() -> ())?
     @State private var image: UIImage? = nil
     
-    init(id: Int? = nil, reflectionDistance: CGFloat = 0.0, onTapGesture: (() -> ())? = nil) {
+    init(id: Int? = nil, reflectionDistance: CGFloat = -1.0, onTapGesture: (() -> ())? = nil) {
         self._id = State<Int?>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
-    init(id: Int? = nil, image: UIImage?, reflectionDistance: CGFloat = 0.0, onTapGesture: (() -> ())? = nil) {
+    init(id: Int? = nil, image: UIImage?, reflectionDistance: CGFloat = -1.0, onTapGesture: (() -> ())? = nil) {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         self._id = State<Int?>(initialValue: id)
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
@@ -64,6 +64,7 @@ struct MoviePosterView: View {
                             .degrees(180),
                             axis: (x: 0, y: 1, z: 0)
                         )
+                        .blur(radius: 1)
                 }
                 Spacer()
             }
@@ -77,7 +78,11 @@ struct MoviePosterView: View {
 #if DEBUG
 struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"), reflectionDistance: 10)
+        Color.black
+            .overlay (
+                MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"))
+            .padding(.top, 24)
+        )
     }
 }
 #endif

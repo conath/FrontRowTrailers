@@ -107,26 +107,27 @@ struct CoverFlowListView: View {
                                                 }
                                             )
                                             VStack {
-                                                Text(model.text)
-                                                    .font(.headline)
-                                                    .lineLimit(4)
-                                                    .multilineTextAlignment(.center)
-                                                    .padding(.init(top: movGeo.size.height / 2, leading: 16, bottom: 16, trailing: 32))
-                                                    .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
-                                                    .animation(Animation.easeIn)
+                                                Spacer()
+                                                    .frame(height: movGeo.size.height / 2)
+                                            
+                                                Spacer()
                                                 
-                                                if case let .movie(info) = model {
-//                                                    Spacer()
+                                                Group {
+                                                    Text(model.text)
+                                                        .font(.headline)
+                                                        .lineLimit(4)
+                                                        .multilineTextAlignment(.center)
+                                                        .padding(.init(top: 0, leading: 16, bottom: 32, trailing: 16))
                                                     
-                                                    CoverFlowMovieMetaView(model: info/*, movGeo: movGeo*/, onTap: { selected in
-                                                        selectedItem = model
-                                                        (UIApplication.shared.delegate as! AppDelegate).isPlaying = true
-                                                    })
-                                                    .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
-                                                    .animation(Animation.easeIn)
-                                                } else {
-                                                    Spacer()
+                                                    if case let .movie(info) = model {
+                                                        CoverFlowMovieMetaView(model: info/*, movGeo: movGeo*/, onTap: { selected in
+                                                            selectedItem = model
+                                                            (UIApplication.shared.delegate as! AppDelegate).isPlaying = true
+                                                        })
+                                                    }
                                                 }
+                                                .opacity(isCenteredX(container: frame, movGeo) ? 1 : 0)
+                                                .animation(Animation.easeIn)
                                             }
                                         }
                                     }
