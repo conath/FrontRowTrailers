@@ -116,7 +116,7 @@ struct CoverFlowListView: View {
                                                     .animation(Animation.easeIn)
                                                 
                                                 if case let .movie(info) = model {
-                                                    Spacer()
+//                                                    Spacer()
                                                     
                                                     CoverFlowMovieMetaView(model: info/*, movGeo: movGeo*/, onTap: { selected in
                                                         selectedItem = model
