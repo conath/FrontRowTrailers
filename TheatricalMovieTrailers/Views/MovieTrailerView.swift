@@ -60,8 +60,8 @@ struct MovieTrailerView: View {
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if !appDelegate.isExternalScreenConnected && appDelegate.isPlaying {
-                                let avPlayer = AVPlayer(url: URL(string: model.trailerURL)!)
+                            if model.trailerURL != nil && !appDelegate.isExternalScreenConnected && appDelegate.isPlaying {
+                                let avPlayer = AVPlayer(url: model.trailerURL!)
                                 TrailerPlayerView(avPlayer: .constant(avPlayer), isPlaying: $appDelegate.isPlaying, avPlayerRateChangeHandler: { (player, change) in
                                     guard let newRate = change.newValue else { return }
                                     appDelegate.isPlaying = newRate > 0

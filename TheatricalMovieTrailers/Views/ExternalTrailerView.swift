@@ -53,7 +53,7 @@ struct ExternalTrailerView: View {
             .background(Color.black)
             .statusBar(hidden: true)
             .onAppear(perform: {
-                if let url = URL(string: model.trailerURL) {
+                if let url = model?.trailerURL {
                     let avPlayer: AVPlayer? = AVPlayer(url: url)
                     self.avPlayer = avPlayer
                     self.avPlayer?.play()
@@ -61,7 +61,7 @@ struct ExternalTrailerView: View {
             })
             .onChange(of: model, perform: { model in
                 self.avPlayer?.pause()
-                if let url = URL(string: model!.trailerURL) {
+                if let url = model?.trailerURL {
                     let avPlayer: AVPlayer? = AVPlayer(url: url)
                     self.avPlayer = avPlayer
                     self.avPlayer?.play()

@@ -11,8 +11,8 @@ struct MovieInfo: Identifiable, Hashable {
     let id: Int
     
     let title: String
-    let posterURL: String
-    let trailerURL: String
+    let posterURL: URL?
+    let trailerURL: URL?
     let trailerLength: String
     let synopsis: String
     
@@ -40,8 +40,8 @@ struct MovieInfo: Identifiable, Hashable {
     static let Empty = MovieInfo(
         id: -1,
         title: "",
-        posterURL: "",
-        trailerURL: "",
+        posterURL: nil,
+        trailerURL: nil,
         trailerLength: "",
         synopsis: "",
         studio: "",
@@ -57,8 +57,8 @@ struct MovieInfo: Identifiable, Hashable {
         static let AQuietPlaceII = MovieInfo(
             id: 21837,
             title: "A Quiet Place Part II",
-            posterURL: "http://trailers.apple.com/trailers/paramount/a-quiet-place-part-ii/images/poster-xlarge.jpg",
-            trailerURL: "https://trailers.apple.com/movies/paramount/a-quiet-place-part-2/a-quiet-place-part-2-trailer-2_a720p.m4v",
+            posterURL: URL(string: "http://trailers.apple.com/trailers/paramount/a-quiet-place-part-ii/images/poster-xlarge.jpg")!,
+            trailerURL: URL(string: "https://trailers.apple.com/movies/paramount/a-quiet-place-part-2/a-quiet-place-part-2-trailer-2_a720p.m4v")!,
             trailerLength: "2:37",
             synopsis:
                 """
@@ -110,8 +110,8 @@ fileprivate class MutableMovieInfo {
     }
     var id = 0
     var title = ""
-    var posterURL = ""
-    var trailerURL = ""
+    var posterURLString = ""
+    var trailerURLString = ""
     var trailerLength = ""
     var synopsis = ""
     
@@ -134,9 +134,9 @@ fileprivate class MutableMovieInfo {
         case .title:
             title = value
         case .posterURL:
-            posterURL = value
+            posterURLString = value
         case .trailerURL:
-            trailerURL = value
+            trailerURLString = value
         case .trailerLength:
             trailerLength = value
         case .synopsis:
@@ -171,7 +171,7 @@ fileprivate class MutableMovieInfo {
     }
     
     var movieInfo: MovieInfo {
-        MovieInfo(id: id, title: title, posterURL: posterURL, trailerURL: trailerURL, trailerLength: trailerLength, synopsis: synopsis, studio: studio, director: director, actors: actors, genres: genres, releaseDate: releaseDate, copyright: copyright)
+        MovieInfo(id: id, title: title, posterURL: URL(string: posterURLString), trailerURL: URL(string: trailerURLString), trailerLength: trailerLength, synopsis: synopsis, studio: studio, director: director, actors: actors, genres: genres, releaseDate: releaseDate, copyright: copyright)
     }
 }
 
