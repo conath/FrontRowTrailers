@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct ExternalTrailerView: View {
-    @Binding var model: MovieInfo!
+    @State var model: MovieInfo
     @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @Binding var posterImage: UIImage?
     
@@ -53,7 +53,7 @@ struct ExternalTrailerView: View {
             .background(Color.black)
             .statusBar(hidden: true)
             .onAppear(perform: {
-                if let url = model?.trailerURL {
+                if let url = model.trailerURL {
                     let avPlayer: AVPlayer? = AVPlayer(url: url)
                     self.avPlayer = avPlayer
                     self.avPlayer?.play()
@@ -61,7 +61,7 @@ struct ExternalTrailerView: View {
             })
             .onChange(of: model, perform: { model in
                 self.avPlayer?.pause()
-                if let url = model?.trailerURL {
+                if let url = model.trailerURL {
                     let avPlayer: AVPlayer? = AVPlayer(url: url)
                     self.avPlayer = avPlayer
                     self.avPlayer?.play()
@@ -74,7 +74,7 @@ struct ExternalTrailerView: View {
 #if DEBUG
 struct ExternalTrailerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExternalTrailerView(model: .constant(Optional(MovieInfo.Example.AQuietPlaceII)), posterImage: .constant(UIImage()))
+        ExternalTrailerView(model: MovieInfo.Example.AQuietPlaceII, posterImage: .constant(UIImage()))
             .previewLayout(.fixed(width: 1280, height: 720))
     }
 }

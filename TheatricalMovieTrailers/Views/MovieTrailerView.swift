@@ -9,10 +9,10 @@ import AVKit
 import SwiftUI
 
 struct MovieTrailerView: View {
-    @Binding var model: MovieInfo!
+    @Binding var model: MovieInfo
     @ObservedObject var appDelegate: AppDelegate
     
-    init(model: Binding<MovieInfo?>) {
+    init(model: Binding<MovieInfo>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self._model = model
     }

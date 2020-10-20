@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExternalMovieMetaView: View {
-    @Binding var model: MovieInfo!
+    @Binding var model: MovieInfo
     
     var body: some View {
         GeometryReader { geo in

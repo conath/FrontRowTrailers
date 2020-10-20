@@ -83,8 +83,10 @@ struct CoverFlowScrollView: View {
     }
 }
 
+#if DEBUG
 struct CoverFlowScrollView_Previews: PreviewProvider {
     static var previews: some View {
         CoverFlowScrollView(model: .constant([MovieInfo.Example.AQuietPlaceII]))
     }
 }
+#endif

@@ -12,8 +12,8 @@ struct ExternalView: View {
     
     var body: some View {
         GeometryReader { geo in
-            if appDelegate.selectedTrailerModel != nil {
-                ExternalTrailerView(model: $appDelegate.selectedTrailerModel, posterImage: $appDelegate.posterImage)
+            if let selected = appDelegate.selectedTrailerModel {
+                ExternalTrailerView(model: selected, posterImage: $appDelegate.posterImage)
             } else {
                 Text("No trailer selected")
                     .font(.largeTitle)
