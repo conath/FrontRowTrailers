@@ -8,50 +8,6 @@
 import SwiftUI
 
 struct TrailerListView: View {
-    enum SortingMode: String {
-        case TitleAscending = "Title (A-Z)"
-        case ReleaseAscending = "Release date"
-        case ReleaseDescending = "Release (reversed)"
-        
-        func nextMode() -> SortingMode {
-            switch self {
-            case .TitleAscending:
-                return .ReleaseAscending
-            case .ReleaseAscending:
-                return .ReleaseDescending
-            default:
-                return .TitleAscending
-            }
-        }
-        
-        var predicate: ((MovieInfo, MovieInfo) -> Bool) {
-            get {
-                switch self {
-                case .ReleaseAscending:
-                    return {
-                        if let r0 = $0.releaseDate, let r1 = $1.releaseDate {
-                            return r0 < r1
-                        } else {
-                            return $0.title < $1.title
-                        }
-                    }
-                case .ReleaseDescending:
-                    return {
-                        if let r0 = $0.releaseDate, let r1 = $1.releaseDate {
-                            return r0 > r1
-                        } else {
-                            return $0.title < $1.title
-                        }
-                    }
-                default:
-                    return {
-                        return $0.title < $1.title
-                    }
-                }
-            }
-        }
-    }
-    
     struct ListItem: Identifiable {
         var movieInfo: MovieInfo
         var isSelected = false
@@ -61,10 +17,8 @@ struct TrailerListView: View {
         }
     }
     
-    //@ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
     @Binding var model: [MovieInfo]
-    @State var sortingMode = SortingMode.ReleaseAscending
+    @Binding var sortingMode: SortingMode
     @State private var selected = [Int:Bool]()
     @State private var settingsShown = false
     

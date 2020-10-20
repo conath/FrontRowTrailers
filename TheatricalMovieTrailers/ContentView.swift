@@ -11,15 +11,12 @@ struct ContentView: View {
     @ObservedObject var settings = Settings.instance()
     @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
     @EnvironmentObject var sceneDelegate: SceneDelegate
+    @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         ZStack {
             if let model = sceneDelegate.model, appDelegate.idsAndImages.count == model.count {
                 MovieInfoOverView(model: model)
-            }
-            /// We reference the `prefersDarkAppearance` to make the `ContentView` update when the setting changes.
-            if settings.prefersDarkAppearance {
-                Color.clear
             }
         }
         .overlay(

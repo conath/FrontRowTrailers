@@ -17,6 +17,7 @@ struct MovieInfoOverView: View {
     
     @ObservedObject private var settings = Settings.instance()
     @State var model: [MovieInfo]
+    @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         Group {
@@ -28,7 +29,10 @@ struct MovieInfoOverView: View {
                 }
             } else {
                 // iPad gets a nice sidebar with posters
-                TrailerListView(model: $model)
+                TrailerListView(model: $model, sortingMode: $sortingMode)
+                    .onChange(of: sortingMode) { sortingMode in
+                        model.sort(by: sortingMode.predicate)
+                    }
             }
         }
     }
