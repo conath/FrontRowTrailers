@@ -27,23 +27,28 @@ struct CoverFlowScrollView: View {
                                     // Tapped on poster that was already centered
                                     playTrailer(info)
                                 } else {
-                                    withAnimation(.easeInOut) {
+                                    withAnimation(.easeOut) {
                                         centeringItem = info
                                         reader.scrollTo(info.id, anchor: UnitPoint(x: 0.5, y: 1.0))
                                     }
                                 }
                             }, onCenteredItemChanged: { info in
                                 if let info = info, centeredItem != info {
-                                    withAnimation(Animation.easeIn.delay(1.5)) {
-                                        centeredItem = info
-                                    }
-                                    if centeringItem == nil {
-                                        // not already centering an item, so do that now
-                                        withAnimation(.easeInOut) {
-                                            reader.scrollTo(info.id, anchor: UnitPoint(x: 0.5, y: 1.0))
+                                    // not already centering an item, so do that now
+                                    centeringItem = info
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                        if centeringItem == info {
+                                            withAnimation(.easeOut) {
+                                                reader.scrollTo(info.id, anchor: UnitPoint(x: 0.5, y: 1.0))
+                                            }
                                         }
-                                    } else {
-                                        centeringItem = nil
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                                            if centeringItem == info {
+                                                withAnimation(.easeIn) {
+                                                    centeredItem = info
+                                                }
+                                            }
+                                        }
                                     }
                                 } else {
                                     withAnimation(.easeOut) {
