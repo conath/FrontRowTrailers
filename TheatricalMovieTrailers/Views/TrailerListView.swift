@@ -52,24 +52,31 @@ struct TrailerListView: View {
         }
     }
     
+    struct ListItem: Identifiable {
+        var movieInfo: MovieInfo
+        var isSelected = false
+        
+        var id: Int {
+            return movieInfo.id
+        }
+    }
+    
     //@ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @Binding var model: [MovieInfo]
     @State var sortingMode = SortingMode.ReleaseAscending
+    @State private var selected = [Int:Bool]()
     @State private var settingsShown = false
     
     var body: some View {
-        GeometryReader { geo in
+        let viewModel = model.enumerated().map { ListItem(movieInfo: $0.1, isSelected: $0.0 == 0) }
+        
+        return GeometryReader { geo in
             NavigationView {
                 ScrollView(.vertical, showsIndicators: true) {
                     LazyVStack(alignment: .leading) {
-                        ForEach(model) { model in
-                            NavigationLink(destination: MovieTrailerView(model: .constant(model))
-                                            .navigationBarHidden(true)
-                                            .edgesIgnoringSafeArea(.top)
-                            ) {
-                                TrailerListRow(model: model)
-                            }
+                        ForEach(viewModel) { model in
+                            TrailerListRow(model: model)
                         }
                     }
                     .navigationTitle("Theatrical Trailers")
