@@ -9,6 +9,8 @@ import AVKit
 import SwiftUI
 
 struct CoverFlowScrollView: View {
+    private let scrollAnchor = UnitPoint(x: 0.5, y: 1.0)
+    
     @Binding var model: [MovieInfo]
     @State private var centeringItem: MovieInfo? = nil
     @State private var centeredItem: MovieInfo? = nil
@@ -18,60 +20,82 @@ struct CoverFlowScrollView: View {
     
     var body: some View {
         GeometryReader { frame in
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        ScrollViewReader { reader in
-                            CoverFlowListView(frame: frame, model: $model, onSelected: { (info, isCentered) in
-                                if isCentered {
-                                    // Tapped on poster that was already centered
-                                    playTrailer(info)
-                                } else {
-                                    withAnimation(.easeOut) {
-                                        centeringItem = info
-                                        reader.scrollTo(info.id, anchor: UnitPoint(x: 0.5, y: 1.0))
-                                    }
-                                }
-                            }, onCenteredItemChanged: { info in
-                                if let info = info, centeredItem != info {
-                                    // not already centering an item, so do that now
-                                    centeringItem = info
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                        if centeringItem == info {
+            ScrollView(.vertical, showsIndicators: false) {
+                ScrollViewReader { vertReader in
+                    ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                        VStack {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                ScrollViewReader { reader in
+                                    CoverFlowListView(frame: frame, model: $model, onSelected: { (info, isCentered) in
+                                        if isCentered {
+                                            // Tapped on poster that was already centered
+                                            playTrailer(info)
+                                        } else {
                                             withAnimation(.easeOut) {
-                                                reader.scrollTo(info.id, anchor: UnitPoint(x: 0.5, y: 1.0))
+                                                centeringItem = info
+                                                reader.scrollTo(info.id, anchor: scrollAnchor)
                                             }
                                         }
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                                            if centeringItem == info {
-                                                withAnimation(.easeIn) {
-                                                    centeredItem = info
+                                    }, onCenteredItemChanged: { info in
+                                        if let info = info, centeredItem != info {
+                                            // not already centering an item, so do that now
+                                            centeringItem = info
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                                if centeringItem == info {
+                                                    withAnimation(.easeOut) {
+                                                        reader.scrollTo(info.id, anchor: scrollAnchor)
+                                                    }
+                                                }
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                    if centeringItem == info {
+                                                        withAnimation(.easeIn) {
+                                                            centeredItem = info
+                                                        }
+                                                    }
                                                 }
                                             }
+                                        } else {
+                                            withAnimation(.easeOut) {
+                                                centeredItem = nil
+                                            }
                                         }
-                                    }
-                                } else {
-                                    withAnimation(.easeOut) {
-                                        centeredItem = nil
-                                    }
+                                    })
+                                }
+                            }
+                            Spacer()
+                        }
+                        .frame(height: frame.size.height * 2)
+                        
+                        // back in ZStack
+                        // Movie Metadata
+                        if let info = centeredItem, info.trailerURL != nil {
+                            CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
+                                playTrailer(info)
+                            }, onDetailsTap: { info in
+                                withAnimation(.easeInOut) {
+                                    vertReader.scrollTo(info.id * 1024, anchor: .bottom)
+                                }
+                            }, onTopTap: { info in
+                                withAnimation(.easeInOut) {
+                                    vertReader.scrollTo(info.id * 1024, anchor: .top)
                                 }
                             })
+                            .id(info.id * 1024)
+                            .padding(.top, frame.size.height * 0.8)
                         }
-                    }
-                    // Selected Movie Info
-                    if let info = centeredItem, info.trailerURL != nil {
-                        CoverFlowMovieMetaView(model: info, onTap: { info in
-                            playTrailer(info)
-                        })
                     }
                 }
             }
+        }
+        .onAppear {
+            centeredItem = model.first
         }
         .fullScreenCover(item: $playingTrailer) { info in
             TrailerPlayerView(avPlayer: .constant(AVPlayer(url: info.trailerURL!)), isPlaying: $appDelegate.isPlaying) { (player, change) in
                 guard let newRate = change.newValue else { return }
                 appDelegate.isPlaying = newRate > 0;
             }
+            .modifier(CustomDarkAppearance())
         }
     }
     
