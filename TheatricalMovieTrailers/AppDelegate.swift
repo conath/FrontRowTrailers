@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
     func fetchImagesFor(model movies: [MovieInfo]) {
         DispatchQueue.global(qos: .userInitiated).async {
             movies.forEach { movieInfo in
-                if let url = URL(string: movieInfo.posterURL), let data = try? Data(contentsOf: url) {
+                if let url = movieInfo.posterURL, let data = try? Data(contentsOf: url) {
                     let image = UIImage(data: data)
                     DispatchQueue.main.async {
                         self.idsAndImages.updateValue(image, forKey: movieInfo.id)

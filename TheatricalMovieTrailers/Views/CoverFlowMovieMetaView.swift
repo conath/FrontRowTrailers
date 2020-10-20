@@ -36,7 +36,7 @@ struct CoverFlowMovieMetaView: View {
                     )
             })
             .padding(.bottom, 16)
-//            Spacer()
+            Spacer()
             Text(model.copyright)
                 .font(.caption)
                 .multilineTextAlignment(.center)

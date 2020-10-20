@@ -35,6 +35,8 @@
 		83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
 		83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE5112537600F00E22FAE /* CoverFlowListView.swift */; };
 		83D5252924A661760086707E /* MovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5252824A661760086707E /* MovieMetaView.swift */; };
+		83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F59A44253DCAFD00EEA7A5 /* CoverFlowScrollView.swift */; };
+		83F59A48253DCC1700EEA7A5 /* CoverFlowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		83BAC28D2538CC56004D59BC /* FramedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramedImage.swift; sourceTree = "<group>"; };
 		83CBE5112537600F00E22FAE /* CoverFlowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowListView.swift; sourceTree = "<group>"; };
 		83D5252824A661760086707E /* MovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMetaView.swift; sourceTree = "<group>"; };
+		83F59A44253DCAFD00EEA7A5 /* CoverFlowScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowScrollView.swift; sourceTree = "<group>"; };
+		83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +163,9 @@
 				8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */,
 				833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */,
 				83AE012D25370A2E00A416FC /* TrailerListRow.swift */,
+				83F59A44253DCAFD00EEA7A5 /* CoverFlowScrollView.swift */,
 				83CBE5112537600F00E22FAE /* CoverFlowListView.swift */,
+				83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */,
 				838788B32539F680007CAF90 /* CoverFlowMovieMetaView.swift */,
 				834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */,
 				838403482538B7B80056E50A /* MoviePosterView.swift */,
@@ -240,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */,
+				83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */,
 				83D5252924A661760086707E /* MovieMetaView.swift in Sources */,
 				8316E10224A64CD500467F14 /* ExternalTrailerView.swift in Sources */,
 				8316E0E424A64AD300467F14 /* AppDelegate.swift in Sources */,
@@ -255,6 +262,7 @@
 				8316E0FA24A64B3F00467F14 /* MovieTrailerView.swift in Sources */,
 				831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */,
 				834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */,
+				83F59A48253DCC1700EEA7A5 /* CoverFlowItemView.swift in Sources */,
 				8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */,
 				8316E0E824A64AD300467F14 /* ContentView.swift in Sources */,
 				8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */,
@@ -404,7 +412,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -429,7 +437,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;

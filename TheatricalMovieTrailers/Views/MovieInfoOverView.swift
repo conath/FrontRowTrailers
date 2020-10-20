@@ -22,7 +22,7 @@ struct MovieInfoOverView: View {
         Group {
             if verticalSizeClass == .compact || horizontalSizeClass == .compact {
                 if settings.isCoverFlow {
-                    CoverFlowListView(model: $model)
+                    CoverFlowScrollView(model: $model)
                 } else {
                     CompactTrailerListView(model: $model)
                 }

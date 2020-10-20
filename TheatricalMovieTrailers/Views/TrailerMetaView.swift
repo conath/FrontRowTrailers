@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TrailerMetaView: View {
-    @Binding var model: MovieInfo!
+    @Binding var model: MovieInfo
     @State var largeTitle: Bool
     
     var body: some View {

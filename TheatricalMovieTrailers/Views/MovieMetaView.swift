@@ -12,7 +12,7 @@ fileprivate let labelWidth: CGFloat = 0.25
 struct MovieMetaView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @Binding var model: MovieInfo!
+    @Binding var model: MovieInfo
     
     var body: some View {
         GeometryReader { geo in
