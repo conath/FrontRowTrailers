@@ -10,8 +10,10 @@ import SwiftUI
 import UIKit
 
 struct TrailerPlayerView: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(self)
     }
     
     typealias UIViewControllerType = AVPlayerViewController
@@ -33,12 +35,11 @@ struct TrailerPlayerView: UIViewControllerRepresentable {
         let avVC = AVPlayerViewController()
         avVC.player = avPlayer
         avVC.delegate = context.coordinator
-        avVC.entersFullScreenWhenPlaybackBegins = true
-        avVC.exitsFullScreenWhenPlaybackEnds = true
         return avVC
     }
     
     func updateUIViewController(_ uiViewController: AVPlayerViewController, context: UIViewControllerRepresentableContext<TrailerPlayerView>) {
+        context.coordinator.trailerPlayerView = self
         DispatchQueue.main.async { [self] in
             keyValueObservation = avPlayer.observe(\.rate, changeHandler: changeHandler)
         }
@@ -52,6 +53,13 @@ struct TrailerPlayerView: UIViewControllerRepresentable {
     
     // MARK: Coordinator is AVPlayerViewControllerDelegate
     class Coordinator: NSObject, AVPlayerViewControllerDelegate {
+        var trailerPlayerView: TrailerPlayerView
+        
+        init(_ trailerPlayerView: TrailerPlayerView) {
+            self.trailerPlayerView = trailerPlayerView
+            super.init()
+        }
+        
         func playerViewControllerShouldAutomaticallyDismissAtPictureInPictureStart(_ playerViewController: AVPlayerViewController) -> Bool {
             false
         }
@@ -59,6 +67,10 @@ struct TrailerPlayerView: UIViewControllerRepresentable {
         func playerViewController(_ playerViewController: AVPlayerViewController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
             // TODO
             completionHandler(true)
+        }
+        
+        func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+            trailerPlayerView.presentationMode.wrappedValue.dismiss()
         }
     }
 }

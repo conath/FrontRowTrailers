@@ -26,6 +26,7 @@
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
+		834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
@@ -35,6 +36,7 @@
 		83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
 		83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE5112537600F00E22FAE /* CoverFlowListView.swift */; };
 		83D21174253F9CDD00EF54A3 /* SortingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D21173253F9CDD00EF54A3 /* SortingMode.swift */; };
+		83D2117825405FC900EF54A3 /* InlineTrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */; };
 		83D5252924A661760086707E /* MovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5252824A661760086707E /* MovieMetaView.swift */; };
 		83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F59A44253DCAFD00EEA7A5 /* CoverFlowScrollView.swift */; };
 		83F59A48253DCC1700EEA7A5 /* CoverFlowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */; };
@@ -62,6 +64,7 @@
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3825397DE1002D9F1E /* MovieInfoOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoOverView.swift; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
+		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
 		8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListView.swift; sourceTree = "<group>"; };
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		83BAC28D2538CC56004D59BC /* FramedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramedImage.swift; sourceTree = "<group>"; };
 		83CBE5112537600F00E22FAE /* CoverFlowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowListView.swift; sourceTree = "<group>"; };
 		83D21173253F9CDD00EF54A3 /* SortingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMode.swift; sourceTree = "<group>"; };
+		83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTrailerPlayerView.swift; sourceTree = "<group>"; };
 		83D5252824A661760086707E /* MovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMetaView.swift; sourceTree = "<group>"; };
 		83F59A44253DCAFD00EEA7A5 /* CoverFlowScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowScrollView.swift; sourceTree = "<group>"; };
 		83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowItemView.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */,
 				833CB264253A147500E1D15C /* UIApplication+version+build.swift */,
 				8396CA1924A6A756007734F0 /* current_720p.xml */,
 				8396CA1B24A6A766007734F0 /* current.xml */,
@@ -163,6 +168,7 @@
 				8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */,
 				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 				830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */,
+				83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */,
 				8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */,
 				833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */,
 				83AE012D25370A2E00A416FC /* TrailerListRow.swift */,
@@ -260,6 +266,7 @@
 				834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */,
 				833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */,
 				8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */,
+				834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */,
 				833CB25F253A03C800E1D15C /* CompactTrailerListView.swift in Sources */,
 				831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */,
 				8316E0FA24A64B3F00467F14 /* MovieTrailerView.swift in Sources */,
@@ -272,6 +279,7 @@
 				8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */,
 				8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */,
 				83AE012E25370A2E00A416FC /* TrailerListRow.swift in Sources */,
+				83D2117825405FC900EF54A3 /* InlineTrailerPlayerView.swift in Sources */,
 				830AA4192536FB94006A3AEB /* TrailerPlayerView.swift in Sources */,
 				8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */,
 				838403492538B7B80056E50A /* MoviePosterView.swift in Sources */,

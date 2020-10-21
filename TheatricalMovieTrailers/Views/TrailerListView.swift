@@ -72,7 +72,7 @@ struct TrailerListView: View {
 #if DEBUG
 struct TrailerListView_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]))
+        TrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]), sortingMode: .constant(.ReleaseAscending))
             .colorScheme(.dark)
             .background(Color.black)
     }

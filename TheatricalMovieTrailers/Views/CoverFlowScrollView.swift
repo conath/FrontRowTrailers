@@ -91,10 +91,7 @@ struct CoverFlowScrollView: View {
             centeredItem = model.first
         }
         .fullScreenCover(item: $playingTrailer) { info in
-            TrailerPlayerView(avPlayer: .constant(AVPlayer(url: info.trailerURL!)), isPlaying: $appDelegate.isPlaying) { (player, change) in
-                guard let newRate = change.newValue else { return }
-                appDelegate.isPlaying = newRate > 0;
-            }
+            InlineTrailerPlayerView(url: info.trailerURL!, enterFullScreenOnAppear: true)
             .modifier(CustomDarkAppearance())
         }
     }
@@ -102,7 +99,6 @@ struct CoverFlowScrollView: View {
     private func playTrailer(_ info: MovieInfo) {
         withAnimation {
             playingTrailer = info
-            appDelegate.isPlaying = true
         }
     }
 }
