@@ -22,7 +22,7 @@ struct CustomDarkAppearance: ViewModifier {
                     .preferredColorScheme(
                         // using .none does cause the ContentView to update properly
                         //  if prefersDarkAppearance was switched from true to false
-                        .none//UITraitCollection().userInterfaceStyle == .dark ? .dark : .light
+                        UITraitCollection().userInterfaceStyle == .dark ? .dark : .light
                     )
             )
         }
