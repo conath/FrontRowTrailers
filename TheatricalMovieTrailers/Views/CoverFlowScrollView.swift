@@ -17,6 +17,7 @@ struct CoverFlowScrollView: View {
     @State private var centeredItem: MovieInfo? = nil
     @State private var playingTrailer: MovieInfo? = nil
     @State private var settingsPresented = false
+    @State private var searchPresented = false
         
     var body: some View {
         GeometryReader { frame in
@@ -60,6 +61,12 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     })
+                                    // onChange doesn't do optionals D:
+                                    .onChange(of: centeredItem ?? MovieInfo.Empty) { info in
+                                        if centeredItem != nil {
+                                            reader.scrollTo(info.id, anchor: scrollAnchor)
+                                        }
+                                    }
                                 }
                             }
                             Spacer()
@@ -73,6 +80,25 @@ struct CoverFlowScrollView: View {
                         // back in ZStack
                         VStack(alignment: .trailing) {
                             HStack {
+                                Button(action: {
+                                    searchPresented = true
+                                }, label: {
+                                    HStack {
+                                        Image(systemName: "magnifyingglass")
+                                        Text("Search")
+                                    }
+                                })
+                                .sheet(isPresented: $searchPresented, content: {
+                                    MovieSearchView(model: model, onSelected: { info in
+                                        withAnimation {
+                                            centeredItem = info
+                                        }
+                                    })
+                                    .modifier(CustomDarkAppearance())
+                                })
+                                
+                                Spacer()
+                                
                                 Button(action: {
                                     let nextMode = sortingMode.nextMode()
                                     DispatchQueue.global(qos: .userInteractive).async {
@@ -101,9 +127,10 @@ struct CoverFlowScrollView: View {
                                     }
                                 }
                                 .sheet(isPresented: $settingsPresented) {
-                                    SettingsView(isPresented: $settingsPresented)
+                                    SettingsView()
                                 }
-                            }.padding()
+                            }
+                            .padding(.horizontal)
                             // pin buttons to top
                             Spacer()
                         }
