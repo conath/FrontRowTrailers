@@ -22,21 +22,26 @@ struct TrailerListView: View {
     
     @Binding var model: [MovieInfo]
     @Binding var sortingMode: SortingMode
-    @State private var selected = [Int:Bool]()
+    init(model: Binding<[MovieInfo]>, sortingMode: Binding<SortingMode>) {
+        _model = model
+        _sortingMode = sortingMode
+        let viewModel = model.wrappedValue.enumerated().map { ListItem(movieInfo: $0.1, isSelected: $0.0 == 0) }
+        _viewModel = State<[ListItem]>(initialValue: viewModel)
+    }
+    
+    @State private var viewModel: [ListItem]
     @State private var settingsPresented = false
     @State private var searchPresented = false
     
     var body: some View {
-        let viewModel = model.enumerated().map { ListItem(movieInfo: $0.1, isSelected: $0.0 == 0) }
-        
-        return GeometryReader { geo in
+        GeometryReader { geo in
             NavigationView {
                 ScrollView(.vertical, showsIndicators: true) {
                     ScrollViewReader { reader in
                         LazyVStack(alignment: .leading) {
-                            ForEach(viewModel) { info in
-                                TrailerListRow(model: info)
-                                    .id(info.id)
+                            ForEach(viewModel) { listItem in
+                                TrailerListRow(model: listItem)
+                                    .id(listItem.id)
                             }
                         }
                         .navigationTitle("Theatrical Trailers")
@@ -69,6 +74,8 @@ struct TrailerListView: View {
                                                         MovieSearchView(model: model, onSelected: { info in
                                                             withAnimation {
                                                                 reader.scrollTo(info.id)
+                                                                let i = viewModel.firstIndex(where: {$0.id == info.id})!
+                                                                viewModel[i].isSelected = true
                                                             }
                                                         })
                                                         .modifier(CustomDarkAppearance())
