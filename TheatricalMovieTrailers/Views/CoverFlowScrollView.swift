@@ -127,7 +127,7 @@ struct CoverFlowScrollView: View {
                                     }
                                 }
                                 .sheet(isPresented: $settingsPresented) {
-                                    SettingsView(isPresented: $settingsPresented)
+                                    SettingsView()
                                 }
                             }.padding()
                             // pin buttons to top

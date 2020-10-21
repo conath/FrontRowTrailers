@@ -33,11 +33,21 @@ struct MovieSearchView: View {
                 Image(systemName: "magnifyingglass")
                 TextField("Search for a movie", text: $searchTerm)
                     .padding(.leading)
+                Button {
+                    withAnimation {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                } label: {
+                    Image(systemName: "xmark")
+                }
+                .accessibility(label: Text("Close Search"))
             }
             .padding()
             List(results) { info in
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    withAnimation {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                     onSelected(info)
                 } label: {                
                     HStack {

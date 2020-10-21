@@ -16,11 +16,15 @@ struct TrailerListView: View {
             return movieInfo.id
         }
     }
+    enum Sheet {
+        case settings, search
+    }
     
     @Binding var model: [MovieInfo]
     @Binding var sortingMode: SortingMode
     @State private var selected = [Int:Bool]()
-    @State private var settingsShown = false
+    @State private var settingsPresented = false
+    @State private var searchPresented = false
     
     var body: some View {
         let viewModel = model.enumerated().map { ListItem(movieInfo: $0.1, isSelected: $0.0 == 0) }
@@ -28,43 +32,64 @@ struct TrailerListView: View {
         return GeometryReader { geo in
             NavigationView {
                 ScrollView(.vertical, showsIndicators: true) {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(viewModel) { model in
-                            TrailerListRow(model: model)
+                    ScrollViewReader { reader in
+                        LazyVStack(alignment: .leading) {
+                            ForEach(viewModel) { info in
+                                TrailerListRow(model: info)
+                                    .id(info.id)
+                            }
                         }
-                    }
-                    .navigationTitle("Theatrical Trailers")
-                    .navigationBarItems(leading:
-                                            Button(action: {
-                                                let nextMode = sortingMode.nextMode()
-                                                DispatchQueue.global(qos: .userInteractive).async {
-                                                    let sortedModel = model.sorted(by: nextMode.predicate)
-                                                    DispatchQueue.main.async {
-                                                        sortingMode = nextMode
-                                                        model = sortedModel
-                                                    }
-                                                }
-                                            }, label: {
+                        .navigationTitle("Theatrical Trailers")
+                        .navigationBarItems(leading:
                                                 HStack {
-                                                    Image(systemName: "arrow.up.arrow.down")
-                                                    Text(sortingMode.rawValue)
-                                                }
-                                            }), trailing:
-                                                Button(action: {
-                                                    settingsShown = true
-                                                }, label: {
-                                                    Image(systemName: "gearshape")
-                                                        .clipShape(Rectangle())
-                                                        .accessibility(label: Text("Settings"))
-                                                })
-                    )
+                                                    Button(action: {
+                                                        let nextMode = sortingMode.nextMode()
+                                                        DispatchQueue.global(qos: .userInteractive).async {
+                                                            let sortedModel = model.sorted(by: nextMode.predicate)
+                                                            DispatchQueue.main.async {
+                                                                sortingMode = nextMode
+                                                                model = sortedModel
+                                                            }
+                                                        }
+                                                    }, label: {
+                                                        HStack {
+                                                            Image(systemName: "arrow.up.arrow.down")
+                                                            Text(sortingMode.rawValue)
+                                                        }
+                                                    })
+                                                    Button(action: {
+                                                        searchPresented = true
+                                                    }, label: {
+                                                        HStack {
+                                                            Image(systemName: "magnifyingglass")
+                                                            Text("Search")
+                                                        }
+                                                    })
+                                                    .sheet(isPresented: $searchPresented, content: {
+                                                        MovieSearchView(model: model, onSelected: { info in
+                                                            withAnimation {
+                                                                reader.scrollTo(info.id)
+                                                            }
+                                                        })
+                                                        .modifier(CustomDarkAppearance())
+                                                    })
+                                                }, trailing:
+                                                    Button(action: {
+                                                        settingsPresented = true
+                                                    }, label: {
+                                                        Image(systemName: "gearshape")
+                                                            .clipShape(Rectangle())
+                                                            .accessibility(label: Text("Settings"))
+                                                    })
+                                                    .sheet(isPresented: $settingsPresented, content: {
+                                                        SettingsView()
+                                                    })
+                        )
+                    }
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .padding(.leading)
             }
-            .sheet(isPresented: $settingsShown, content: {
-                SettingsView(isPresented: $settingsShown)
-            })
         }
     }
 }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var settings = Settings.instance()
-    @Binding var isPresented: Bool
     
     var body: some View {
         NavigationView {
@@ -24,7 +24,9 @@ struct SettingsView: View {
                 }
                 Spacer()
                 Button(action: {
-                    isPresented = false
+                    withAnimation {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                     DispatchQueue.main.async {
                         Settings.instance().isCoverFlow.toggle()
                     }
@@ -50,8 +52,10 @@ struct SettingsView: View {
     }
 }
 
+#if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(isPresented: .constant(true))
+        SettingsView()
     }
 }
+#endif
