@@ -8,53 +8,9 @@
 import SwiftUI
 
 struct CompactTrailerListView: View {
-    enum SortingMode: String {
-        case TitleAscending = "Title (A-Z)"
-        case ReleaseAscending = "Release date"
-        case ReleaseDescending = "Release (reversed)"
-        
-        func nextMode() -> SortingMode {
-            switch self {
-            case .TitleAscending:
-                return .ReleaseAscending
-            case .ReleaseAscending:
-                return .ReleaseDescending
-            default:
-                return .TitleAscending
-            }
-        }
-        
-        var predicate: ((MovieInfo, MovieInfo) -> Bool) {
-            get {
-                switch self {
-                case .ReleaseAscending:
-                    return {
-                        if let r0 = $0.releaseDate, let r1 = $1.releaseDate {
-                            return r0 < r1
-                        } else {
-                            return $0.title < $1.title
-                        }
-                    }
-                case .ReleaseDescending:
-                    return {
-                        if let r0 = $0.releaseDate, let r1 = $1.releaseDate {
-                            return r0 > r1
-                        } else {
-                            return $0.title < $1.title
-                        }
-                    }
-                default:
-                    return {
-                        return $0.title < $1.title
-                    }
-                }
-            }
-        }
-    }
-    
     @Binding var model: [MovieInfo]
+    @Binding var sortingMode: SortingMode
     @State private var showingSettings = false
-    @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         GeometryReader { geo in
@@ -112,7 +68,7 @@ struct CompactTrailerListView: View {
 #if DEBUG
 struct CompactTrailerListView_Previews: PreviewProvider {
     static var previews: some View {
-        CompactTrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII, MovieInfo.Example.AQuietPlaceII]))
+        CompactTrailerListView(model: .constant([MovieInfo.Example.AQuietPlaceII]), sortingMode: .constant(.ReleaseAscending))
             .colorScheme(.dark)
             .background(Color.black)
     }

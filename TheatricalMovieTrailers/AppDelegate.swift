@@ -43,7 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
                         self.idsAndImages.updateValue(image, forKey: movieInfo.id)
                     }
                 } else {
-                    self.idsAndImages.updateValue(nil, forKey: movieInfo.id)
+                    DispatchQueue.main.async {
+                        self.idsAndImages.updateValue(nil, forKey: movieInfo.id)
+                    }
                 }
             }
         }

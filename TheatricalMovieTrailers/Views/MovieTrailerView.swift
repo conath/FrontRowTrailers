@@ -11,6 +11,8 @@ import SwiftUI
 struct MovieTrailerView: View {
     @Binding var model: MovieInfo
     @ObservedObject var appDelegate: AppDelegate
+    /// Used for local playing state: is the trailer playing in this view (not externally)
+    @State private var isTrailerShown = false
     
     init(model: Binding<MovieInfo>) {
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -60,16 +62,8 @@ struct MovieTrailerView: View {
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if model.trailerURL != nil && !appDelegate.isExternalScreenConnected && appDelegate.isPlaying {
-                                let avPlayer = AVPlayer(url: model.trailerURL!)
-                                TrailerPlayerView(avPlayer: .constant(avPlayer), isPlaying: $appDelegate.isPlaying, avPlayerRateChangeHandler: { (player, change) in
-                                    guard let newRate = change.newValue else { return }
-                                    appDelegate.isPlaying = newRate > 0
-                                })
-                                .onDisappear {
-                                    avPlayer.pause()
-                                    appDelegate.isPlaying = false
-                                }
+                            if !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
+                                InlineTrailerPlayerView(url: url)
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
                         }

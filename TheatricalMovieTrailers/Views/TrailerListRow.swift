@@ -35,9 +35,16 @@ struct TrailerListRow: View {
                         .font(.title3)
                         .foregroundColor(.primary)
                         .padding(.top)
-                    Text(model.movieInfo.releaseDateString)
-                        .font(.headline)
-                        .foregroundColor(.primary)
+                    if model.movieInfo.releaseDate == nil {
+                        Text("Release date unknown")
+                            .font(.headline)
+                            .italic()
+                            .foregroundColor(.primary)
+                    } else {
+                        Text(model.movieInfo.releaseDateString)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                    }
                     Text(model.movieInfo.studio)
                         .font(.callout)
                         .foregroundColor(.primary)

@@ -24,8 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
         let view = ContentView()
         let contentView = view.environmentObject(self)
         let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
-            self.model = maybeModel
             if let model = maybeModel {
+                self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
                 appDelegate.fetchImagesFor(model: model)
             }
         }
