@@ -17,23 +17,23 @@ struct MovieInfoOverView: View {
     
     @ObservedObject private var settings = Settings.instance()
     @State var model: [MovieInfo]
-    @State var sortingMode = SortingMode.ReleaseAscending
+    @State private var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         Group {
             if verticalSizeClass == .compact || horizontalSizeClass == .compact {
                 if settings.isCoverFlow {
-                    CoverFlowScrollView(model: $model)
+                    CoverFlowScrollView(model: $model, sortingMode: $sortingMode)
                 } else {
-                    CompactTrailerListView(model: $model)
+                    CompactTrailerListView(model: $model, sortingMode: $sortingMode)
                 }
             } else {
                 // iPad gets a nice sidebar with posters
                 TrailerListView(model: $model, sortingMode: $sortingMode)
-                    .onChange(of: sortingMode) { sortingMode in
-                        model.sort(by: sortingMode.predicate)
-                    }
             }
+        }
+        .onChange(of: sortingMode) { sortingMode in
+            model.sort(by: sortingMode.predicate)
         }
     }
 }

@@ -135,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */,
+				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 				833CB264253A147500E1D15C /* UIApplication+version+build.swift */,
 				8396CA1924A6A756007734F0 /* current_720p.xml */,
 				8396CA1B24A6A766007734F0 /* current.xml */,
@@ -166,7 +167,6 @@
 				8380C5A224A6721A00CA1EB4 /* ExternalView.swift */,
 				8316E10124A64CD500467F14 /* ExternalTrailerView.swift */,
 				8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */,
-				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 				830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */,
 				83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */,
 				8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */,

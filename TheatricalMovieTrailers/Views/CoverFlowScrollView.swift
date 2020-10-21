@@ -12,12 +12,12 @@ struct CoverFlowScrollView: View {
     private let scrollAnchor = UnitPoint(x: 0.5, y: 1.0)
     
     @Binding var model: [MovieInfo]
+    @Binding var sortingMode: SortingMode
     @State private var centeringItem: MovieInfo? = nil
     @State private var centeredItem: MovieInfo? = nil
     @State private var playingTrailer: MovieInfo? = nil
-    
-    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
+    @State private var settingsPresented = false
+        
     var body: some View {
         GeometryReader { frame in
             ScrollView(.vertical, showsIndicators: false) {
@@ -65,8 +65,49 @@ struct CoverFlowScrollView: View {
                             Spacer()
                         }
                         .frame(height: frame.size.height * 2)
+                        .fullScreenCover(item: $playingTrailer) { info in
+                            InlineTrailerPlayerView(url: info.trailerURL!, enterFullScreenOnAppear: true)
+                                .modifier(CustomDarkAppearance())
+                        }
                         
                         // back in ZStack
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Button(action: {
+                                    let nextMode = sortingMode.nextMode()
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        let sortedModel = model.sorted(by: nextMode.predicate)
+                                        DispatchQueue.main.async {
+                                            sortingMode = nextMode
+                                            model = sortedModel
+                                        }
+                                    }
+                                }, label: {
+                                    HStack {
+                                        Image(systemName: "arrow.up.arrow.down")
+                                        Text(sortingMode.rawValue)
+                                    }
+                                })
+                                
+                                Spacer()
+                                
+                                Button {
+                                    settingsPresented = true
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "gearshape")
+                                            .accessibility(label: Text("Settings"))
+                                        Text("Settings")
+                                    }
+                                }
+                                .sheet(isPresented: $settingsPresented) {
+                                    SettingsView(isPresented: $settingsPresented)
+                                }
+                            }.padding()
+                            // pin buttons to top
+                            Spacer()
+                        }
+                        
                         // Movie Metadata
                         if let info = centeredItem, info.trailerURL != nil {
                             CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
@@ -90,10 +131,6 @@ struct CoverFlowScrollView: View {
         .onAppear {
             centeredItem = model.first
         }
-        .fullScreenCover(item: $playingTrailer) { info in
-            InlineTrailerPlayerView(url: info.trailerURL!, enterFullScreenOnAppear: true)
-            .modifier(CustomDarkAppearance())
-        }
     }
     
     private func playTrailer(_ info: MovieInfo) {
@@ -106,7 +143,7 @@ struct CoverFlowScrollView: View {
 #if DEBUG
 struct CoverFlowScrollView_Previews: PreviewProvider {
     static var previews: some View {
-        CoverFlowScrollView(model: .constant([MovieInfo.Example.AQuietPlaceII]))
+        CoverFlowScrollView(model: .constant([MovieInfo.Example.AQuietPlaceII]), sortingMode: .constant(.ReleaseAscending))
     }
 }
 #endif
