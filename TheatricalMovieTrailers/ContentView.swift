@@ -22,7 +22,8 @@ struct ContentView: View {
         .overlay(
             ZStack {
                 if sceneDelegate.model == nil || appDelegate.idsAndImages.count != sceneDelegate.model!.count {
-                    ProgressView()
+                    ProgressView("Loading Trailers…", value: Float(appDelegate.idsAndImages.count), total: Float(sceneDelegate.model?.count ?? 9999))
+                        .frame(width: 200, height: 44)
                 }
             }
             .edgesIgnoringSafeArea(.all)

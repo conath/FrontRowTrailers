@@ -51,18 +51,10 @@ struct MovieTrailerView: View {
                         Spacer()
                     }
                     .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
-//                    .onChange(of: model.trailerURL, perform: { url in
-//                        if !appDelegate.isExternalScreenConnected, let url = URL(string: url) {
-//                            let avPlayer: AVPlayer? = AVPlayer(url: url)
-//                            self.avPlayer = avPlayer
-//                        } else {
-//                            avPlayer = nil
-//                        }
-//                    })
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
+                            if appDelegate.isPlaying, !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
                                 InlineTrailerPlayerView(url: url)
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
