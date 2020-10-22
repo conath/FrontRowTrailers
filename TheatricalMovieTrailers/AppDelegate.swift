@@ -10,47 +10,11 @@ import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
-    @Published var selectedTrailerModel: MovieInfo? {
-        didSet {
-            if let model = selectedTrailerModel {
-                self.posterImage = idsAndImages[model.id] ?? nil
-            }
-            if isPlaying {
-                isPlaying = false
-                if selectedTrailerModel != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.isPlaying = true
-                    }
-                }
-            }
-        }
-    }
     @Published var isExternalScreenConnected = false
     @Published var isPlaying = false
-    @Published var posterImage: UIImage?
-    
-    @Published var idsAndImages = [Int: UIImage?]()
     
     var externalWindow: UIWindow?
     var externalVC: UIViewController?
-    
-    func fetchImagesFor(model movies: [MovieInfo]) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            movies.forEach { movieInfo in
-                if let url = movieInfo.posterURL, let data = try? Data(contentsOf: url) {
-                    let image = UIImage(data: data)
-                    DispatchQueue.main.async {
-                        self.idsAndImages.updateValue(image, forKey: movieInfo.id)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.idsAndImages.updateValue(nil, forKey: movieInfo.id)
-                    }
-                }
-            }
-        }
-    }
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -95,16 +59,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
             return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
         }
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-        if sceneSessions.first?.role == UISceneSession.Role.windowApplication {
-            idsAndImages.removeAll()
-        }
-    }
-
-
 }
 

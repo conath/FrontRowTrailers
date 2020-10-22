@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomDarkAppearance: ViewModifier {
-    @ObservedObject var settings = Settings.instance()
+    @ObservedObject var settings = Settings.instance
     
     func body(content: Content) -> some View {
         if settings.prefersDarkAppearance {

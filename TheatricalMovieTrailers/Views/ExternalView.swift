@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ExternalView: View {
-    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     
     var body: some View {
         GeometryReader { geo in
-            if let selected = appDelegate.selectedTrailerModel {
-                ExternalTrailerView(model: selected, posterImage: $appDelegate.posterImage)
+            if let selected = dataStore.selectedTrailerModel {
+                ExternalTrailerView(model: selected, posterImage: $dataStore.posterImage)
             } else {
                 Text("No trailer selected")
                     .font(.largeTitle)

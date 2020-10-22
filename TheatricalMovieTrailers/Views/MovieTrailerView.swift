@@ -10,14 +10,10 @@ import SwiftUI
 
 struct MovieTrailerView: View {
     @Binding var model: MovieInfo
-    @ObservedObject var appDelegate: AppDelegate
+    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     /// Used for local playing state: is the trailer playing in this view (not externally)
     @State private var isTrailerShown = false
-    
-    init(model: Binding<MovieInfo>) {
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self._model = model
-    }
     
     var body: some View {
         GeometryReader { geo in
@@ -28,7 +24,7 @@ struct MovieTrailerView: View {
                 VStack(alignment: .center) {
                     HStack {
                         // poster image
-                        if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
+                        if let maybe = dataStore.idsAndImages[model.id], let image = maybe {
                             Spacer()
                             FramedImage(uiImage: image)
                                 //.resizable()
@@ -39,7 +35,7 @@ struct MovieTrailerView: View {
                         Button(action: {
                             appDelegate.isPlaying.toggle()
                             if appDelegate.isPlaying {
-                                appDelegate.selectedTrailerModel = model
+                                dataStore.selectedTrailerModel = model
                             }
                         }, label: {
                             Image(systemName: appDelegate.isPlaying ? "pause" : "play.fill")

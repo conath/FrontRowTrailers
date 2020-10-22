@@ -60,7 +60,7 @@ struct CoverFlowItemView: View {
     }
     
     private func getImage() -> UIImage {
-        if let maybeImage = (UIApplication.shared.delegate as! AppDelegate).idsAndImages[model.id], let poster = maybeImage {
+        if let maybeImage = MovieInfoDataStore.shared.idsAndImages[model.id], let poster = maybeImage {
             return poster
         } else {
             return UIImage(named: "moviePosterPlaceholder")!

@@ -15,7 +15,7 @@ struct MovieInfoOverView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @ObservedObject private var settings = Settings.instance()
+    @ObservedObject private var settings = Settings.instance
     @State var model: [MovieInfo]
     @State private var sortingMode = SortingMode.ReleaseAscending
     

@@ -8,21 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var settings = Settings.instance()
-    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
-    @EnvironmentObject var sceneDelegate: SceneDelegate
+    @ObservedObject var settings = Settings.instance
+    @EnvironmentObject var dataStore: MovieInfoDataStore
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         ZStack {
-            if let model = sceneDelegate.model, appDelegate.idsAndImages.count == model.count {
+            if let model = dataStore.model, dataStore.idsAndImages.count == model.count {
                 MovieInfoOverView(model: model)
             }
         }
         .overlay(
             ZStack {
-                if sceneDelegate.model == nil || appDelegate.idsAndImages.count != sceneDelegate.model!.count {
-                    ProgressView("Loading Trailers…", value: Float(appDelegate.idsAndImages.count), total: Float(sceneDelegate.model?.count ?? 9999))
+                if dataStore.idsAndImages.count != dataStore.model.count {
+                    ProgressView("Loading Trailers…", value: Float(dataStore.idsAndImages.count), total: Float(max(dataStore.model.count, 1)))
                         .frame(width: 200, height: 44)
                 }
             }

@@ -12,19 +12,15 @@ fileprivate extension String {
     static let lastBuildNumber = "lastBuildNumber"
     static let autoDark = "isAutoDarkAppearance"
     static let coverFlow = "isCoverFlow"
+    static let loadHighDefinition = "loadHighDefinition"
 }
 
 class Settings: ObservableObject {
     private let ValueAlwaysDark = 0
     private let ValueAutomaticDark = 1
     
-    private static var singleton: Settings!
-    static func instance() -> Settings {
-        if singleton == nil {
-            singleton = Settings()
-        }
-        return singleton
-    }
+    static let instance = Settings()
+    
     // Present since the beginning
     @Published var prefersDarkAppearance = true {
         didSet {
@@ -39,6 +35,14 @@ class Settings: ObservableObject {
         didSet {
             let defaults = UserDefaults()
             defaults.setValue(isCoverFlow, forKey: .coverFlow)
+            defaults.synchronize()
+        }
+    }
+    // Added in Build 27
+    @Published var loadHighDefinition = true {
+        didSet {
+            let defaults = UserDefaults()
+            defaults.setValue(loadHighDefinition, forKey: .loadHighDefinition)
             defaults.synchronize()
         }
     }

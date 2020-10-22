@@ -31,7 +31,7 @@ struct MovieSearchView: View {
     @State var searchScope = SearchScope.title
     
     @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     
     var body: some View {
         // MARK: Determine search results
@@ -126,7 +126,7 @@ struct MovieSearchView: View {
     
     private func getImage(_ id: Int) -> UIImage {
         let image: UIImage
-        if let poster = appDelegate.idsAndImages[id], let posterImage = poster {
+        if let poster = dataStore.idsAndImages[id], let posterImage = poster {
             image = posterImage
         } else {
             image = UIImage(named: "moviePosterPlaceholder")!
