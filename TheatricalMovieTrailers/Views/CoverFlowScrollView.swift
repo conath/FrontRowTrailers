@@ -18,6 +18,9 @@ struct CoverFlowScrollView: View {
     @State private var playingTrailer: MovieInfo? = nil
     @State private var settingsPresented = false
     @State private var searchPresented = false
+    
+    // Animation state
+    @State private var viewAnimationProgress: CGFloat = 0
         
     var body: some View {
         GeometryReader { frame in
@@ -69,6 +72,9 @@ struct CoverFlowScrollView: View {
                                     }
                                 }
                             }
+                            .offset(x: frame.size.width * (1-viewAnimationProgress), y: 0)
+                            .opacity(Double(viewAnimationProgress))
+                            
                             Spacer()
                         }
                         .frame(height: frame.size.height * 2)
@@ -91,7 +97,8 @@ struct CoverFlowScrollView: View {
                                 })
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
-                                        withAnimation {
+                                        centeredItem = nil
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                             centeredItem = info
                                         }
                                     })
@@ -158,7 +165,16 @@ struct CoverFlowScrollView: View {
             }
         }
         .onAppear {
-            centeredItem = model.first
+            let duration: Double = 2
+            let delay: Double = 0.5
+            withAnimation(Animation.easeOut(duration: duration).delay(delay)) {
+                viewAnimationProgress = 1
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
+                withAnimation {
+                    self.centeredItem = self.model.first
+                }
+            }
         }
     }
     
