@@ -20,13 +20,16 @@ struct ContentView: View {
         }
         .overlay(
             ZStack {
-                if dataStore.idsAndImages.count != dataStore.model.count {
+                if dataStore.model.count == 0 || dataStore.idsAndImages.count != dataStore.model.count {
                     ProgressView("Loading Trailers…", value: Float(dataStore.idsAndImages.count), total: Float(max(dataStore.model.count, 1)))
                         .frame(width: 200, height: 44)
                 }
             }
             .edgesIgnoringSafeArea(.all)
         )
+        .alert(item: $dataStore.error, content: { error  -> Alert in
+            error.makeAlert()
+        })
         .transition(.opacity)
         .modifier(CustomDarkAppearance())
         .statusBar(hidden: true)

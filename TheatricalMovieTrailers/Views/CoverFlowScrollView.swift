@@ -78,6 +78,7 @@ struct CoverFlowScrollView: View {
                         }
                         
                         // back in ZStack
+                        // MARK: Meta buttons
                         VStack(alignment: .trailing) {
                             HStack {
                                 Button(action: {
@@ -131,11 +132,12 @@ struct CoverFlowScrollView: View {
                                 }
                             }
                             .padding(.horizontal)
+                            .padding(.top)
                             // pin buttons to top
                             Spacer()
                         }
                         
-                        // Movie Metadata
+                        // MARK: Movie Metadata
                         if let info = centeredItem, info.trailerURL != nil {
                             CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
                                 playTrailer(info)

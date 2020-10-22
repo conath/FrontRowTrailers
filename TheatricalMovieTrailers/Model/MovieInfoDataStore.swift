@@ -64,6 +64,16 @@ class MovieInfoDataStore: ObservableObject {
     }
     
     private init() {
+        /// Do we want to download latest trailers?
+        if let lastDownloaded = modifiedDate(atURL: localCurrentTrailersURL) {
+            let age = lastDownloaded.distance(to: Date())
+            let numberOfSecondsInThreeDays: Double = 3*24*60*60
+            if age < numberOfSecondsInThreeDays {
+                // no need to re-download the XML
+                loadTrailersFromDisk()
+                return
+            }
+        }
         /// Try downloading latest trailers
         let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
         let task = session.downloadTask(with: currentTrailersURL) { [self] (url, response, error) in
@@ -103,16 +113,20 @@ class MovieInfoDataStore: ObservableObject {
                     return
                 }
                 /// Local `currentTrailers` file exists now
-                let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
-                    if let model = maybeModel {
-                        self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                        fetchPosterImagesFor(model: model)
-                    }
-                }
-                loadTrailers(parserDelegate: parserDelegate)
+                loadTrailersFromDisk()
             }
         }
         task.resume()
+    }
+    
+    private func loadTrailersFromDisk() {
+        let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
+            if let model = maybeModel {
+                self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
+                self.fetchPosterImagesFor(model: model)
+            }
+        }
+        loadTrailers(parserDelegate: parserDelegate)
     }
     
     // MARK: - Load Movie Info from XML & URL
@@ -178,5 +192,12 @@ class MovieInfoDataStore: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func modifiedDate(atURL url: URL) -> Date? {
+        if let attr = try? url.resourceValues(forKeys: [URLResourceKey.contentModificationDateKey]) {
+            return attr.contentModificationDate
+        }
+        return nil
     }
 }
