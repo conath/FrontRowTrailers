@@ -67,7 +67,9 @@ struct CoverFlowScrollView: View {
                                     // onChange doesn't do optionals D:
                                     .onChange(of: centeredItem ?? MovieInfo.Empty) { info in
                                         if centeredItem != nil {
-                                            reader.scrollTo(info.id, anchor: scrollAnchor)
+                                            withAnimation(.easeOut) {
+                                                reader.scrollTo(info.id, anchor: scrollAnchor)
+                                            }
                                         }
                                     }
                                 }
@@ -97,8 +99,7 @@ struct CoverFlowScrollView: View {
                                 })
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
-                                        centeredItem = nil
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation {
                                             centeredItem = info
                                         }
                                     })
@@ -145,21 +146,21 @@ struct CoverFlowScrollView: View {
                         }
                         
                         // MARK: Movie Metadata
-                        if let info = centeredItem, info.trailerURL != nil {
-                            CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
-                                playTrailer(info)
-                            }, onDetailsTap: { info in
-                                withAnimation(.easeInOut) {
-                                    vertReader.scrollTo(info.id * 1024, anchor: .bottom)
-                                }
-                            }, onTopTap: { info in
-                                withAnimation(.easeInOut) {
-                                    vertReader.scrollTo(info.id * 1024, anchor: .top)
-                                }
-                            })
-                            .id(info.id * 1024)
-                            .padding(.top, frame.size.height * 0.8)
-                        }
+                        CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
+                            playTrailer(info)
+                        }, onDetailsTap: { info in
+                            withAnimation(.easeInOut) {
+                                vertReader.scrollTo(info.id * 1024, anchor: .bottom)
+                            }
+                        }, onTopTap: { info in
+                            withAnimation(.easeInOut) {
+                                vertReader.scrollTo(info.id * 1024, anchor: .top)
+                            }
+                        })
+                        .id((centeredItem ?? MovieInfo.Empty).id * 1024)
+                        .padding(.top, frame.size.height * 0.8)
+                        .opacity(centeredItem == nil ? 0 : 1)
+                        .animation(.easeIn)
                     }
                 }
             }
