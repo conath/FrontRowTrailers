@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830005592541B1050069A8D1 /* MovieInfoDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830005582541B1050069A8D1 /* MovieInfoDataStore.swift */; };
+		8300055D2541B34A0069A8D1 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055C2541B34A0069A8D1 /* Secrets.swift */; };
+		830005602541C58E0069A8D1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055F2541C58E0069A8D1 /* AppError.swift */; };
 		830AA4192536FB94006A3AEB /* TrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */; };
 		8316E0E424A64AD300467F14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0E324A64AD300467F14 /* AppDelegate.swift */; };
 		8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0E524A64AD300467F14 /* SceneDelegate.swift */; };
@@ -44,6 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		830005582541B1050069A8D1 /* MovieInfoDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoDataStore.swift; sourceTree = "<group>"; };
+		8300055C2541B34A0069A8D1 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		8300055F2541C58E0069A8D1 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerView.swift; sourceTree = "<group>"; };
 		8316E0E024A64AD300467F14 /* TheatricalMovieTrailers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheatricalMovieTrailers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8316E0E324A64AD300467F14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +151,7 @@
 				8316E0FD24A64B6900467F14 /* Undefined.swift */,
 				8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */,
 				8316E0E924A64AD400467F14 /* Assets.xcassets */,
+				8300055C2541B34A0069A8D1 /* Secrets.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -155,6 +162,8 @@
 				8316E0FB24A64B5E00467F14 /* MovieInfo.swift */,
 				831CD8F424ABE34A008EDC6F /* Settings.swift */,
 				83D21173253F9CDD00EF54A3 /* SortingMode.swift */,
+				830005582541B1050069A8D1 /* MovieInfoDataStore.swift */,
+				8300055F2541C58E0069A8D1 /* AppError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,11 +270,14 @@
 				83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */,
 				83D5252924A661760086707E /* MovieMetaView.swift in Sources */,
 				8316E10224A64CD500467F14 /* ExternalTrailerView.swift in Sources */,
+				830005602541C58E0069A8D1 /* AppError.swift in Sources */,
 				8316E0E424A64AD300467F14 /* AppDelegate.swift in Sources */,
 				8316E0FC24A64B5E00467F14 /* MovieInfo.swift in Sources */,
+				830005592541B1050069A8D1 /* MovieInfoDataStore.swift in Sources */,
 				83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */,
 				8316E0FE24A64B6900467F14 /* Undefined.swift in Sources */,
 				83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */,
+				8300055D2541B34A0069A8D1 /* Secrets.swift in Sources */,
 				834ADB3925397DE1002D9F1E /* MovieInfoOverView.swift in Sources */,
 				833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */,
 				8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */,
@@ -428,7 +440,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -453,7 +465,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;

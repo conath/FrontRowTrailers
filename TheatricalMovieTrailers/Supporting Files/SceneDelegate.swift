@@ -8,10 +8,8 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    @Published var model: [MovieInfo]? = nil
-
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,19 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         // Create the SwiftUI view that provides the window contents.
         let view = ContentView()
-        let contentView = view.environmentObject(self)
-        let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
-            if let model = maybeModel {
-                self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                appDelegate.fetchImagesFor(model: model)
-            }
-        }
-        if model == nil {
-            MovieInfo.loadTrailers(parserDelegate: parserDelegate)
-        }
+        let dataStore = MovieInfoDataStore.shared
+        let contentView = view.environmentObject(dataStore)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

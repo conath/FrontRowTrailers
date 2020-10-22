@@ -75,35 +75,6 @@ struct MovieInfo: Identifiable, Hashable {
     #endif
 }
 
-// MARK: - Load Movie Info from XML & URL
-
-extension MovieInfo {
-    static func loadTrailers(loadHighDefinition: Bool = true, parserDelegate: MovieInfoXMLParserDelegate) {
-        var urlString: String!
-        if loadHighDefinition {
-            urlString = "https://trailers.apple.com/trailers/home/xml/current_720p.xml"
-        } else {
-            urlString = "https://trailers.apple.com/trailers/home/xml/current.xml"
-        }
-        let url = URL(string: urlString)!
-        loadFromURL(url, parserDelegate: parserDelegate)
-    }
-    
-    private static func loadFromURL(_ url: URL, parserDelegate: MovieInfoXMLParserDelegate) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let xmlParser = XMLParser(contentsOf: url) {
-                xmlParser.delegate = parserDelegate
-                xmlParser.parse()
-                // when finished, completion is called by the parser
-            } else {
-                DispatchQueue.main.async {
-                    parserDelegate.completion(nil)
-                }
-            }
-        }
-    }
-}
-
 fileprivate class MutableMovieInfo {
     enum ExpectedValue {
         case title, posterURL, trailerURL, trailerLength, synopsis, studio, director, actors, genres, releaseDate, copyright, none

@@ -10,7 +10,7 @@ import SwiftUI
 struct TrailerListRow: View {
     typealias ListItem = TrailerListView.ListItem
     
-    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     
     @State var model: ListItem
     
@@ -24,7 +24,7 @@ struct TrailerListRow: View {
                         .edgesIgnoringSafeArea(.top),
                        isActive: $model.isSelected) {
             HStack(alignment: .center) {
-                if let maybe = appDelegate.idsAndImages[model.id], let image = maybe {
+                if let maybe = dataStore.idsAndImages[model.id], let image = maybe {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)

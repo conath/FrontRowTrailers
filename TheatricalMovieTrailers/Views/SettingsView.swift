@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var settings = Settings.instance()
+    @ObservedObject var settings = Settings.instance
     
     var body: some View {
         NavigationView {
@@ -28,14 +28,14 @@ struct SettingsView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     DispatchQueue.main.async {
-                        Settings.instance().isCoverFlow.toggle()
+                        settings.isCoverFlow.toggle()
                     }
                 }, label: {
                         HStack {
-                            Image(systemName: Settings.instance().isCoverFlow ? "list.and.film" : "arrow.turn.up.forward.iphone.fill")
+                            Image(systemName: settings.isCoverFlow ? "list.and.film" : "arrow.turn.up.forward.iphone.fill")
                                 .foregroundColor(.primary)
                                 .padding(.leading)
-                            Text(Settings.instance().isCoverFlow ? "Switch to List" : "Switch to Cover Flow")
+                            Text(settings.isCoverFlow ? "Switch to List" : "Switch to Cover Flow")
                                 .foregroundColor(.primary)
                                 .padding([.top, .bottom, .trailing])
                         }

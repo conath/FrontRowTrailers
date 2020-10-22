@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var settings = Settings.instance()
-    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
-    @EnvironmentObject var sceneDelegate: SceneDelegate
+    @ObservedObject var settings = Settings.instance
+    @EnvironmentObject var dataStore: MovieInfoDataStore
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
         ZStack {
-            if let model = sceneDelegate.model, appDelegate.idsAndImages.count == model.count {
+            if let model = dataStore.model, dataStore.idsAndImages.count == model.count {
                 MovieInfoOverView(model: model)
             }
         }
         .overlay(
             ZStack {
-                if sceneDelegate.model == nil || appDelegate.idsAndImages.count != sceneDelegate.model!.count {
-                    ProgressView()
+                if dataStore.model.count == 0 || dataStore.idsAndImages.count != dataStore.model.count {
+                    ProgressView("Loading Trailers…", value: Float(dataStore.idsAndImages.count), total: Float(max(dataStore.model.count, 1)))
+                        .frame(width: 200, height: 44)
                 }
             }
             .edgesIgnoringSafeArea(.all)
         )
+        .alert(item: $dataStore.error, content: { error  -> Alert in
+            error.makeAlert()
+        })
         .transition(.opacity)
         .modifier(CustomDarkAppearance())
         .statusBar(hidden: true)
