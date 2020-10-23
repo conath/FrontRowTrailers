@@ -37,6 +37,10 @@ In the iOS Simulator: Click "I/O" in the menu bar, then choose any resolution un
 Please feel free to submit a pull request if you would like to contribute to this project.   
 The author does not actively monitor issues.  
 
+## Privacy
+
+This app does not collect any personally identifiable information. See [Privacy](Privacy.md) for details.
+
 ## Copyright
 
 See [License](LICENSE) for details about the source code license.
@@ -44,4 +48,4 @@ See [License](LICENSE) for details about the source code license.
 Two XML files from iTunes Movie Trailers are included with the project for reference and educational purposes. The [License](LICENSE) does not cover these XML files.
 
 The Apple Logo, AirPlay, iOS, and iTunes are trademarks of Apple Inc., registered in the U.S. and other countries.  
-Greyhound is © Copyright 1969-2020 Apple.
+FRIENDSGIVING is © 2020 SABAN FILMS.
