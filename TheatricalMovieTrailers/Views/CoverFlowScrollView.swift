@@ -99,9 +99,7 @@ struct CoverFlowScrollView: View {
                                 })
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
-                                        withAnimation {
-                                            centeredItem = info
-                                        }
+                                        centeredItem = info
                                     })
                                     .modifier(CustomDarkAppearance())
                                 })

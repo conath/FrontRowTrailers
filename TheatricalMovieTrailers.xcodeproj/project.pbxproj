@@ -37,6 +37,7 @@
 		838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838788B32539F680007CAF90 /* CoverFlowMovieMetaView.swift */; };
 		83AE012E25370A2E00A416FC /* TrailerListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE012D25370A2E00A416FC /* TrailerListRow.swift */; };
 		83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
+		83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */; };
 		83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE5112537600F00E22FAE /* CoverFlowListView.swift */; };
 		83D21174253F9CDD00EF54A3 /* SortingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D21173253F9CDD00EF54A3 /* SortingMode.swift */; };
 		83D2117825405FC900EF54A3 /* InlineTrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */; };
@@ -81,6 +82,7 @@
 		8396CA1B24A6A766007734F0 /* current.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = current.xml; sourceTree = "<group>"; };
 		83AE012D25370A2E00A416FC /* TrailerListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerListRow.swift; sourceTree = "<group>"; };
 		83BAC28D2538CC56004D59BC /* FramedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramedImage.swift; sourceTree = "<group>"; };
+		83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+currentResponder.swift"; sourceTree = "<group>"; };
 		83CBE5112537600F00E22FAE /* CoverFlowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowListView.swift; sourceTree = "<group>"; };
 		83D21173253F9CDD00EF54A3 /* SortingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMode.swift; sourceTree = "<group>"; };
 		83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTrailerPlayerView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */,
 				8316E0E924A64AD400467F14 /* Assets.xcassets */,
 				8300055C2541B34A0069A8D1 /* Secrets.swift */,
+				83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */,
+				83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */,
 				83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */,
 				83D5252924A661760086707E /* MovieMetaView.swift in Sources */,
 				8316E10224A64CD500467F14 /* ExternalTrailerView.swift in Sources */,

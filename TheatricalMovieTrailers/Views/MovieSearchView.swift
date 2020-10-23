@@ -55,23 +55,23 @@ struct MovieSearchView: View {
         results.sort(by: SortingMode.TitleAscending.predicate)
         
         return GeometryReader { frame in
-                VStack {
+            VStack {
                 // MARK: Search Field
-                HStack {
+                HStack(alignment: .center) {
                     Image(systemName: "magnifyingglass")
+                        .font(.headline)
+                        .padding(.vertical)
                     TextField(getSearchPrompt(), text: $searchTerm)
-                        .padding(.leading)
+                        .font(.headline)
+                        .padding(.horizontal)
                     Button {
-                        print(frame.size.width)
-                        withAnimation {
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                     }
                     .accessibility(label: Text("Close Search"))
                 }
-                .padding()
+                .padding(.horizontal)
                 
                 // MARK: Search Scope
                 if frame.size.width > 320 {
@@ -105,12 +105,10 @@ struct MovieSearchView: View {
                 // MARK: Search Results
                 List(results) { info in
                     Button {
-                        withAnimation {
-                            presentationMode.wrappedValue.dismiss()
-                        }
                         DispatchQueue.main.async {
                             onSelected(info)
                         }
+                        dismiss()
                     } label: {
                         HStack {
                             Image(uiImage: getImage(info.id))
@@ -124,6 +122,27 @@ struct MovieSearchView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    private func dismiss() {
+        /// If the software keyboard is showing and we dismiss, the `CoverFlowScrollView`'s content insets
+        ///  will be updated with the keyboard frame, which results in a jarring and extraneous animation.
+        /// Detect if the software keyboard is shown by checking if there is a `UIResponder` that is a `UITextField`
+        /// SwiftUI has UIKit underneath – "always has been" (insert two astronauts meme)
+        if let textField = UIResponder.currentFirstResponder as? UITextField {
+            textField.resignFirstResponder()
+            /// Software keyboard takes about 0.2 seconds to hide
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                withAnimation {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        } else {
+            /// No keyboard shown means no delay
+            withAnimation {
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }
