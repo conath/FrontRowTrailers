@@ -54,54 +54,73 @@ struct MovieSearchView: View {
         // sort alphabetically
         results.sort(by: SortingMode.TitleAscending.predicate)
         
-        return VStack {
-            // MARK: Search Field
-            HStack {
-                Image(systemName: "magnifyingglass")
-                TextField(getSearchPrompt(), text: $searchTerm)
-                    .padding(.leading)
-                Button {
-                    withAnimation {
-                        presentationMode.wrappedValue.dismiss()
+        return GeometryReader { frame in
+                VStack {
+                // MARK: Search Field
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField(getSearchPrompt(), text: $searchTerm)
+                        .padding(.leading)
+                    Button {
+                        print(frame.size.width)
+                        withAnimation {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
                     }
-                } label: {
-                    Image(systemName: "xmark")
+                    .accessibility(label: Text("Close Search"))
                 }
-                .accessibility(label: Text("Close Search"))
-            }
-            .padding()
-            
-            // MARK: Search Scope
-            ScrollView(.horizontal) {
-                Picker("Search scope", selection: $searchScope) {
-                    // title, genre, actor, synopsis, studio
-                    Text("Title").tag(SearchScope.title)
-                    Text("Genre").tag(SearchScope.genre)
-                    Text("Actors").tag(SearchScope.actors)
-                    Text("Synopsis").tag(SearchScope.synopsis)
-                    Text("Studio").tag(SearchScope.studio)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            
-            // MARK: Search Results
-            List(results) { info in
-                Button {
-                    withAnimation {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    DispatchQueue.main.async {
-                        onSelected(info)
-                    }
-                } label: {                
+                .padding()
+                
+                // MARK: Search Scope
+                if frame.size.width > 320 {
+                    /// add some spacing around the picker so it doesn't stick to the edge of the screen
                     HStack {
-                        Image(uiImage: getImage(info.id))
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 88, height: 62)
-                        VStack(alignment: .leading) {
-                            Text(info.title)
-                            Text(info.studio)
+                        Spacer()
+                        Picker("Search scope", selection: $searchScope) {
+                            // title, genre, actor, synopsis, studio
+                            Text("Title").tag(SearchScope.title)
+                            Text("Genre").tag(SearchScope.genre)
+                            Text("Actors").tag(SearchScope.actors)
+                            Text("Synopsis").tag(SearchScope.synopsis)
+                            Text("Studio").tag(SearchScope.studio)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        Spacer()
+                    }
+                } else {
+                    /// the word *Synopsis* is truncated if we include the spacers on narrow devices, so no spacers here.
+                    Picker("Search scope", selection: $searchScope) {
+                        // title, genre, actor, synopsis, studio
+                        Text("Title").tag(SearchScope.title)
+                        Text("Genre").tag(SearchScope.genre)
+                        Text("Actors").tag(SearchScope.actors)
+                        Text("Synopsis").tag(SearchScope.synopsis)
+                        Text("Studio").tag(SearchScope.studio)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+                
+                // MARK: Search Results
+                List(results) { info in
+                    Button {
+                        withAnimation {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        DispatchQueue.main.async {
+                            onSelected(info)
+                        }
+                    } label: {
+                        HStack {
+                            Image(uiImage: getImage(info.id))
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 88, height: 62)
+                            VStack(alignment: .leading) {
+                                Text(info.title)
+                                Text(info.studio)
+                            }
                         }
                     }
                 }
