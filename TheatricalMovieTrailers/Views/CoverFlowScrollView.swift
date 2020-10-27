@@ -164,23 +164,35 @@ struct CoverFlowScrollView: View {
                         .padding(.top, frame.size.height * 0.8)
                         .opacity(centeredItem == nil ? 0 : 1)
                         .animation(.easeIn)
-                        .onAppear {
-                            if let nowPlaying = playingTrailer, appDelegate.isExternalScreenConnected {
+                        .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in
+                            if let nowPlaying = playingTrailer, isExternalScreenConnected {
                                 // screen was connected while trailer is playing, play it on external
-                                playingTrailer = nil
                                 dataStore.selectedTrailerModel = nowPlaying
                                 DispatchQueue.main.async {
+                                    playingTrailer = nil
                                     dataStore.isPlaying = true
                                 }
-                            } else if let nowPlaying = dataStore.selectedTrailerModel, !appDelegate.isExternalScreenConnected, dataStore.isPlaying, playingTrailer == nil {
+                            }
+                        })
+                        .onChange(of: dataStore.streamingAvailable, perform: { streamingAvailable in
+                            if dataStore.selectedTrailerModel != nil, !appDelegate.isExternalScreenConnected, dataStore.isPlaying, playingTrailer == nil {
                                 // screen was disconnected while trailer was playing
                                 dataStore.selectedTrailerModel = nil
                                 dataStore.isPlaying = false
+                            }
+                            if dataStore.isPlaying && !streamingAvailable {
+                                // playing on external display and went offline
                                 withAnimation {
-                                    playingTrailer = nowPlaying
+                                    dataStore.isPlaying = false
+                                    playingTrailer = nil
+                                }
+                            } else if playingTrailer != nil && !streamingAvailable {
+                                // playing and went offline
+                                withAnimation {
+                                    playingTrailer = nil
                                 }
                             }
-                        }
+                        })
                     }
                 }
             }
@@ -201,9 +213,13 @@ struct CoverFlowScrollView: View {
     
     private func playTrailer(_ info: MovieInfo) {
         if appDelegate.isExternalScreenConnected {
-            dataStore.selectedTrailerModel = info
-            DispatchQueue.main.async {
-                dataStore.isPlaying = true
+            dataStore.isPlaying = false
+            dataStore.selectedTrailerModel = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                dataStore.selectedTrailerModel = info
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    dataStore.isPlaying = true
+                }
             }
         } else {
             withAnimation {

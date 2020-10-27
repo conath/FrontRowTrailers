@@ -67,6 +67,13 @@ struct MovieTrailerView: View {
                             }
                         }
                     )
+                    .onChange(of: dataStore.streamingAvailable, perform: { streamingAvailable in
+                        if dataStore.isPlaying && !streamingAvailable {
+                            withAnimation {
+                                dataStore.isPlaying = false
+                            }
+                        }
+                    })
                 }
                 
                 MovieMetaView(model: $model)

@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 struct InlineTrailerPlayerView: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -51,6 +51,11 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
             avPlayer.pause()
         }
         uiViewController.player = avPlayer
+        if appDelegate.isExternalScreenConnected {
+            DispatchQueue.main.async {
+                uiViewController.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     // MARK: Coordinator is AVPlayerViewControllerDelegate
@@ -70,7 +75,6 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
         func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
             playerViewController.player?.pause()
             trailerPlayerView.isPlaying = false
-            trailerPlayerView.presentationMode.wrappedValue.dismiss()
         }
     }
 }
