@@ -36,7 +36,9 @@ struct CoverFlowScrollView: View {
                                     CoverFlowListView(frame: frame, model: $model, onSelected: { (info, isCentered) in
                                         if isCentered {
                                             // Tapped on poster that was already centered
-                                            playTrailer(info)
+                                            if dataStore.streamingAvailable {
+                                                playTrailer(info)
+                                            }
                                         } else {
                                             withAnimation(.easeOut) {
                                                 centeringItem = info
@@ -147,7 +149,7 @@ struct CoverFlowScrollView: View {
                         }
                         
                         // MARK: Movie Metadata
-                        CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
+                        CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onPlay: { info in
                             playTrailer(info)
                         }, onDetailsTap: { info in
                             withAnimation(.easeInOut) {

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CoverFlowMovieMetaView: View {
     @State var model: MovieInfo
-    @State var onTap: (MovieInfo) -> ()
+    @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @State var onPlay: (MovieInfo) -> ()
     @State var onDetailsTap: (MovieInfo) -> ()
     @State var onTopTap: (MovieInfo) -> ()
     
@@ -17,7 +18,7 @@ struct CoverFlowMovieMetaView: View {
         GeometryReader { geo in
             VStack {
                 Button(action: {
-                    onTap(model)
+                    onPlay(model)
                 }, label: {
                     HStack {
                         Image(systemName: "play.fill")
@@ -31,6 +32,7 @@ struct CoverFlowMovieMetaView: View {
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                     )
                 })
+                .disabled(!dataStore.streamingAvailable)
                 .padding(.init(top: 0, leading: 16, bottom: 16, trailing: 16))
                 
                 Button(action: {

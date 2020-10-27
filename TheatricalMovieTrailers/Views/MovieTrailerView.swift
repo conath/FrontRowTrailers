@@ -41,6 +41,7 @@ struct MovieTrailerView: View {
                             Image(systemName: dataStore.isPlaying ? "pause" : "play.fill")
                                 .frame(width: 60, height: 60)
                         })
+                        .disabled(!dataStore.streamingAvailable)
                         .background(Color(UIColor.tertiarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         
