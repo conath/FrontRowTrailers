@@ -221,6 +221,9 @@ struct CoverFlowScrollView: View {
                     dataStore.isPlaying = true
                 }
             }
+            if let windowScene = dataStore.windowScene {
+                AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
+            }
         } else {
             withAnimation {
                 playingTrailer = info

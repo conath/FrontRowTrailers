@@ -15,6 +15,8 @@ class MovieInfoDataStore: ObservableObject {
     private let monitor: NWPathMonitor
 
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var windowScene: UIWindowScene?
+    
     /// Movie Trailer Data
     var moviesAvailable: Bool {
         model.count > 0

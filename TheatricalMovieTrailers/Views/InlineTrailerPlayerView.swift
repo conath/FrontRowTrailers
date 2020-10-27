@@ -54,6 +54,12 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
         if appDelegate.isExternalScreenConnected {
             DispatchQueue.main.async {
                 uiViewController.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    // user played trailer, request review
+                    if let windowScene = MovieInfoDataStore.shared.windowScene {
+                        AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
+                    }
+                }
             }
         }
     }
@@ -76,6 +82,11 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
             playerViewController.player?.pause()
             trailerPlayerView.isPlaying = false
             playerViewController.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                if let windowScene = MovieInfoDataStore.shared.windowScene {
+                    AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
+                }
+            }
         }
     }
 }
