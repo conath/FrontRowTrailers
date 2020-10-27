@@ -14,8 +14,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            if let model = dataStore.model, dataStore.idsAndImages.count == model.count {
+            if let model = dataStore.model, dataStore.idsAndImages.count == model.count, dataStore.model.count > 0 {
                 MovieInfoOverView(model: model)
+                    .transition(.opacity)
             }
         }
         .overlay(

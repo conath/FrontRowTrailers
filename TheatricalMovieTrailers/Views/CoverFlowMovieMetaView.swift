@@ -19,10 +19,9 @@ struct CoverFlowMovieMetaView: View {
             VStack {
                 Button(action: {
                     onPlay(model)
-                    dataStore.watched[model.id] = true
                 }, label: {
                     HStack {
-                        if dataStore.watched[model.id] ?? false {
+                        if dataStore.watched.contains(model.id) {
                             Image("watchedCheck")
                                 .renderingMode(.template)
                                 .foregroundColor(.primary)

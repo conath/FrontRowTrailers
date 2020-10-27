@@ -37,12 +37,12 @@ struct MovieTrailerView: View {
                             if dataStore.isPlaying {
                                 dataStore.selectedTrailerModel = model
                             }
-                            dataStore.watched[model.id] = true
+                            dataStore.setWatchedTrailer(model.id)
                         }, label: {
                             if dataStore.isPlaying {
                                 Image(systemName: "pause")
                                     .frame(width: 60, height: 60)
-                            } else if dataStore.watched[model.id] ?? false {
+                            } else if dataStore.watched.contains(model.id) {
                                 Image("watchedCheck")
                                     .renderingMode(.template)
                                     .frame(width: 60, height: 60)

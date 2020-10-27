@@ -75,6 +75,7 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
         func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
             playerViewController.player?.pause()
             trailerPlayerView.isPlaying = false
+            playerViewController.dismiss(animated: true, completion: nil)
         }
     }
 }

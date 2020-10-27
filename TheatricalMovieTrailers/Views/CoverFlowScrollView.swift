@@ -226,6 +226,7 @@ struct CoverFlowScrollView: View {
                 playingTrailer = info
             }
         }
+        dataStore.setWatchedTrailer(info.id)
     }
 }
 

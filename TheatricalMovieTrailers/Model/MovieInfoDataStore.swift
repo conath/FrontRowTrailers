@@ -25,7 +25,7 @@ class MovieInfoDataStore: ObservableObject {
     /// Shared UI State
     @Published var error: AppError? = nil
     @Published var idsAndImages = [Int: UIImage?]()
-    @Published var watched: [Int: Bool]
+    @Published private(set) var watched: [Int]
     @Published var selectedTrailerModel: MovieInfo?
     @Published var posterImage: UIImage?
     @Published var isPlaying = false
@@ -108,12 +108,6 @@ class MovieInfoDataStore: ObservableObject {
                     }
                 }
             })
-            .store(in: &cancellables)
-        $watched
-            .dropFirst()
-            .sink { (watched: [Int:Bool]) in
-                Self.storeWatchedTrailers(watched)
-            }
             .store(in: &cancellables)
     }
     
@@ -253,24 +247,18 @@ class MovieInfoDataStore: ObservableObject {
         return nil
     }
     
-    private class func getWatchedTrailers() -> [Int:Bool] {
+    private class func getWatchedTrailers() -> [Int] {
         let defaults = UserDefaults()
-        return defaults.value(forKey: .watchedTrailers) as? [Int:Bool] ?? [:]
+        defaults.synchronize()
+        return defaults.array(forKey: .watchedTrailers) as? [Int] ?? []
     }
     
     /// Stores the `watched` dictionary in `UserDefaults`.
-    private class func storeWatchedTrailers(_ watched: [Int:Bool]) {
+    func setWatchedTrailer(_ id: Int) {
+        watched.append(id)
         let defaults = UserDefaults()
-        if var prevWatched = defaults.object(forKey: .watchedTrailers) as? [Int:Bool] {
-            // update values
-            for (id, value) in watched {
-                prevWatched.updateValue(value, forKey: id)
-            }
-            defaults.setValue(prevWatched, forKey: .watchedTrailers)
-        } else {
-            // new
-            defaults.setValue(watched, forKey: .watchedTrailers)
-        }
+        defaults.setValue(watched, forKey: .watchedTrailers)
+        defaults.synchronize()
     }
 }
 
