@@ -19,6 +19,9 @@ struct CoverFlowScrollView: View {
     @State private var settingsPresented = false
     @State private var searchPresented = false
     
+    @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // Animation state
     @State private var viewAnimationProgress: CGFloat = 0
         
@@ -159,6 +162,23 @@ struct CoverFlowScrollView: View {
                         .padding(.top, frame.size.height * 0.8)
                         .opacity(centeredItem == nil ? 0 : 1)
                         .animation(.easeIn)
+                        .onAppear {
+                            if let nowPlaying = playingTrailer, appDelegate.isExternalScreenConnected {
+                                // screen was connected while trailer is playing, play it on external
+                                playingTrailer = nil
+                                dataStore.selectedTrailerModel = nowPlaying
+                                DispatchQueue.main.async {
+                                    dataStore.isPlaying = true
+                                }
+                            } else if let nowPlaying = dataStore.selectedTrailerModel, !appDelegate.isExternalScreenConnected, dataStore.isPlaying, playingTrailer == nil {
+                                // screen was disconnected while trailer was playing
+                                dataStore.selectedTrailerModel = nil
+                                dataStore.isPlaying = false
+                                withAnimation {
+                                    playingTrailer = nowPlaying
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -178,8 +198,15 @@ struct CoverFlowScrollView: View {
     }
     
     private func playTrailer(_ info: MovieInfo) {
-        withAnimation {
-            playingTrailer = info
+        if appDelegate.isExternalScreenConnected {
+            dataStore.selectedTrailerModel = info
+            DispatchQueue.main.async {
+                dataStore.isPlaying = true
+            }
+        } else {
+            withAnimation {
+                playingTrailer = info
+            }
         }
     }
 }

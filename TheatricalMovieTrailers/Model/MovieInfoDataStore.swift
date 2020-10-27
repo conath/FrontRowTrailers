@@ -25,17 +25,18 @@ class MovieInfoDataStore: ObservableObject {
             if let model = selectedTrailerModel {
                 self.posterImage = idsAndImages[model.id] ?? nil
             }
-            if appDelegate.isPlaying {
-                appDelegate.isPlaying = false
+            if isPlaying {
+                isPlaying = false
                 if selectedTrailerModel != nil {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.appDelegate.isPlaying = true
+                        self.isPlaying = true
                     }
                 }
             }
         }
     }
     @Published var posterImage: UIImage?
+    @Published var isPlaying = false
     
     static let shared = MovieInfoDataStore()
     
@@ -78,12 +79,16 @@ class MovieInfoDataStore: ObservableObject {
         let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
         let task = session.downloadTask(with: currentTrailersURL) { [self] (url, response, error) in
             if let error = error as NSError? {
-                switch error.code {
-                case NSURLErrorNotConnectedToInternet:
-                    self.error = AppError.notConnectedToInternet
-                default:
-                    self.error = AppError.otherError(error: error)
+                DispatchQueue.main.async {
+                    switch error.code {
+                    case NSURLErrorNotConnectedToInternet:
+                        self.error = AppError.notConnectedToInternet
+                    default:
+                        self.error = AppError.otherError(error: error)
+                    }
                 }
+                // try to load local trailers file
+                loadTrailersFromDisk()
             } else if let tempUrl = url {
                 streamingAvailable = true
                 /// Copy the downloaded file to the offline currentTrailers path
@@ -109,7 +114,9 @@ class MovieInfoDataStore: ObservableObject {
                 } catch {
                     // TODO
                     print(error)
-                    self.error = AppError.otherError(error: error)
+                    DispatchQueue.main.async {
+                        self.error = AppError.otherError(error: error)
+                    }
                     return
                 }
                 /// Local `currentTrailers` file exists now

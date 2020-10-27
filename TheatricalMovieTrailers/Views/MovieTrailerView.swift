@@ -33,12 +33,12 @@ struct MovieTrailerView: View {
                         Spacer()
                         // Play/Pause button
                         Button(action: {
-                            appDelegate.isPlaying.toggle()
-                            if appDelegate.isPlaying {
+                            dataStore.isPlaying.toggle()
+                            if dataStore.isPlaying {
                                 dataStore.selectedTrailerModel = model
                             }
                         }, label: {
-                            Image(systemName: appDelegate.isPlaying ? "pause" : "play.fill")
+                            Image(systemName: dataStore.isPlaying ? "pause" : "play.fill")
                                 .frame(width: 60, height: 60)
                         })
                         .background(Color(UIColor.tertiarySystemBackground))
@@ -50,7 +50,7 @@ struct MovieTrailerView: View {
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if appDelegate.isPlaying, !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
+                            if dataStore.isPlaying, !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
                                 InlineTrailerPlayerView(url: url)
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
