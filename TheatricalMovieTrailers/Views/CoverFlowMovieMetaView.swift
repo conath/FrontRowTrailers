@@ -13,10 +13,12 @@ struct CoverFlowMovieMetaView: View {
     @State var onPlay: (MovieInfo) -> ()
     @State var onDetailsTap: (MovieInfo) -> ()
     @State var onTopTap: (MovieInfo) -> ()
+    @State private var shareSheetPresented = false
     
     var body: some View {
         GeometryReader { geo in
             VStack {
+                /// Play button
                 Button(action: {
                     onPlay(model)
                 }, label: {
@@ -64,10 +66,43 @@ struct CoverFlowMovieMetaView: View {
                     MovieMetaRow(title: "Release", value: model.releaseDateString, labelWidth: geo.size.width / 3)
                 }
                 
-                Text(model.synopsis)
-                    .lineLimit(.max)
-                    .font(.body)
-                    .padding([.leading, .trailing])
+                ScrollView(.vertical) {
+                    Text(model.synopsis)
+                        .lineLimit(.max)
+                        .font(.body)
+                        .padding([.leading, .trailing])
+                }
+                
+                /// Share button
+                if let url = model.trailerURL {
+                    Button {
+                        shareSheetPresented = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                            Text("Share Trailer")
+                                .foregroundColor(.primary)
+                                .padding(.trailing)
+                        }
+                        .padding(.vertical)
+                        .background (
+                            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        )
+                    }
+                    .disabled(!dataStore.streamingAvailable)
+                    .padding()
+                    .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
+                        let items: [Any]
+                        if let image = dataStore.idsAndImages[model.id], let poster = image {
+                            items = [poster as Any, model.title, url]
+                        } else {
+                            items = [model.title, url]
+                        }
+                        return ShareSheet(activityItems: items)
+                    })
+                }
                 
                 Spacer()
                 
