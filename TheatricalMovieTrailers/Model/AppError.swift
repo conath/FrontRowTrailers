@@ -25,8 +25,8 @@ enum AppError: Error, Identifiable {
         let message: Text?
         switch self {
         case .notConnectedToInternet:
-            title = Text("An internet connection is required to proceed.")
-            message = nil
+            title = Text("Not connected to the internet.")
+            message = Text("An internet connection is required to watch trailers.")
         case .otherError(let error):
             title = Text("An unknown error occurred.")
             message = error != nil ? Text(error!.localizedDescription) : nil

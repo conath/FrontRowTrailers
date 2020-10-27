@@ -19,11 +19,19 @@ struct CoverFlowMovieMetaView: View {
             VStack {
                 Button(action: {
                     onPlay(model)
+                    dataStore.watched[model.id] = true
                 }, label: {
                     HStack {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.primary)
-                            .padding(.leading)
+                        if dataStore.watched[model.id] ?? false {
+                            Image("watchedCheck")
+                                .renderingMode(.template)
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                        } else {
+                            Image(systemName: "play.fill")
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                        }
                         Text("Watch Trailer")
                             .foregroundColor(.primary)
                             .padding([.top, .bottom, .trailing])

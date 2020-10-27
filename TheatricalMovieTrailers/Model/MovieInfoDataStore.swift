@@ -5,39 +5,31 @@
 //  Created by Christoph Parstorfer on 22.10.20.
 //
 
-import UIKit
+import Combine
 import Network
+import UIKit
 
 class MovieInfoDataStore: ObservableObject {
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private var cancellables = Set<AnyCancellable>()
+    /// Monitor network connection
+    private let monitor: NWPathMonitor
 
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    /// Movie Trailer Data
     var moviesAvailable: Bool {
         model.count > 0
     }
     @Published private(set) var model = [MovieInfo]()
     /// Whether streaming trailers from the internet is available.
-    private(set) var streamingAvailable = false
-    
+    @Published private(set) var streamingAvailable = false
+    /// Shared UI State
     @Published var error: AppError? = nil
     @Published var idsAndImages = [Int: UIImage?]()
-    @Published var selectedTrailerModel: MovieInfo? {
-        didSet {
-            if let model = selectedTrailerModel {
-                self.posterImage = idsAndImages[model.id] ?? nil
-            }
-            if isPlaying {
-                isPlaying = false
-                if selectedTrailerModel != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.isPlaying = true
-                    }
-                }
-            }
-        }
-    }
+    @Published var watched: [Int: Bool]
+    @Published var selectedTrailerModel: MovieInfo?
     @Published var posterImage: UIImage?
     @Published var isPlaying = false
-    
+    /// Singleton
     static let shared = MovieInfoDataStore()
     
     // MARK: File URLs
@@ -65,6 +57,31 @@ class MovieInfoDataStore: ObservableObject {
     }
     
     private init() {
+        watched = Self.getWatchedTrailers()
+        /// monitor if connected to the internet to enable/disable trailer buttons
+        let monitor = NWPathMonitor()
+        self.monitor = monitor
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else {
+                monitor.pathUpdateHandler = nil
+                return
+            }
+            DispatchQueue.main.async {
+                if path.status == .satisfied {
+                    /// online
+                    self.streamingAvailable = true
+                    /// need to download trailers?
+                    if !self.moviesAvailable {
+                        self.downloadTrailers()
+                    }
+                } else {
+                    /// offline
+                    self.streamingAvailable = false
+                }
+            }
+        }
+        monitor.start(queue: .global(qos: .background))
+        
         /// Do we want to download latest trailers?
         if let lastDownloaded = modifiedDate(atURL: localCurrentTrailersURL) {
             let age = lastDownloaded.distance(to: Date())
@@ -75,6 +92,42 @@ class MovieInfoDataStore: ObservableObject {
                 return
             }
         }
+        
+        /// **Combine** subscribers
+        $selectedTrailerModel
+            .sink(receiveValue:  { [self] selectedTrailerModel in
+                if let model = selectedTrailerModel {
+                    self.posterImage = idsAndImages[model.id] ?? nil
+                }
+                if isPlaying {
+                    isPlaying = false
+                    if selectedTrailerModel != nil {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.isPlaying = true
+                        }
+                    }
+                }
+            })
+            .store(in: &cancellables)
+        $watched
+            .dropFirst()
+            .sink { (watched: [Int:Bool]) in
+                Self.storeWatchedTrailers(watched)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func loadTrailersFromDisk() {
+        let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
+            if let model = maybeModel {
+                self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
+                self.fetchPosterImagesFor(model: model)
+            }
+        }
+        loadTrailers(parserDelegate: parserDelegate)
+    }
+    
+    func downloadTrailers() {
         /// Try downloading latest trailers
         let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
         let task = session.downloadTask(with: currentTrailersURL) { [self] (url, response, error) in
@@ -90,7 +143,9 @@ class MovieInfoDataStore: ObservableObject {
                 // try to load local trailers file
                 loadTrailersFromDisk()
             } else if let tempUrl = url {
-                streamingAvailable = true
+                DispatchQueue.main.async {
+                    streamingAvailable = true
+                }
                 /// Copy the downloaded file to the offline currentTrailers path
                 let fileManager = FileManager.default
                 do {
@@ -124,16 +179,6 @@ class MovieInfoDataStore: ObservableObject {
             }
         }
         task.resume()
-    }
-    
-    private func loadTrailersFromDisk() {
-        let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
-            if let model = maybeModel {
-                self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                self.fetchPosterImagesFor(model: model)
-            }
-        }
-        loadTrailers(parserDelegate: parserDelegate)
     }
     
     // MARK: - Load Movie Info from XML & URL
@@ -207,4 +252,28 @@ class MovieInfoDataStore: ObservableObject {
         }
         return nil
     }
+    
+    private class func getWatchedTrailers() -> [Int:Bool] {
+        let defaults = UserDefaults()
+        return defaults.value(forKey: .watchedTrailers) as? [Int:Bool] ?? [:]
+    }
+    
+    /// Stores the `watched` dictionary in `UserDefaults`.
+    private class func storeWatchedTrailers(_ watched: [Int:Bool]) {
+        let defaults = UserDefaults()
+        if var prevWatched = defaults.object(forKey: .watchedTrailers) as? [Int:Bool] {
+            // update values
+            for (id, value) in watched {
+                prevWatched.updateValue(value, forKey: id)
+            }
+            defaults.setValue(prevWatched, forKey: .watchedTrailers)
+        } else {
+            // new
+            defaults.setValue(watched, forKey: .watchedTrailers)
+        }
+    }
+}
+
+fileprivate extension String {
+    static let watchedTrailers = "watchedTrailers"
 }

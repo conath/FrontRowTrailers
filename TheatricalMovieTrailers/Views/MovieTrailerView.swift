@@ -37,9 +37,19 @@ struct MovieTrailerView: View {
                             if dataStore.isPlaying {
                                 dataStore.selectedTrailerModel = model
                             }
+                            dataStore.watched[model.id] = true
                         }, label: {
-                            Image(systemName: dataStore.isPlaying ? "pause" : "play.fill")
-                                .frame(width: 60, height: 60)
+                            if dataStore.isPlaying {
+                                Image(systemName: "pause")
+                                    .frame(width: 60, height: 60)
+                            } else if dataStore.watched[model.id] ?? false {
+                                Image("watchedCheck")
+                                    .renderingMode(.template)
+                                    .frame(width: 60, height: 60)
+                            } else { // not watched yet
+                                Image(systemName: "play.fill")
+                                    .frame(width: 60, height: 60)
+                            }
                         })
                         .disabled(!dataStore.streamingAvailable)
                         .background(Color(UIColor.tertiarySystemBackground))
