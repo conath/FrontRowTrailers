@@ -17,12 +17,19 @@ class MovieInfoDataStore: ObservableObject {
     /// Monitor network connection
     private let monitor: NWPathMonitor
 
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var windowScene: UIWindowScene?
     
     /// Movie Trailer Data
     var moviesAvailable: Bool {
         model.count > 0
+    }
+    var onMoviesAvailable: (([MovieInfo]?) -> ())? {
+        didSet {
+            if moviesAvailable {
+                onMoviesAvailable?(model)
+                onMoviesAvailable = nil
+            }
+        }
     }
     @Published private(set) var model = [MovieInfo]()
     /// Whether streaming trailers from the internet is available.
@@ -133,7 +140,8 @@ class MovieInfoDataStore: ObservableObject {
             }
             let fileManager = FileManager.default
             guard let filenames = try? fileManager.contentsOfDirectory(atPath: bundledTrailersPath), filenames.count == 2 else {
-                fatalError("Expected two files in currentTrailers.bundle")
+                assertionFailure("Expected two files in currentTrailers.bundle")
+                return
             }
             
             for filename in filenames {
@@ -148,16 +156,14 @@ class MovieInfoDataStore: ObservableObject {
                     /// file exists error: files of this name already present
                     ///  that can happen when the download is done while this runs.
                     if error.localizedDescription.contains("exist") || error.localizedDescription.contains("ERR516") {
-                        /// skip this file
-                        continue
+                        return
                     } else {
                         /// unknown errors are not handled; skip file
-                        /// TODO unified error handling show the user a message about example image not loading
-                        assertionFailure("Unknown error while copying image from example bundle to documents directory!")
+                        assertionFailure("Unknown error while copying image from bundle to local directory!")
                         DispatchQueue.main.async {
                             self.error = .otherError(error: error)
                         }
-                        continue
+                        return
                     }
                 }
             }
@@ -170,7 +176,10 @@ class MovieInfoDataStore: ObservableObject {
         let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
             if let model = maybeModel {
                 self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                self.fetchPosterImagesFor(model: model)
+                self.fetchPosterImagesFor(model: model) {
+                    self.onMoviesAvailable?(model)
+                    self.onMoviesAvailable = nil
+                }
             }
         }
         loadTrailers(parserDelegate: parserDelegate)
@@ -237,6 +246,8 @@ class MovieInfoDataStore: ObservableObject {
             print("Local current trailers file wasn't found.")
             DispatchQueue.main.async {
                 parserDelegate.completion(nil)
+                self.onMoviesAvailable?(nil)
+                self.onMoviesAvailable = nil
             }
             return
         }
@@ -248,13 +259,15 @@ class MovieInfoDataStore: ObservableObject {
             } else {
                 DispatchQueue.main.async {
                     parserDelegate.completion(nil)
+                    self.onMoviesAvailable?(nil)
+                    self.onMoviesAvailable = nil
                 }
             }
         }
     }
     
     /// Tries to load the poster image for each `MovieInfo` in `movies` from disk, or from the network if a poster image is not found on disk.
-    private func fetchPosterImagesFor(model movies: [MovieInfo]) {
+    private func fetchPosterImagesFor(model movies: [MovieInfo], completion: (() -> ())? = nil) {
         /// Tries to load an image from the passed `URL` and stores it to `idsAndImages`.
         func loadImageFrom(url: URL?, id: Int) -> UIImage? {
             if let url = url, let data = try? Data(contentsOf: url) {
@@ -301,6 +314,7 @@ class MovieInfoDataStore: ObservableObject {
                     }
                 }
             }
+            completion?()
         }
     }
     

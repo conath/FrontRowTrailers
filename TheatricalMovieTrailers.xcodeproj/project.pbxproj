@@ -25,6 +25,20 @@
 		831CD8F924ABE8C4008EDC6F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F824ABE8C4008EDC6F /* SettingsView.swift */; };
 		831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */; };
 		831F1B5E2549792A008D24D4 /* currentTrailers.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 831F1B5D2549792A008D24D4 /* currentTrailers.bundle */; };
+		831F1B6825499412008D24D4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831F1B6725499412008D24D4 /* WidgetKit.framework */; };
+		831F1B6A25499412008D24D4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831F1B6925499412008D24D4 /* SwiftUI.framework */; };
+		831F1B6D25499412008D24D4 /* TrailersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F1B6C25499412008D24D4 /* TrailersWidget.swift */; };
+		831F1B7025499416008D24D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 831F1B6F25499416008D24D4 /* Assets.xcassets */; };
+		831F1B7225499416008D24D4 /* TrailersWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */; };
+		831F1B7325499416008D24D4 /* TrailersWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */; };
+		831F1B7625499416008D24D4 /* TrailersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		831F1B7D25499B3D008D24D4 /* MovieInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0FB24A64B5E00467F14 /* MovieInfo.swift */; };
+		831F1B8025499BCF008D24D4 /* Undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0FD24A64B6900467F14 /* Undefined.swift */; };
+		831F1B832549BC04008D24D4 /* MovieInfoDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830005582541B1050069A8D1 /* MovieInfoDataStore.swift */; };
+		831F1B862549BC72008D24D4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F424ABE34A008EDC6F /* Settings.swift */; };
+		831F1B892549BC86008D24D4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055F2541C58E0069A8D1 /* AppError.swift */; };
+		831F1B8C2549BDB2008D24D4 /* SortingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D21173253F9CDD00EF54A3 /* SortingMode.swift */; };
+		831F1B942549C2D6008D24D4 /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
 		833CB25F253A03C800E1D15C /* CompactTrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */; };
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
@@ -50,6 +64,30 @@
 		83F59A48253DCC1700EEA7A5 /* CoverFlowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F59A47253DCC1700EEA7A5 /* CoverFlowItemView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		831F1B7425499416008D24D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8316E0D824A64AD300467F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 831F1B6425499412008D24D4;
+			remoteInfo = TrailersWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		831F1B7725499416008D24D4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				831F1B7625499416008D24D4 /* TrailersWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		830005582541B1050069A8D1 /* MovieInfoDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoDataStore.swift; sourceTree = "<group>"; };
 		8300055C2541B34A0069A8D1 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -71,6 +109,13 @@
 		831CD8F824ABE8C4008EDC6F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDarkAppearance.swift; sourceTree = "<group>"; };
 		831F1B5D2549792A008D24D4 /* currentTrailers.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = currentTrailers.bundle; sourceTree = "<group>"; };
+		831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrailersWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		831F1B6725499412008D24D4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		831F1B6925499412008D24D4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		831F1B6C25499412008D24D4 /* TrailersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailersWidget.swift; sourceTree = "<group>"; };
+		831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = TrailersWidget.intentdefinition; sourceTree = "<group>"; };
+		831F1B6F25499416008D24D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		831F1B7125499416008D24D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
 		833CB25E253A03C800E1D15C /* CompactTrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactTrailerListView.swift; sourceTree = "<group>"; };
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
@@ -104,6 +149,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		831F1B6225499412008D24D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				831F1B6A25499412008D24D4 /* SwiftUI.framework in Frameworks */,
+				831F1B6825499412008D24D4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -111,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */,
+				831F1B6B25499412008D24D4 /* TrailersWidget */,
+				831F1B6625499412008D24D4 /* Frameworks */,
 				8316E0E124A64AD300467F14 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				8316E0E024A64AD300467F14 /* TheatricalMovieTrailers.app */,
+				831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +200,26 @@
 				8316E0EC24A64AD400467F14 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		831F1B6625499412008D24D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				831F1B6725499412008D24D4 /* WidgetKit.framework */,
+				831F1B6925499412008D24D4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		831F1B6B25499412008D24D4 /* TrailersWidget */ = {
+			isa = PBXGroup;
+			children = (
+				831F1B6C25499412008D24D4 /* TrailersWidget.swift */,
+				831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */,
+				831F1B6F25499416008D24D4 /* Assets.xcassets */,
+				831F1B7125499416008D24D4 /* Info.plist */,
+			);
+			path = TrailersWidget;
 			sourceTree = "<group>";
 		};
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
@@ -214,15 +291,34 @@
 				8316E0DC24A64AD300467F14 /* Sources */,
 				8316E0DD24A64AD300467F14 /* Frameworks */,
 				8316E0DE24A64AD300467F14 /* Resources */,
+				831F1B7725499416008D24D4 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				831F1B7525499416008D24D4 /* PBXTargetDependency */,
 			);
 			name = TheatricalMovieTrailers;
 			productName = TheatricalMovieTrailers;
 			productReference = 8316E0E024A64AD300467F14 /* TheatricalMovieTrailers.app */;
 			productType = "com.apple.product-type.application";
+		};
+		831F1B6425499412008D24D4 /* TrailersWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 831F1B7A25499416008D24D4 /* Build configuration list for PBXNativeTarget "TrailersWidgetExtension" */;
+			buildPhases = (
+				831F1B6125499412008D24D4 /* Sources */,
+				831F1B6225499412008D24D4 /* Frameworks */,
+				831F1B6325499412008D24D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrailersWidgetExtension;
+			productName = TrailersWidgetExtension;
+			productReference = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -230,11 +326,14 @@
 		8316E0D824A64AD300467F14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					8316E0DF24A64AD300467F14 = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					831F1B6425499412008D24D4 = {
+						CreatedOnToolsVersion = 12.1;
 					};
 				};
 			};
@@ -252,6 +351,7 @@
 			projectRoot = "";
 			targets = (
 				8316E0DF24A64AD300467F14 /* TheatricalMovieTrailers */,
+				831F1B6425499412008D24D4 /* TrailersWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -268,6 +368,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		831F1B6325499412008D24D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				831F1B7025499416008D24D4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -275,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831F1B7325499416008D24D4 /* TrailersWidget.intentdefinition in Sources */,
 				838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */,
 				83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */,
 				83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */,
@@ -315,7 +424,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		831F1B6125499412008D24D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				831F1B862549BC72008D24D4 /* Settings.swift in Sources */,
+				831F1B942549C2D6008D24D4 /* UIApplication+version+build.swift in Sources */,
+				831F1B8025499BCF008D24D4 /* Undefined.swift in Sources */,
+				831F1B7225499416008D24D4 /* TrailersWidget.intentdefinition in Sources */,
+				831F1B7D25499B3D008D24D4 /* MovieInfo.swift in Sources */,
+				831F1B832549BC04008D24D4 /* MovieInfoDataStore.swift in Sources */,
+				831F1B6D25499412008D24D4 /* TrailersWidget.swift in Sources */,
+				831F1B892549BC86008D24D4 /* AppError.swift in Sources */,
+				831F1B8C2549BDB2008D24D4 /* SortingMode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		831F1B7525499416008D24D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 831F1B6425499412008D24D4 /* TrailersWidgetExtension */;
+			targetProxy = 831F1B7425499416008D24D4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */ = {
@@ -448,6 +581,7 @@
 		8316E0F524A64AD400467F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -473,6 +607,7 @@
 		8316E0F624A64AD400467F14 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -495,6 +630,52 @@
 			};
 			name = Release;
 		};
+		831F1B7825499416008D24D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U96PJYMZWW;
+				INFOPLIST_FILE = TrailersWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		831F1B7925499416008D24D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U96PJYMZWW;
+				INFOPLIST_FILE = TrailersWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -512,6 +693,15 @@
 			buildConfigurations = (
 				8316E0F524A64AD400467F14 /* Debug */,
 				8316E0F624A64AD400467F14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		831F1B7A25499416008D24D4 /* Build configuration list for PBXNativeTarget "TrailersWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				831F1B7825499416008D24D4 /* Debug */,
+				831F1B7925499416008D24D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

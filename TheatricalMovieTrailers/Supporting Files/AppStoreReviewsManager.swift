@@ -23,7 +23,7 @@ class AppStoreReviewsManager {
         // further checks, e.g. has watched at least one trailer
         
         // check that a no request for review of this app version has been made
-        let currentVersion = UIApplication.shared.version
+        let currentVersion = UIApplication.version
         let lastVersion = settings.lastReviewRequestAppVersion
         guard lastVersion == nil || lastVersion! != currentVersion else {
             return
