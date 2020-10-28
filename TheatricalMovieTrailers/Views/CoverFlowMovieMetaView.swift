@@ -9,20 +9,30 @@ import SwiftUI
 
 struct CoverFlowMovieMetaView: View {
     @State var model: MovieInfo
-    @State var onTap: (MovieInfo) -> ()
+    @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @State var onPlay: (MovieInfo) -> ()
     @State var onDetailsTap: (MovieInfo) -> ()
     @State var onTopTap: (MovieInfo) -> ()
+    @State private var shareSheetPresented = false
     
     var body: some View {
         GeometryReader { geo in
             VStack {
+                /// Play button
                 Button(action: {
-                    onTap(model)
+                    onPlay(model)
                 }, label: {
                     HStack {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.primary)
-                            .padding(.leading)
+                        if dataStore.watched.contains(model.id) {
+                            Image("watchedCheck")
+                                .renderingMode(.template)
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                        } else {
+                            Image(systemName: "play.fill")
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                        }
                         Text("Watch Trailer")
                             .foregroundColor(.primary)
                             .padding([.top, .bottom, .trailing])
@@ -31,6 +41,7 @@ struct CoverFlowMovieMetaView: View {
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                     )
                 })
+                .disabled(!dataStore.streamingAvailable)
                 .padding(.init(top: 0, leading: 16, bottom: 16, trailing: 16))
                 
                 Button(action: {
@@ -55,10 +66,43 @@ struct CoverFlowMovieMetaView: View {
                     MovieMetaRow(title: "Release", value: model.releaseDateString, labelWidth: geo.size.width / 3)
                 }
                 
-                Text(model.synopsis)
-                    .lineLimit(.max)
-                    .font(.body)
-                    .padding([.leading, .trailing])
+                ScrollView(.vertical) {
+                    Text(model.synopsis)
+                        .lineLimit(.max)
+                        .font(.body)
+                        .padding([.leading, .trailing])
+                }
+                
+                /// Share button
+                if let url = model.trailerURL {
+                    Button {
+                        shareSheetPresented = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                            Text("Share Trailer")
+                                .foregroundColor(.primary)
+                                .padding(.trailing)
+                        }
+                        .padding(.vertical)
+                        .background (
+                            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        )
+                    }
+                    .disabled(!dataStore.streamingAvailable)
+                    .padding()
+                    .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
+                        let items: [Any]
+                        if let image = dataStore.idsAndImages[model.id], let poster = image {
+                            items = [poster as Any, model.title, url]
+                        } else {
+                            items = [model.title, url]
+                        }
+                        return ShareSheet(activityItems: items)
+                    })
+                }
                 
                 Spacer()
                 

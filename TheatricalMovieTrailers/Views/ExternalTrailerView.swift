@@ -10,7 +10,7 @@ import AVKit
 
 struct ExternalTrailerView: View {
     @State var model: MovieInfo
-    @ObservedObject var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     @Binding var posterImage: UIImage?
     
     @State private var avPlayer: AVPlayer?
@@ -36,7 +36,7 @@ struct ExternalTrailerView: View {
                     .frame(width: geo.size.width * 0.23)
                     // Trailer Video Player
                     VideoPlayer(player: avPlayer)
-                        .onChange(of: appDelegate.isPlaying) { isPlaying in
+                        .onChange(of: dataStore.isPlaying) { isPlaying in
                             if isPlaying {
                                 avPlayer?.play()
                             } else {

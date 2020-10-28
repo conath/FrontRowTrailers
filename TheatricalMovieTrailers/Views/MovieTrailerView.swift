@@ -33,14 +33,25 @@ struct MovieTrailerView: View {
                         Spacer()
                         // Play/Pause button
                         Button(action: {
-                            appDelegate.isPlaying.toggle()
-                            if appDelegate.isPlaying {
+                            dataStore.isPlaying.toggle()
+                            if dataStore.isPlaying {
                                 dataStore.selectedTrailerModel = model
                             }
+                            dataStore.setWatchedTrailer(model.id)
                         }, label: {
-                            Image(systemName: appDelegate.isPlaying ? "pause" : "play.fill")
-                                .frame(width: 60, height: 60)
+                            if dataStore.isPlaying {
+                                Image(systemName: "pause")
+                                    .frame(width: 60, height: 60)
+                            } else if dataStore.watched.contains(model.id) {
+                                Image("watchedCheck")
+                                    .renderingMode(.template)
+                                    .frame(width: 60, height: 60)
+                            } else { // not watched yet
+                                Image(systemName: "play.fill")
+                                    .frame(width: 60, height: 60)
+                            }
                         })
+                        .disabled(!dataStore.streamingAvailable)
                         .background(Color(UIColor.tertiarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                         
@@ -50,12 +61,19 @@ struct MovieTrailerView: View {
                     .overlay(
                         Group {
                             // Trailer Video if no external screen connected
-                            if appDelegate.isPlaying, !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
+                            if dataStore.isPlaying, !appDelegate.isExternalScreenConnected, let url = model.trailerURL {
                                 InlineTrailerPlayerView(url: url)
                                 .frame(width: geo.size.width, height: geo.size.width * (9 / 16), alignment: .center)
                             }
                         }
                     )
+                    .onChange(of: dataStore.streamingAvailable, perform: { streamingAvailable in
+                        if dataStore.isPlaying && !streamingAvailable {
+                            withAnimation {
+                                dataStore.isPlaying = false
+                            }
+                        }
+                    })
                 }
                 
                 MovieMetaView(model: $model)

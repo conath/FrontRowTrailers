@@ -19,6 +19,9 @@ struct CoverFlowScrollView: View {
     @State private var settingsPresented = false
     @State private var searchPresented = false
     
+    @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // Animation state
     @State private var viewAnimationProgress: CGFloat = 0
         
@@ -33,7 +36,9 @@ struct CoverFlowScrollView: View {
                                     CoverFlowListView(frame: frame, model: $model, onSelected: { (info, isCentered) in
                                         if isCentered {
                                             // Tapped on poster that was already centered
-                                            playTrailer(info)
+                                            if dataStore.streamingAvailable {
+                                                playTrailer(info)
+                                            }
                                         } else {
                                             withAnimation(.easeOut) {
                                                 centeringItem = info
@@ -99,9 +104,7 @@ struct CoverFlowScrollView: View {
                                 })
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
-                                        withAnimation {
-                                            centeredItem = info
-                                        }
+                                        centeredItem = info
                                     })
                                     .modifier(CustomDarkAppearance())
                                 })
@@ -146,7 +149,7 @@ struct CoverFlowScrollView: View {
                         }
                         
                         // MARK: Movie Metadata
-                        CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onTap: { info in
+                        CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onPlay: { info in
                             playTrailer(info)
                         }, onDetailsTap: { info in
                             withAnimation(.easeInOut) {
@@ -161,6 +164,35 @@ struct CoverFlowScrollView: View {
                         .padding(.top, frame.size.height * 0.8)
                         .opacity(centeredItem == nil ? 0 : 1)
                         .animation(.easeIn)
+                        .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in
+                            if let nowPlaying = playingTrailer, isExternalScreenConnected {
+                                // screen was connected while trailer is playing, play it on external
+                                dataStore.selectedTrailerModel = nowPlaying
+                                DispatchQueue.main.async {
+                                    playingTrailer = nil
+                                    dataStore.isPlaying = true
+                                }
+                            }
+                        })
+                        .onChange(of: dataStore.streamingAvailable, perform: { streamingAvailable in
+                            if dataStore.selectedTrailerModel != nil, !appDelegate.isExternalScreenConnected, dataStore.isPlaying, playingTrailer == nil {
+                                // screen was disconnected while trailer was playing
+                                dataStore.selectedTrailerModel = nil
+                                dataStore.isPlaying = false
+                            }
+                            if dataStore.isPlaying && !streamingAvailable {
+                                // playing on external display and went offline
+                                withAnimation {
+                                    dataStore.isPlaying = false
+                                    playingTrailer = nil
+                                }
+                            } else if playingTrailer != nil && !streamingAvailable {
+                                // playing and went offline
+                                withAnimation {
+                                    playingTrailer = nil
+                                }
+                            }
+                        })
                     }
                 }
             }
@@ -180,9 +212,24 @@ struct CoverFlowScrollView: View {
     }
     
     private func playTrailer(_ info: MovieInfo) {
-        withAnimation {
-            playingTrailer = info
+        if appDelegate.isExternalScreenConnected {
+            dataStore.isPlaying = false
+            dataStore.selectedTrailerModel = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                dataStore.selectedTrailerModel = info
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    dataStore.isPlaying = true
+                }
+            }
+            if let windowScene = dataStore.windowScene {
+                AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
+            }
+        } else {
+            withAnimation {
+                playingTrailer = info
+            }
         }
+        dataStore.setWatchedTrailer(info.id)
     }
 }
 

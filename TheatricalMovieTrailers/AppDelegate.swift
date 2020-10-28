@@ -11,7 +11,6 @@ import SwiftUI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
     @Published var isExternalScreenConnected = false
-    @Published var isPlaying = false
     
     var externalWindow: UIWindow?
     var externalVC: UIViewController?

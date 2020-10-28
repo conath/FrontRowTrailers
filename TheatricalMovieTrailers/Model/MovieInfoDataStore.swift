@@ -5,38 +5,36 @@
 //  Created by Christoph Parstorfer on 22.10.20.
 //
 
-import UIKit
+import Combine
 import Network
+import UIKit
 
 class MovieInfoDataStore: ObservableObject {
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
+    static let currentTrailersSDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current.xml")!
+    
+    private var cancellables = Set<AnyCancellable>()
+    /// Monitor network connection
+    private let monitor: NWPathMonitor
 
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var windowScene: UIWindowScene?
+    
+    /// Movie Trailer Data
     var moviesAvailable: Bool {
         model.count > 0
     }
     @Published private(set) var model = [MovieInfo]()
     /// Whether streaming trailers from the internet is available.
-    private(set) var streamingAvailable = false
-    
+    @Published private(set) var streamingAvailable = false
+    /// Shared UI State
     @Published var error: AppError? = nil
     @Published var idsAndImages = [Int: UIImage?]()
-    @Published var selectedTrailerModel: MovieInfo? {
-        didSet {
-            if let model = selectedTrailerModel {
-                self.posterImage = idsAndImages[model.id] ?? nil
-            }
-            if appDelegate.isPlaying {
-                appDelegate.isPlaying = false
-                if selectedTrailerModel != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        self.appDelegate.isPlaying = true
-                    }
-                }
-            }
-        }
-    }
+    @Published private(set) var watched: [Int]
+    @Published var selectedTrailerModel: MovieInfo?
     @Published var posterImage: UIImage?
-    
+    @Published var isPlaying = false
+    /// Singleton
     static let shared = MovieInfoDataStore()
     
     // MARK: File URLs
@@ -54,69 +52,118 @@ class MovieInfoDataStore: ObservableObject {
         return localStorageDirectory.appendingPathComponent("Movie Posters", isDirectory: true)
     }
     private var currentTrailersURL: URL {
-        var urlString: String!
         if Settings.instance.loadHighDefinition {
-            urlString = "https://trailers.apple.com/trailers/home/xml/current_720p.xml"
+            return Self.currentTrailersHDURL
         } else {
-            urlString = "https://trailers.apple.com/trailers/home/xml/current.xml"
+            return Self.currentTrailersSDURL
         }
-        return URL(string: urlString)!
     }
     
     private init() {
+        watched = Self.getWatchedTrailers()
+        /// monitor if connected to the internet to enable/disable trailer buttons
+        let monitor = NWPathMonitor()
+        self.monitor = monitor
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else {
+                monitor.pathUpdateHandler = nil
+                return
+            }
+            DispatchQueue.main.async {
+                if path.status == .satisfied {
+                    /// online
+                    self.streamingAvailable = true
+                    /// need to download trailers?
+                    if !self.moviesAvailable {
+                        self.downloadTrailers()
+                    } else {
+                        /// were offline and have model –> update posters
+                        self.fetchPosterImagesFor(model: self.model)
+                    }
+                } else {
+                    /// offline
+                    self.streamingAvailable = false
+                    /// need to load trailers?
+                    let downloaded = self.modifiedDate(atURL: self.localCurrentTrailersURL) != nil
+                    if !self.moviesAvailable && !downloaded {
+                        self.loadBundledTrailersXML()
+                        self.error = AppError.notConnectedToInternet
+                    }
+                }
+            }
+        }
+        monitor.start(queue: .global(qos: .background))
+        
         /// Do we want to download latest trailers?
         if let lastDownloaded = modifiedDate(atURL: localCurrentTrailersURL) {
             let age = lastDownloaded.distance(to: Date())
             let numberOfSecondsInThreeDays: Double = 3*24*60*60
             if age < numberOfSecondsInThreeDays {
-                // no need to re-download the XML
+                /// no need to re-download the XML
                 loadTrailersFromDisk()
                 return
             }
         }
-        /// Try downloading latest trailers
-        let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
-        let task = session.downloadTask(with: currentTrailersURL) { [self] (url, response, error) in
-            if let error = error as NSError? {
-                switch error.code {
-                case NSURLErrorNotConnectedToInternet:
-                    self.error = AppError.notConnectedToInternet
-                default:
-                    self.error = AppError.otherError(error: error)
+        
+        /// **Combine** subscribers
+        $selectedTrailerModel
+            .sink(receiveValue:  { [self] selectedTrailerModel in
+                if let model = selectedTrailerModel {
+                    self.posterImage = idsAndImages[model.id] ?? nil
                 }
-            } else if let tempUrl = url {
-                streamingAvailable = true
-                /// Copy the downloaded file to the offline currentTrailers path
-                let fileManager = FileManager.default
-                do {
-                    // attempt to create local storage directory, which throws if the directory exists
-                    do {
-                        try fileManager.createDirectory(at: localStorageDirectory, withIntermediateDirectories: true, attributes: nil)
-                    } catch {
-                        // exists, continue
+                if isPlaying {
+                    isPlaying = false
+                    if selectedTrailerModel != nil {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.isPlaying = true
+                        }
                     }
-                    // attempt to create movie posters directory
-                    do {
-                        try fileManager.createDirectory(at: localMoviePostersURL, withIntermediateDirectories: true, attributes: nil)
-                    } catch {
-                        // exists, continue
-                    }
-                    // does a temp file exist at the location?
-                    if fileManager.fileExists(atPath: localCurrentTrailersURL.relativePath) {
-                        try fileManager.removeItem(at: localCurrentTrailersURL)
-                    }
-                    try fileManager.moveItem(at: tempUrl, to: localCurrentTrailersURL)
-                } catch {
-                    // TODO
-                    print(error)
-                    self.error = AppError.otherError(error: error)
-                    return
                 }
-                /// Local `currentTrailers` file exists now
-                loadTrailersFromDisk()
+            })
+            .store(in: &cancellables)
+    }
+    
+    /// Asynchronously copies the trailers XML file from `currentTrailers.bundle` to the `localCurrentTrailersURL`, then calls `loadTrailersFromDisk`.
+    private func loadBundledTrailersXML() {
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            /// can't load trailers from cache or network - fall back to bundled XML
+            guard let bundledTrailersPath = Bundle.main.path(forResource: "currentTrailers", ofType: "bundle") else {
+                assertionFailure("No currentTrailers bundle included with the app!")
+                return
             }
+            let fileManager = FileManager.default
+            guard let filenames = try? fileManager.contentsOfDirectory(atPath: bundledTrailersPath), filenames.count == 2 else {
+                fatalError("Expected two files in currentTrailers.bundle")
+            }
+            
+            for filename in filenames {
+                /// Load HD or SD XML
+                if Settings.instance.loadHighDefinition != filename.contains("720p") {
+                    continue
+                }
+                let fileURL = URL(fileURLWithPath: "\(bundledTrailersPath)/\(filename)")
+                do {
+                    try fileManager.copyItem(at: fileURL, to: localCurrentTrailersURL)
+                } catch {
+                    /// file exists error: files of this name already present
+                    ///  that can happen when the download is done while this runs.
+                    if error.localizedDescription.contains("exist") || error.localizedDescription.contains("ERR516") {
+                        /// skip this file
+                        continue
+                    } else {
+                        /// unknown errors are not handled; skip file
+                        /// TODO unified error handling show the user a message about example image not loading
+                        assertionFailure("Unknown error while copying image from example bundle to documents directory!")
+                        DispatchQueue.main.async {
+                            self.error = .otherError(error: error)
+                        }
+                        continue
+                    }
+                }
+            }
+            /// local xml file exists now
+            loadTrailersFromDisk()
         }
-        task.resume()
     }
     
     private func loadTrailersFromDisk() {
@@ -127,6 +174,60 @@ class MovieInfoDataStore: ObservableObject {
             }
         }
         loadTrailers(parserDelegate: parserDelegate)
+    }
+    
+    private func downloadTrailers() {
+        /// Try downloading latest trailers
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
+        let task = session.downloadTask(with: currentTrailersURL) { [self] (url, response, error) in
+            if let error = error as NSError? {
+                DispatchQueue.main.async {
+                    switch error.code {
+                    case NSURLErrorNotConnectedToInternet:
+                        self.error = AppError.notConnectedToInternet
+                    default:
+                        self.error = AppError.otherError(error: error)
+                    }
+                }
+                /// try to load local trailers file
+                loadTrailersFromDisk()
+            } else if let tempUrl = url {
+                DispatchQueue.main.async {
+                    streamingAvailable = true
+                }
+                /// Copy the downloaded file to the offline currentTrailers path
+                let fileManager = FileManager.default
+                do {
+                    /// attempt to create local storage directory, which throws if the directory exists
+                    do {
+                        try fileManager.createDirectory(at: localStorageDirectory, withIntermediateDirectories: true, attributes: nil)
+                    } catch {
+                        /// exists, continue
+                    }
+                    /// attempt to create movie posters directory
+                    do {
+                        try fileManager.createDirectory(at: localMoviePostersURL, withIntermediateDirectories: true, attributes: nil)
+                    } catch {
+                        /// exists, continue
+                    }
+                    /// does a temp file exist at the location?
+                    if fileManager.fileExists(atPath: localCurrentTrailersURL.relativePath) {
+                        try fileManager.removeItem(at: localCurrentTrailersURL)
+                    }
+                    try fileManager.moveItem(at: tempUrl, to: localCurrentTrailersURL)
+                } catch {
+                    /// TODO
+                    print(error)
+                    DispatchQueue.main.async {
+                        self.error = AppError.otherError(error: error)
+                    }
+                    return
+                }
+                /// Local `currentTrailers` file exists now
+                loadTrailersFromDisk()
+            }
+        }
+        task.resume()
     }
     
     // MARK: - Load Movie Info from XML & URL
@@ -143,7 +244,7 @@ class MovieInfoDataStore: ObservableObject {
             if let xmlParser = XMLParser(contentsOf: localCurrentTrailersURL) {
                 xmlParser.delegate = parserDelegate
                 xmlParser.parse()
-                // when finished, completion is called by the parser
+                /// when finished, completion is called by the parser
             } else {
                 DispatchQueue.main.async {
                     parserDelegate.completion(nil)
@@ -173,13 +274,22 @@ class MovieInfoDataStore: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             let fileManager = FileManager.default
             for movieInfo in movies {
+                /// if the `id` is known and there is an image at that `id`, already loaded that
+                guard !idsAndImages.keys.contains(movieInfo.id) || idsAndImages[movieInfo.id]! == nil else {
+                    continue /// already have this one
+                }
                 let localURL = localMoviePostersURL.appendingPathComponent("\(movieInfo.id).jpg")
                 if fileManager.fileExists(atPath: localURL.relativePath) {
                     /// load from disk
                     _ = loadImageFrom(url: localURL, id: movieInfo.id)
                 } else {
                     /// download from network
-                    guard streamingAvailable else { continue }
+                    guard streamingAvailable else {
+                        DispatchQueue.main.async {
+                            idsAndImages.updateValue(nil, forKey: movieInfo.id)
+                        }
+                        continue
+                    }
                     if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
                        let jpgData = image.jpegData(compressionQuality: 0.8) {
                         /// store on disk
@@ -200,4 +310,22 @@ class MovieInfoDataStore: ObservableObject {
         }
         return nil
     }
+    
+    private class func getWatchedTrailers() -> [Int] {
+        let defaults = UserDefaults()
+        defaults.synchronize()
+        return defaults.array(forKey: .watchedTrailers) as? [Int] ?? []
+    }
+    
+    /// Stores the `watched` dictionary in `UserDefaults`.
+    func setWatchedTrailer(_ id: Int) {
+        watched.append(id)
+        let defaults = UserDefaults()
+        defaults.setValue(watched, forKey: .watchedTrailers)
+        defaults.synchronize()
+    }
+}
+
+fileprivate extension String {
+    static let watchedTrailers = "watchedTrailers"
 }

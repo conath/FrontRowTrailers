@@ -13,6 +13,8 @@ fileprivate extension String {
     static let autoDark = "isAutoDarkAppearance"
     static let coverFlow = "isCoverFlow"
     static let loadHighDefinition = "loadHighDefinition"
+    static let firstLaunchedDate = "firstLaunchedDate"
+    static let lastReviewRequestAppVersion = "lastReviewRequestAppVersion"
 }
 
 class Settings: ObservableObject {
@@ -46,6 +48,16 @@ class Settings: ObservableObject {
             defaults.synchronize()
         }
     }
+    /// Added in Build 30
+    /// App Store Reviews Manager metadata
+    let firstLaunchedDate: Date
+    var lastReviewRequestAppVersion: String? = nil {
+        didSet {
+            let defaults = UserDefaults()
+            defaults.setValue(lastReviewRequestAppVersion, forKey: .lastReviewRequestAppVersion)
+            defaults.synchronize()
+        }
+    }
     
     private init() {
         let defaults = UserDefaults()
@@ -56,8 +68,15 @@ class Settings: ObservableObject {
             // set default values
             isCoverFlow = true
             prefersDarkAppearance = true
+            firstLaunchedDate = Date()
+            defaults.setValue(Date(), forKey: .firstLaunchedDate)
         } else if let prevBuild = lastBuild, prevBuild != UIApplication.shared.build {
-            // TODO upgrade settings - depends on how old prevBuild is.
+            if Int(prevBuild)! < 30 {
+                firstLaunchedDate = Date()
+                defaults.setValue(firstLaunchedDate, forKey: .firstLaunchedDate)
+            } else {
+                firstLaunchedDate = defaults.value(forKey: .firstLaunchedDate) as! Date
+            }
         } else {
             // load settings
             let isAutoDark = defaults.integer(forKey: .autoDark) == ValueAutomaticDark
@@ -65,6 +84,9 @@ class Settings: ObservableObject {
                 prefersDarkAppearance = false
             }
             isCoverFlow = defaults.bool(forKey: .coverFlow)
+            /// App Store Reviews Manager metadata
+            firstLaunchedDate = defaults.value(forKey: .firstLaunchedDate) as! Date
+            lastReviewRequestAppVersion = defaults.string(forKey: .lastReviewRequestAppVersion)
         }
     }
 }
