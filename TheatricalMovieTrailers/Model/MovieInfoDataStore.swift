@@ -31,7 +31,7 @@ class MovieInfoDataStore: ObservableObject {
             }
         }
     }
-    @Published private(set) var model = [MovieInfo]()
+    @Published var model = [MovieInfo]()
     /// Whether streaming trailers from the internet is available.
     @Published private(set) var streamingAvailable = false
     /// Shared UI State
