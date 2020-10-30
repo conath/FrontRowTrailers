@@ -43,16 +43,18 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>88xZPY</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20A5395g</string>
+	<string>19G2021</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12A7403</string>
+	<string>12B5035g</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.1</string>
+	<string>12.2</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
 			<key>INIntentCategory</key>
 			<string>information</string>
+			<key>INIntentDefaultImageName</key>
+			<string>RatingLogo</string>
 			<key>INIntentDescription</key>
 			<string>View the newest movie trailers.</string>
 			<key>INIntentDescriptionID</key>
@@ -69,8 +71,16 @@
 				<dict>
 					<key>INIntentParameterCombinationIsPrimary</key>
 					<true/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>Theatricals</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>o8oujT</string>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<true/>
+					<false/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>See the latest movie trailers.</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>M1rkIq</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
@@ -148,6 +158,25 @@
 					<dict>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
+					</dict>
+				</array>
+				<key>INIntentResponseLastParameterTag</key>
+				<integer>3</integer>
+				<key>INIntentResponseParameters</key>
+				<array>
+					<dict>
+						<key>INIntentResponseParameterDisplayName</key>
+						<string>Titles</string>
+						<key>INIntentResponseParameterDisplayNameID</key>
+						<string>cLuKt2</string>
+						<key>INIntentResponseParameterDisplayPriority</key>
+						<integer>1</integer>
+						<key>INIntentResponseParameterName</key>
+						<string>titles</string>
+						<key>INIntentResponseParameterTag</key>
+						<integer>3</integer>
+						<key>INIntentResponseParameterType</key>
+						<string>String</string>
 					</dict>
 				</array>
 			</dict>
