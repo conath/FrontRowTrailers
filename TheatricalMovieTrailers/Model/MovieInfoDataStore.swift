@@ -21,11 +21,25 @@ class MovieInfoDataStore: ObservableObject {
     var moviesAvailable: Bool {
         model.count > 0
     }
-    var onMoviesAvailable: (([MovieInfo]?) -> ())? {
+    /// Callback that is called when the movie info is loaded, and before poster images are downloaded. Return the `MovieInfo`s for which images should be fetched.
+    var onMoviesAvailable: (([MovieInfo]?) -> ([MovieInfo]))? {
         didSet {
             if moviesAvailable {
-                onMoviesAvailable?(model)
+                if let imagesToFetch = onMoviesAvailable?(model) {
+                    fetchPosterImagesFor(model: imagesToFetch, completion: {
+                        self.onImagesAvailable?(imagesToFetch)
+                    })
+                }
                 onMoviesAvailable = nil
+            }
+        }
+    }
+    /// Callback that is called when the movie posters requested as return value of `onMoviesAvailable` are downloaded, or if images were already ready, all `MovieInfo`s. Use `idsAndImages` with `MovieInfo.id` as the key to get the poster image for a movie.
+    var onImagesAvailable: (([MovieInfo]) -> ())? {
+        didSet {
+            if idsAndImages.count > 0, idsAndImages.count == model.count {
+                onImagesAvailable?(model)
+                onImagesAvailable = nil
             }
         }
     }
@@ -174,9 +188,11 @@ class MovieInfoDataStore: ObservableObject {
         let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
             if let model = maybeModel {
                 self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                self.fetchPosterImagesFor(model: model) {
-                    self.onMoviesAvailable?(model)
-                    self.onMoviesAvailable = nil
+                let modelToFetch = self.onMoviesAvailable?(model) ?? model
+                self.onMoviesAvailable = nil
+                self.fetchPosterImagesFor(model: modelToFetch) {
+                    self.onImagesAvailable?(modelToFetch)
+                    self.onImagesAvailable = nil
                 }
             }
         }
@@ -244,8 +260,6 @@ class MovieInfoDataStore: ObservableObject {
             print("Local current trailers file wasn't found.")
             DispatchQueue.main.async {
                 parserDelegate.completion(nil)
-                self.onMoviesAvailable?(nil)
-                self.onMoviesAvailable = nil
             }
             return
         }
@@ -257,8 +271,6 @@ class MovieInfoDataStore: ObservableObject {
             } else {
                 DispatchQueue.main.async {
                     parserDelegate.completion(nil)
-                    self.onMoviesAvailable?(nil)
-                    self.onMoviesAvailable = nil
                 }
             }
         }

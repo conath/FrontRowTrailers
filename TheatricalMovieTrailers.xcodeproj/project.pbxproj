@@ -51,6 +51,7 @@
 		8380C59E24A66F3000CA1EB4 /* TrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59D24A66F3000CA1EB4 /* TrailerListView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
 		8383E8F1254C581200F44F5E /* WindowSceneObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383E8F0254C581200F44F5E /* WindowSceneObject.swift */; };
+		8383E904254C60EC00F44F5E /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
 		838403492538B7B80056E50A /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838403482538B7B80056E50A /* MoviePosterView.swift */; };
 		838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838788B32539F680007CAF90 /* CoverFlowMovieMetaView.swift */; };
 		83AE012E25370A2E00A416FC /* TrailerListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE012D25370A2E00A416FC /* TrailerListRow.swift */; };
@@ -438,6 +439,7 @@
 				831F1B7225499416008D24D4 /* TrailersWidget.intentdefinition in Sources */,
 				831F1B7D25499B3D008D24D4 /* MovieInfo.swift in Sources */,
 				831F1B832549BC04008D24D4 /* MovieInfoDataStore.swift in Sources */,
+				8383E904254C60EC00F44F5E /* FramedImage.swift in Sources */,
 				831F1B6D25499412008D24D4 /* TrailersWidget.swift in Sources */,
 				831F1B892549BC86008D24D4 /* AppError.swift in Sources */,
 				831F1B8C2549BDB2008D24D4 /* SortingMode.swift in Sources */,

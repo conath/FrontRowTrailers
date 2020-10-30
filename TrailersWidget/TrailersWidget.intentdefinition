@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>INEnumDisplayName</key>
-			<string>TrailerScope</string>
+			<string>Trailers to show</string>
 			<key>INEnumDisplayNameID</key>
 			<string>5ub3I2</string>
 			<key>INEnumGeneratesHeader</key>
@@ -27,11 +27,21 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>Releasing soonest</string>
+					<string>Newest added</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>mCUppj</string>
 					<key>INEnumValueIndex</key>
 					<integer>1</integer>
+					<key>INEnumValueName</key>
+					<string>newestAdded</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Releasing soonest</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>39hC5X</string>
+					<key>INEnumValueIndex</key>
+					<integer>2</integer>
 					<key>INEnumValueName</key>
 					<string>releasingSoonest</string>
 				</dict>
@@ -91,7 +101,7 @@
 					<key>INIntentParameterCustomDisambiguation</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Choose Trailers</string>
+					<string>Showing:</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>FvY9mY</string>
 					<key>INIntentParameterDisplayPriority</key>
