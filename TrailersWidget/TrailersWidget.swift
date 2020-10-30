@@ -30,9 +30,12 @@ class Provider: IntentTimelineProvider {
             let info: [MovieInfo]
             switch configuration.trailerScope {
             case .releasingSoonest:
-                info = Array(model.sorted(by: SortingMode.ReleaseAscending.predicate).prefix(3))
+                let now = Date()
+                info = Array(model.sorted(by: SortingMode.ReleaseAscending.predicate).filter({
+                    $0.releaseDate != nil && $0.releaseDate! > now
+                }).prefix(3))
             default: /// default to newest added
-                info = Array(model.sorted(by: { $0.id > $1.id }).prefix(3))
+                info = Array(model.sorted(by: { $0.postDate > $1.postDate }).prefix(3))
             }
             let entry = TrailerEntry(date: Date(), configuration: configuration, info: info.first ?? MovieInfo.Empty)
             completion(entry)
@@ -50,9 +53,12 @@ class Provider: IntentTimelineProvider {
             }
             switch configuration.trailerScope {
             case .releasingSoonest:
-                info = Array(model.sorted(by: SortingMode.ReleaseAscending.predicate).prefix(3))
+                let now = Date()
+                info = Array(model.sorted(by: SortingMode.ReleaseAscending.predicate).filter({
+                    $0.releaseDate != nil && $0.releaseDate! > now
+                }).prefix(3))
             default: /// default to newest added
-                info = Array(model.sorted(by: { $0.id > $1.id }).prefix(3))
+                info = Array(model.sorted(by: { $0.postDate > $1.postDate }).prefix(3))
             }
             return info
         }
@@ -86,8 +92,8 @@ struct TrailerEntry: TimelineEntry {
 }
 
 struct TrailersWidgetEntryView : View {
-    private let filmPosterAspectRatio = CGFloat(0.7063020214)
     var entry: Provider.Entry
+    var showsDetails: Bool
     /// Supported families are .systemMedium and .systemLarge
     @Environment(\.widgetFamily) private var family: WidgetFamily
     
@@ -100,77 +106,24 @@ struct TrailersWidgetEntryView : View {
     }
     
     var body: some View {
-        return GeometryReader { frame in
-            switch family {
-            case .systemLarge:
-                /// large poster, title above
-                VStack {
-                    Text(entry.info.studio)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding([.leading,.top, .trailing])
-                    Text(entry.info.title)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding([.leading,  .trailing])
-                    
-                    HStack(alignment: .top) {
-                        FramedImage(uiImage: getImage(entry.info))
-                            .frame(maxWidth: frame.size.width / 2)
-                            .aspectRatio(filmPosterAspectRatio, contentMode: .fit)
-                            .clipped()
-                            .padding(.leading, 8)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Director")
-                                .font(.headline)
-                            Text(entry.info.director)
-                                .lineLimit(2)
-                                .font(.body)
-                                .padding(.bottom, 2)
-                            Text("Actors")
-                                .font(.headline)
-                            Text(entry.info.actors.joined(separator: ", "))
-                                .lineLimit(2)
-                                .font(.body)
-                                .padding(.bottom, 2)
-                            Text("Genre")
-                                .font(.headline)
-                            Text(entry.info.genres.joined(separator: ", "))
-                                .lineLimit(2)
-                                .font(.body)
-                        }
-                        .padding([.top, .trailing])
-                    }
-                    
-                    Text("Release: \(entry.info.releaseDateString)")
-                        .font(.caption)
-                        .padding(.bottom)
+        GeometryReader { frame in
+            if showsDetails {
+                switch family {
+                case .systemLarge:
+                    /// large poster, title and details
+                    MoviePosterWithMetadata(info: entry.info, image: getImage(entry.info))
+                default:
+                    /// small poster, title and details on the side
+                    MoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
                 }
-            default:
-                /// small poster, title on the side
-                HStack {
-                    FramedImage(uiImage: getImage(entry.info))
-                        .frame(maxWidth: frame.size.width / 2)
-                        .aspectRatio(filmPosterAspectRatio, contentMode: .fit)
-                        .clipped()
-                        .padding([.leading, .bottom, .top], 8)
-                    VStack(alignment: .leading) {
-                        Text(entry.info.studio)
-                            .lineLimit(2)
-                            .font(.subheadline)
-                        Text(entry.info.title)
-                            .lineLimit(2)
-                            .font(.headline)
-                        Text("Director: \(entry.info.director)")
-                            .lineLimit(2)
-                            .font(.subheadline)
-                            .padding(.vertical, 4)
-                        Text("Release: \(entry.info.releaseDateString)")
-                            .lineLimit(1)
-                            .font(.caption)
-                    }
+            } else {
+                switch family {
+                case .systemLarge:
+                    /// large poster, title and details
+                    LargeMoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                default:
+                    /// medium and small size not supported
+                    EmptyView()
                 }
             }
         }
@@ -178,18 +131,39 @@ struct TrailersWidgetEntryView : View {
     }
 }
 
-@main
-struct TrailersWidget: Widget {
-    private let kind: String = "TrailersWidget"
+struct DetailedTrailersWidget: Widget {
+    private let kind: String = "DetailedTrailersWidget"
     
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             
-            TrailersWidgetEntryView(entry: entry)
+            TrailersWidgetEntryView(entry: entry, showsDetails: true)
         }
-        .configurationDisplayName("Theatrical Trailers")
-        .description("Shows the latest or newest added movie trailers.")
+        .configurationDisplayName("Movie Details")
+        .description("See the next releasing or newest added movies, a new one every day.")
         .supportedFamilies([.systemMedium, .systemLarge])
+    }
+}
+
+struct SimpleTrailersWidget: Widget {
+    private let kind: String = "SimpleTrailersWidget"
+    
+    var body: some WidgetConfiguration {
+        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
+            
+            TrailersWidgetEntryView(entry: entry, showsDetails: false)
+        }
+        .configurationDisplayName("Movie Poster")
+        .description("See a new movie poster every day, from either next releasing or newest added.")
+        .supportedFamilies([.systemLarge])
+    }
+}
+
+@main
+struct TrailersWidgets: WidgetBundle {
+    var body: some Widget {
+        SimpleTrailersWidget()
+        DetailedTrailersWidget()
     }
 }
 
@@ -197,9 +171,11 @@ struct TrailersWidget: Widget {
 struct TrailersWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TrailersWidgetEntryView(entry: TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Example.AQuietPlaceII))
+            TrailersWidgetEntryView(entry: TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Example.AQuietPlaceII), showsDetails: true)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
-            TrailersWidgetEntryView(entry: TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Example.AQuietPlaceII))
+            TrailersWidgetEntryView(entry: TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Example.AQuietPlaceII), showsDetails: true)
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
+            TrailersWidgetEntryView(entry: TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Example.AQuietPlaceII), showsDetails: false)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
     }
