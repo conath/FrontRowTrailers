@@ -11,9 +11,10 @@ import UIKit
 
 struct InlineTrailerPlayerView: UIViewControllerRepresentable {
     @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @EnvironmentObject private var windowSceneObject: WindowSceneObject
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self, windowSceneObject)
     }
     
     typealias UIViewControllerType = AVPlayerViewController
@@ -45,6 +46,7 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: AVPlayerViewController, context:
                                     UIViewControllerRepresentableContext<InlineTrailerPlayerView>) {
         context.coordinator.trailerPlayerView = self
+        context.coordinator.windowSceneObject = windowSceneObject
         if isPlaying {
             avPlayer.play()
         } else {
@@ -56,7 +58,7 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
                 uiViewController.dismiss(animated: true, completion: nil)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     // user played trailer, request review
-                    if let windowScene = MovieInfoDataStore.shared.windowScene {
+                    if let windowScene = windowSceneObject.windowScene {
                         AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
                     }
                 }
@@ -67,9 +69,11 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
     // MARK: Coordinator is AVPlayerViewControllerDelegate
     class Coordinator: NSObject, AVPlayerViewControllerDelegate {
         var trailerPlayerView: InlineTrailerPlayerView
+        var windowSceneObject: WindowSceneObject
         
-        init(_ trailerPlayerView: InlineTrailerPlayerView) {
+        init(_ trailerPlayerView: InlineTrailerPlayerView, _ windowSceneObject: WindowSceneObject) {
             self.trailerPlayerView = trailerPlayerView
+            self.windowSceneObject = windowSceneObject
             super.init()
         }
         
@@ -82,8 +86,8 @@ struct InlineTrailerPlayerView: UIViewControllerRepresentable {
             playerViewController.player?.pause()
             trailerPlayerView.isPlaying = false
             playerViewController.dismiss(animated: true, completion: nil)
-            DispatchQueue.main.async {
-                if let windowScene = MovieInfoDataStore.shared.windowScene {
+            DispatchQueue.main.async { [self] in
+                if let windowScene = windowSceneObject.windowScene {
                     AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
                 }
             }

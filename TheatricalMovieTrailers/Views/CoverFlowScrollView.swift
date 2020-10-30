@@ -20,6 +20,7 @@ struct CoverFlowScrollView: View {
     @State private var searchPresented = false
     
     @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @EnvironmentObject private var windowSceneObject: WindowSceneObject
     @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Animation state
@@ -88,6 +89,7 @@ struct CoverFlowScrollView: View {
                         .fullScreenCover(item: $playingTrailer) { info in
                             InlineTrailerPlayerView(url: info.trailerURL!, enterFullScreenOnAppear: true)
                                 .modifier(CustomDarkAppearance())
+                                .environmentObject(windowSceneObject)
                         }
                         
                         // back in ZStack
@@ -221,7 +223,7 @@ struct CoverFlowScrollView: View {
                     dataStore.isPlaying = true
                 }
             }
-            if let windowScene = dataStore.windowScene {
+            if let windowScene = windowSceneObject.windowScene {
                 AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
             }
         } else {

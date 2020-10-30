@@ -7,7 +7,7 @@
 
 import Combine
 import Network
-import UIKit
+import UIKit.UIImage
 
 class MovieInfoDataStore: ObservableObject {
     static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
@@ -16,8 +16,6 @@ class MovieInfoDataStore: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     /// Monitor network connection
     private let monitor: NWPathMonitor
-
-    var windowScene: UIWindowScene?
     
     /// Movie Trailer Data
     var moviesAvailable: Bool {
