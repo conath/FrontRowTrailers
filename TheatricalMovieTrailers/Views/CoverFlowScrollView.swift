@@ -23,6 +23,8 @@ struct CoverFlowScrollView: View {
     @EnvironmentObject private var windowSceneObject: WindowSceneObject
     @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    @EnvironmentObject private var viewParameters: ViewParameters
+    
     // Animation state
     @State private var viewAnimationProgress: CGFloat = 0
         
@@ -77,6 +79,9 @@ struct CoverFlowScrollView: View {
                                                 reader.scrollTo(info.id, anchor: scrollAnchor)
                                             }
                                         }
+                                    }
+                                    .onChange(of: viewParameters.showTrailerID ?? -1) { _ in
+                                        handleShowTrailer(viewParameters.showTrailerID, reader)
                                     }
                                 }
                             }
@@ -232,6 +237,22 @@ struct CoverFlowScrollView: View {
             }
         }
         dataStore.setWatchedTrailer(info.id)
+    }
+    
+    private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {
+        if let id = movieId {
+            withAnimation {
+                reader.scrollTo(id, anchor: scrollAnchor)
+            }
+            DispatchQueue.main.async {
+                if let info = model.first(where: { $0.id == id }) {
+                    withAnimation {
+                        self.centeredItem = info
+                        playTrailer(info)
+                    }
+                }
+            }
+        }
     }
 }
 

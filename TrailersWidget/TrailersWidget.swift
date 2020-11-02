@@ -107,25 +107,28 @@ struct TrailersWidgetEntryView : View {
     
     var body: some View {
         GeometryReader { frame in
-            if showsDetails {
-                switch family {
-                case .systemLarge:
-                    /// large poster, title and details
-                    MoviePosterWithMetadata(info: entry.info, image: getImage(entry.info))
-                default:
-                    /// small poster, title and details on the side
-                    MoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
-                }
-            } else {
-                switch family {
-                case .systemLarge:
-                    /// large poster, title and details
-                    LargeMoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
-                default:
-                    /// medium and small size not supported
-                    EmptyView()
+            ZStack {
+                if showsDetails {
+                    switch family {
+                    case .systemLarge:
+                        /// large poster, title and details
+                        MoviePosterWithMetadata(info: entry.info, image: getImage(entry.info))
+                    default:
+                        /// small poster, title and details on the side
+                        MoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                    }
+                } else {
+                    switch family {
+                    case .systemLarge:
+                        /// large poster, title and details
+                        LargeMoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                    default:
+                        /// medium and small size not supported
+                        EmptyView()
+                    }
                 }
             }
+            .widgetURL(URL(string: "\(MovieInfoDataStore.urlScheme)\(entry.info.id)")!)
         }
         .foregroundColor(.white).background(Color.black)
     }

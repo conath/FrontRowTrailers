@@ -10,6 +10,7 @@ import Network
 import UIKit.UIImage
 
 class MovieInfoDataStore: ObservableObject {
+    static let urlScheme = "theatricals://showTrailer?id="
     static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
     static let currentTrailersSDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current.xml")!
     

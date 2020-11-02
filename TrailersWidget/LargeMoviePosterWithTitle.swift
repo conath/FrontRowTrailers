@@ -31,7 +31,6 @@ struct LargeMoviePosterWithTitle: View {
                     .frame(maxWidth: .infinity)
             }
             .padding(8)
-            .widgetURL(URL(string: "trailer://\(info.id)")!)
         }
         .foregroundColor(.white)
         .background(Color.black)
