@@ -16,27 +16,27 @@ struct CoverFlowListView: View {
     var body: some View {
         VStack {
             Spacer().frame(height: frame.size.height * 0.1)
-            HStack(alignment: .center, spacing: itemWidth(frame) * -0.5) {
+            HStack(alignment: .center, spacing: itemWidth(frame) * -0.25) {
                 Spacer()
-                    .frame(width: frame.size.width * 0.2, height: 100)
+                    .frame(width: frame.size.width * 0.15, height: 100)
                 ForEach(model) { info in
                     CoverFlowItemView(frame: frame, model: info, onSelected: { (isCentered: Bool) in
                         onSelected(info, isCentered)
                     }, onCentered: { isCentered in
                         onCenteredItemChanged(isCentered ? info : nil)
                     })
-                    .frame(width: itemWidth(frame) * 1.5, height: frame.size.height * 0.8)
+                    .frame(width: itemWidth(frame), height: frame.size.height * 0.8)
                     .id(info.id)
                 }
                 Spacer()
-                    .frame(width: frame.size.width * 0.2, height: 100)
+                    .frame(width: frame.size.width * 0.15, height: 100)
             }
             .padding(.horizontal, frame.size.width * 0.25)
         }
     }
     
     private func itemWidth(_ geo: GeometryProxy) -> CGFloat {
-        return min(geo.size.width * 0.5, 300)
+        return min(geo.size.width * 0.75, 450)
     }
     
     private func isCenteredX(container frame: GeometryProxy, _ geo: GeometryProxy, allowance: CGFloat = 0.1) -> Bool {
