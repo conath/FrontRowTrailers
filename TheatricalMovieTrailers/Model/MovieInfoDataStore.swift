@@ -50,6 +50,9 @@ class MovieInfoDataStore: ObservableObject {
     /// Shared UI State
     @Published var error: AppError? = nil
     @Published var idsAndImages = [Int: UIImage?]()
+    var imagesAvailable: Bool {
+        model.count == idsAndImages.count
+    }
     @Published private(set) var watched: [Int]
     @Published var selectedTrailerModel: MovieInfo?
     @Published var posterImage: UIImage?
@@ -81,9 +84,23 @@ class MovieInfoDataStore: ObservableObject {
     
     private init() {
         watched = Self.getWatchedTrailers()
+        
         /// monitor if connected to the internet to enable/disable trailer buttons
         let monitor = NWPathMonitor()
         self.monitor = monitor
+        
+        var isLoading = false
+        /// Do we want to download latest trailers?
+        if let lastDownloaded = modifiedDate(atURL: localCurrentTrailersURL) {
+            let age = lastDownloaded.distance(to: Date())
+            let numberOfSecondsInThreeDays: Double = 3*24*60*60
+            if age < numberOfSecondsInThreeDays {
+                /// no need to re-download the XML
+                loadTrailersFromDisk()
+                isLoading = true
+            }
+        }
+        /// get updates on internet connectivity
         monitor.pathUpdateHandler = { [weak self] path in
             guard let self = self else {
                 monitor.pathUpdateHandler = nil
@@ -94,7 +111,9 @@ class MovieInfoDataStore: ObservableObject {
                     /// online
                     self.streamingAvailable = true
                     /// need to download trailers?
-                    if !self.moviesAvailable {
+                    if isLoading {
+                        return
+                    } else if !self.moviesAvailable {
                         self.downloadTrailers()
                     } else {
                         /// were offline and have model –> update posters
@@ -113,17 +132,6 @@ class MovieInfoDataStore: ObservableObject {
             }
         }
         monitor.start(queue: .global(qos: .background))
-        
-        /// Do we want to download latest trailers?
-        if let lastDownloaded = modifiedDate(atURL: localCurrentTrailersURL) {
-            let age = lastDownloaded.distance(to: Date())
-            let numberOfSecondsInThreeDays: Double = 3*24*60*60
-            if age < numberOfSecondsInThreeDays {
-                /// no need to re-download the XML
-                loadTrailersFromDisk()
-                return
-            }
-        }
         
         /// **Combine** subscribers
         $selectedTrailerModel

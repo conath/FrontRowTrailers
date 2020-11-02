@@ -244,7 +244,7 @@ struct CoverFlowScrollView: View {
             withAnimation {
                 reader.scrollTo(id, anchor: scrollAnchor)
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(0.5) {
                 if let info = model.first(where: { $0.id == id }) {
                     withAnimation {
                         self.centeredItem = info
