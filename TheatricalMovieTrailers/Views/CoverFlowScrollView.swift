@@ -109,6 +109,8 @@ struct CoverFlowScrollView: View {
                                         Text("Search")
                                     }
                                 })
+                                .accessibility(label: Text("Search for movies"))
+                                .accessibilityHint(Text("Opens the Search popup"))
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
                                         centeredItem = info
@@ -133,6 +135,8 @@ struct CoverFlowScrollView: View {
                                         Text(sortingMode.rawValue)
                                     }
                                 })
+                                .accessibility(label: Text("Movies are sorted by \(sortingMode.rawValue)"))
+                                .accessibilityHint(Text("Tap to sort by \(sortingMode.nextMode().rawValue)"))
                                 
                                 Spacer()
                                 
@@ -141,10 +145,11 @@ struct CoverFlowScrollView: View {
                                 } label: {
                                     HStack {
                                         Image(systemName: "gearshape")
-                                            .accessibility(label: Text("Settings"))
                                         Text("Settings")
                                     }
                                 }
+                                .accessibility(label: Text("Settings"))
+                                .accessibilityHint(Text("Opens Settings popup"))
                                 .sheet(isPresented: $settingsPresented) {
                                     SettingsView()
                                 }

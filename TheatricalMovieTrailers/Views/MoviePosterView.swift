@@ -60,6 +60,7 @@ struct MoviePosterView: View {
             .onTapGesture(count: 1, perform: {
                 onTap?()
             })
+            .accessibilityHidden(true)
         }
     }
 }

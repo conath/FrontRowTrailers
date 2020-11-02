@@ -26,16 +26,19 @@ struct CoverFlowMovieMetaView: View {
                         if dataStore.watched.contains(model.id) {
                             Image("watchedCheck")
                                 .renderingMode(.template)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                                 .padding(.leading)
+                                .accessibility(hidden: true)
                         } else {
                             Image(systemName: "play.fill")
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                                 .padding(.leading)
+                                .accessibility(hidden: true)
                         }
                         Text("Watch Trailer")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .padding([.top, .bottom, .trailing])
+                            .accessibility(label: Text(dataStore.watched.contains(model.id) ? "Watch Trailer (already played)" : "Watch Trailer"))
                     }
                     .background (
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)
@@ -52,6 +55,7 @@ struct CoverFlowMovieMetaView: View {
                             .padding(.bottom, 1)
                         Image(systemName: "chevron.down")
                             .padding(.bottom, 8)
+                            .accessibility(hidden: true)
                     }
                 }
                 
@@ -72,6 +76,7 @@ struct CoverFlowMovieMetaView: View {
                         .lineLimit(.max)
                         .font(.body)
                         .padding([.leading, .trailing])
+                        .accessibility(label: Text("Synopsis"))
                 }
                 .frame(minHeight: 100, maxHeight: geo.size.height * 0.5)
                 
@@ -86,16 +91,17 @@ struct CoverFlowMovieMetaView: View {
                             if dataStore.watched.contains(model.id) {
                                 Image("watchedCheck")
                                     .renderingMode(.template)
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.white)
                                     .padding(.leading)
                             } else {
                                 Image(systemName: "play.fill")
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.white)
                                     .padding(.leading)
                             }
                             Text("Watch Trailer")
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                                 .padding([.top, .bottom, .trailing])
+                                .accessibility(label: Text(dataStore.watched.contains(model.id) ? "Watch Trailer (already played)" : "Watch Trailer"))
                         }
                         .background (
                             RoundedRectangle(cornerRadius: 25.0, style: .continuous)
@@ -110,10 +116,11 @@ struct CoverFlowMovieMetaView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "square.and.arrow.up")
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.white)
                                     .padding(.leading)
+                                    .accessibility(hidden: true)
                                 Text("Share Trailer")
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(.white)
                                     .padding(.trailing)
                             }
                             .padding(.vertical)
@@ -131,6 +138,7 @@ struct CoverFlowMovieMetaView: View {
                             }
                             return ShareSheet(activityItems: items)
                         })
+                        .accessibilityHint(Text("Opens the share sheet with the movie title and link attached."))
                     }
                 }
                 
@@ -141,6 +149,7 @@ struct CoverFlowMovieMetaView: View {
                     VStack(spacing: 0) {
                         Image(systemName: "chevron.up")
                             .padding(.bottom, 1)
+                            .accessibility(hidden: true)
                         Text("Back to top")
                             .padding(.bottom, 8)
                     }
