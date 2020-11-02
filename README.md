@@ -1,18 +1,19 @@
 # Theatrical Trailers
-iOS 14 app written in SwiftUI that provides a nice movie trailer watching experience on iPhone and iPad, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. This app is available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr).  
+iOS 14 app written in SwiftUI that provides a nice movie trailer watching experience on iPhone and iPad, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. This app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr).  
 
 ## Screenshots
 
 On device:  
 <img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
 <img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Search.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Widgets.jpg?raw=true" alt="Screenshot of iOS home screen showing a search bar and three widgets. Each widget shows at least a movie title and corresponding poster image; while some show metadata, as well." width="300"/>
 
 On TV (via AirPlay or adapter):  
 ![Screenshot of TV interface showing a movie poster on the left, the words "An Apple original" on the right in a video player, and metadata about a movie below.](Theatricals-AirPlay.jpg)
 
 ## Installation
 
-This app is available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Theatricals".   
+The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Theatricals".  
 
 
 <img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/TheatricalTrailersIcon.png?raw=true" alt="App Icon. It is a green color with small white text on it that is inspired by the MPAA trailer age rating panel that appears before American movie trailers." width="500"/>
