@@ -168,7 +168,7 @@ struct CoverFlowScrollView: View {
                             }
                         })
                         .id((centeredItem ?? MovieInfo.Empty).id * 1024)
-                        .padding(.top, frame.size.height * 0.8)
+                        .padding(.top, frame.size.height - 128)
                         .opacity(centeredItem == nil ? 0 : 1)
                         .animation(.easeIn)
                         .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in

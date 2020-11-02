@@ -56,6 +56,7 @@ struct CoverFlowMovieMetaView: View {
                 }
                 
                 Spacer()
+                    .frame(height: 44)
                 
                 Group {
                     MovieMetaRow(title: "Director", value: model.director, labelWidth: geo.size.width / 3)
@@ -72,39 +73,66 @@ struct CoverFlowMovieMetaView: View {
                         .font(.body)
                         .padding([.leading, .trailing])
                 }
-                
-                /// Share button
-                if let url = model.trailerURL {
-                    Button {
-                        shareSheetPresented = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                                .foregroundColor(.primary)
-                                .padding(.leading)
-                            Text("Share Trailer")
-                                .foregroundColor(.primary)
-                                .padding(.trailing)
-                        }
-                        .padding(.vertical)
-                        .background (
-                            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                        )
-                    }
-                    .disabled(!dataStore.streamingAvailable)
-                    .padding()
-                    .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
-                        let items: [Any]
-                        if let image = dataStore.idsAndImages[model.id], let poster = image {
-                            items = [poster as Any, model.title, url]
-                        } else {
-                            items = [model.title, url]
-                        }
-                        return ShareSheet(activityItems: items)
-                    })
-                }
+                .frame(minHeight: 100, maxHeight: geo.size.height * 0.5)
                 
                 Spacer()
+                
+                HStack {
+                    /// another Play button
+                    Button(action: {
+                        onPlay(model)
+                    }, label: {
+                        HStack {
+                            if dataStore.watched.contains(model.id) {
+                                Image("watchedCheck")
+                                    .renderingMode(.template)
+                                    .foregroundColor(.primary)
+                                    .padding(.leading)
+                            } else {
+                                Image(systemName: "play.fill")
+                                    .foregroundColor(.primary)
+                                    .padding(.leading)
+                            }
+                            Text("Watch Trailer")
+                                .foregroundColor(.primary)
+                                .padding([.top, .bottom, .trailing])
+                        }
+                        .background (
+                            RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        )
+                    })
+                    .disabled(!dataStore.streamingAvailable)
+                    .padding()
+                    /// Share button
+                    if let url = model.trailerURL {
+                        Button {
+                            shareSheetPresented = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundColor(.primary)
+                                    .padding(.leading)
+                                Text("Share Trailer")
+                                    .foregroundColor(.primary)
+                                    .padding(.trailing)
+                            }
+                            .padding(.vertical)
+                            .background (
+                                RoundedRectangle(cornerRadius: 25, style: .continuous)
+                            )
+                        }
+                        .padding()
+                        .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
+                            let items: [Any]
+                            if let image = dataStore.idsAndImages[model.id], let poster = image {
+                                items = [poster as Any, model.title, url]
+                            } else {
+                                items = [model.title, url]
+                            }
+                            return ShareSheet(activityItems: items)
+                        })
+                    }
+                }
                 
                 // Back to Top button
                 Button(action: {

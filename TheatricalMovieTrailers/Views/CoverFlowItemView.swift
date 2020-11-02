@@ -31,7 +31,7 @@ struct CoverFlowItemView: View {
                     Spacer()
                     
                     Text(model.title)
-                        .font(.title)
+                        .font(.largeTitle)
                         .lineLimit(4)
                         .multilineTextAlignment(.center)
                         .padding(.init(top: 0, leading: 16, bottom: 32, trailing: 16))
