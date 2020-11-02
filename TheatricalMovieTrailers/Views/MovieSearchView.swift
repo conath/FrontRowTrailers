@@ -61,6 +61,7 @@ struct MovieSearchView: View {
                     Image(systemName: "magnifyingglass")
                         .font(.headline)
                         .padding(.vertical)
+                        .accessibility(hidden: true)
                     TextField(getSearchPrompt(), text: $searchTerm)
                         .font(.headline)
                         .padding(.horizontal)

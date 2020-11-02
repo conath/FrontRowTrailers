@@ -23,27 +23,6 @@ struct SettingsView: View {
                         .font(.subheadline)
                 }
                 Spacer()
-                Button(action: {
-                    withAnimation {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    DispatchQueue.main.async {
-                        settings.isCoverFlow.toggle()
-                    }
-                }, label: {
-                        HStack {
-                            Image(systemName: settings.isCoverFlow ? "list.and.film" : "arrow.turn.up.forward.iphone.fill")
-                                .foregroundColor(.primary)
-                                .padding(.leading)
-                            Text(settings.isCoverFlow ? "Switch to List" : "Switch to Cover Flow")
-                                .foregroundColor(.primary)
-                                .padding([.top, .bottom, .trailing])
-                        }
-                        .background (
-                            RoundedRectangle(cornerRadius: 25.0, style: .continuous)
-                        )
-                })
-                Spacer()
             }
             .padding([.leading, .trailing], 16)
             .navigationTitle("Settings")

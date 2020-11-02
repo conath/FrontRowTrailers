@@ -109,6 +109,8 @@ struct CoverFlowScrollView: View {
                                         Text("Search")
                                     }
                                 })
+                                .accessibility(label: Text("Search for movies"))
+                                .accessibilityHint(Text("Opens the Search popup"))
                                 .sheet(isPresented: $searchPresented, content: {
                                     MovieSearchView(model: model, onSelected: { info in
                                         centeredItem = info
@@ -133,6 +135,8 @@ struct CoverFlowScrollView: View {
                                         Text(sortingMode.rawValue)
                                     }
                                 })
+                                .accessibility(label: Text("Movies are sorted by \(sortingMode.rawValue)"))
+                                .accessibilityHint(Text("Tap to sort by \(sortingMode.nextMode().rawValue)"))
                                 
                                 Spacer()
                                 
@@ -141,10 +145,11 @@ struct CoverFlowScrollView: View {
                                 } label: {
                                     HStack {
                                         Image(systemName: "gearshape")
-                                            .accessibility(label: Text("Settings"))
                                         Text("Settings")
                                     }
                                 }
+                                .accessibility(label: Text("Settings"))
+                                .accessibilityHint(Text("Opens Settings popup"))
                                 .sheet(isPresented: $settingsPresented) {
                                     SettingsView()
                                 }
@@ -168,7 +173,7 @@ struct CoverFlowScrollView: View {
                             }
                         })
                         .id((centeredItem ?? MovieInfo.Empty).id * 1024)
-                        .padding(.top, frame.size.height * 0.8)
+                        .padding(.top, frame.size.height - 128)
                         .opacity(centeredItem == nil ? 0 : 1)
                         .animation(.easeIn)
                         .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in
@@ -244,7 +249,7 @@ struct CoverFlowScrollView: View {
             withAnimation {
                 reader.scrollTo(id, anchor: scrollAnchor)
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(0.5) {
                 if let info = model.first(where: { $0.id == id }) {
                     withAnimation {
                         self.centeredItem = info

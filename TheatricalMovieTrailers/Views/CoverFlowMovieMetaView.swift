@@ -26,16 +26,19 @@ struct CoverFlowMovieMetaView: View {
                         if dataStore.watched.contains(model.id) {
                             Image("watchedCheck")
                                 .renderingMode(.template)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                                 .padding(.leading)
+                                .accessibility(hidden: true)
                         } else {
                             Image(systemName: "play.fill")
-                                .foregroundColor(.primary)
+                                .foregroundColor(.white)
                                 .padding(.leading)
+                                .accessibility(hidden: true)
                         }
                         Text("Watch Trailer")
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
                             .padding([.top, .bottom, .trailing])
+                            .accessibility(label: Text(dataStore.watched.contains(model.id) ? "Watch Trailer (already played)" : "Watch Trailer"))
                     }
                     .background (
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)
@@ -52,10 +55,12 @@ struct CoverFlowMovieMetaView: View {
                             .padding(.bottom, 1)
                         Image(systemName: "chevron.down")
                             .padding(.bottom, 8)
+                            .accessibility(hidden: true)
                     }
                 }
                 
                 Spacer()
+                    .frame(height: 44)
                 
                 Group {
                     MovieMetaRow(title: "Director", value: model.director, labelWidth: geo.size.width / 3)
@@ -71,40 +76,71 @@ struct CoverFlowMovieMetaView: View {
                         .lineLimit(.max)
                         .font(.body)
                         .padding([.leading, .trailing])
+                        .accessibility(label: Text("Synopsis"))
                 }
-                
-                /// Share button
-                if let url = model.trailerURL {
-                    Button {
-                        shareSheetPresented = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                                .foregroundColor(.primary)
-                                .padding(.leading)
-                            Text("Share Trailer")
-                                .foregroundColor(.primary)
-                                .padding(.trailing)
-                        }
-                        .padding(.vertical)
-                        .background (
-                            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                        )
-                    }
-                    .disabled(!dataStore.streamingAvailable)
-                    .padding()
-                    .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
-                        let items: [Any]
-                        if let image = dataStore.idsAndImages[model.id], let poster = image {
-                            items = [poster as Any, model.title, url]
-                        } else {
-                            items = [model.title, url]
-                        }
-                        return ShareSheet(activityItems: items)
-                    })
-                }
+                .frame(minHeight: 100, maxHeight: geo.size.height * 0.5)
                 
                 Spacer()
+                
+                HStack {
+                    /// another Play button
+                    Button(action: {
+                        onPlay(model)
+                    }, label: {
+                        HStack {
+                            if dataStore.watched.contains(model.id) {
+                                Image("watchedCheck")
+                                    .renderingMode(.template)
+                                    .foregroundColor(.white)
+                                    .padding(.leading)
+                            } else {
+                                Image(systemName: "play.fill")
+                                    .foregroundColor(.white)
+                                    .padding(.leading)
+                            }
+                            Text("Watch Trailer")
+                                .foregroundColor(.white)
+                                .padding([.top, .bottom, .trailing])
+                                .accessibility(label: Text(dataStore.watched.contains(model.id) ? "Watch Trailer (already played)" : "Watch Trailer"))
+                        }
+                        .background (
+                            RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        )
+                    })
+                    .disabled(!dataStore.streamingAvailable)
+                    .padding()
+                    /// Share button
+                    if let url = model.trailerURL {
+                        Button {
+                            shareSheetPresented = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "square.and.arrow.up")
+                                    .foregroundColor(.white)
+                                    .padding(.leading)
+                                    .accessibility(hidden: true)
+                                Text("Share Trailer")
+                                    .foregroundColor(.white)
+                                    .padding(.trailing)
+                            }
+                            .padding(.vertical)
+                            .background (
+                                RoundedRectangle(cornerRadius: 25, style: .continuous)
+                            )
+                        }
+                        .padding()
+                        .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
+                            let items: [Any]
+                            if let image = dataStore.idsAndImages[model.id], let poster = image {
+                                items = [poster as Any, model.title, url]
+                            } else {
+                                items = [model.title, url]
+                            }
+                            return ShareSheet(activityItems: items)
+                        })
+                        .accessibilityHint(Text("Opens the share sheet with the movie title and link attached."))
+                    }
+                }
                 
                 // Back to Top button
                 Button(action: {
@@ -113,6 +149,7 @@ struct CoverFlowMovieMetaView: View {
                     VStack(spacing: 0) {
                         Image(systemName: "chevron.up")
                             .padding(.bottom, 1)
+                            .accessibility(hidden: true)
                         Text("Back to top")
                             .padding(.bottom, 8)
                     }

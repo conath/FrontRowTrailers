@@ -12,20 +12,14 @@ struct MoviePosterView: View {
     
     @State private var reflectionDistance: CGFloat
     @State private var onTap: (() -> ())?
-    @State private var image: UIImage? = nil
+    @Binding private var image: UIImage?
     @State private var blurReflection = true
     
-    init(reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
+    init(image: Binding<UIImage?>, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
         self._blurReflection = State<Bool>(initialValue: blurReflection)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
-    }
-    
-    init(image: UIImage?, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
-        self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
-        self._blurReflection = State<Bool>(initialValue: blurReflection)
-        self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
-        self._image = State<UIImage?>(initialValue: image)
+        self._image = image
     }
     
     var body: some View {
@@ -35,8 +29,6 @@ struct MoviePosterView: View {
             if image.isSymbolImage {
                 image = posterImage.withTintColor(.white)
             }
-//        } else if let id = id, let maybe = dataStore.idsAndImages[id], let posterImage = maybe {
-//            image = posterImage
         } else {
             image = UIImage(named: "moviePosterPlaceholder")
         }
@@ -68,6 +60,7 @@ struct MoviePosterView: View {
             .onTapGesture(count: 1, perform: {
                 onTap?()
             })
+            .accessibilityHidden(true)
         }
     }
 }
@@ -77,7 +70,7 @@ struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
         Color.black
             .overlay (
-                MoviePosterView(/*id: MovieInfo.Example.AQuietPlaceII.id, */image: UIImage(named: "moviePosterPlaceholder"))
+                MoviePosterView(image: .constant(UIImage(named: "moviePosterPlaceholder")))
             .padding(.top, 24)
         )
     }
