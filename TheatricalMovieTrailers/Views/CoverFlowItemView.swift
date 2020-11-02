@@ -18,9 +18,9 @@ struct CoverFlowItemView: View {
         GeometryReader { movGeo in
             ZStack {
                 CoverFlowRotatingView(envGeo: frame, content:
-                                        MoviePosterView(id: model.id, image: getImage()) {
-                                            onSelected(isCentered)
-                                        }
+                    MoviePosterView(image: getImage()) {
+                        onSelected(isCentered)
+                    }
                 )
                 VStack {
                     Spacer()

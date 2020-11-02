@@ -13,20 +13,19 @@ struct ContentView: View {
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
-        ZStack {
-            if let model = dataStore.model, dataStore.idsAndImages.count == model.count, dataStore.model.count > 0 {
-                MovieInfoOverView(model: model)
-                    .transition(.opacity)
-            }
-        }
+        MovieInfoOverView(model: $dataStore.model)
         .overlay(
-            ZStack {
+            Group {
                 if dataStore.model.count == 0 || dataStore.idsAndImages.count != dataStore.model.count {
-                    ProgressView("Loading Trailers…", value: Float(dataStore.idsAndImages.count), total: Float(max(dataStore.model.count, 1)))
-                        .frame(width: 200, height: 44)
+                    ZStack {
+                        ProgressView("Loading Trailers…", value: Float(dataStore.idsAndImages.count), total: Float(max(dataStore.model.count, 1)))
+                            .frame(width: 200, height: 44)
+                        }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.init(UIColor.systemBackground))
+                    .edgesIgnoringSafeArea(.all)
                 }
             }
-            .edgesIgnoringSafeArea(.all)
         )
         .alert(item: $dataStore.error, content: { error  -> Alert in
             error.makeAlert()

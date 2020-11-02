@@ -7,24 +7,44 @@
 
 import Combine
 import Network
-import UIKit
+import UIKit.UIImage
 
 class MovieInfoDataStore: ObservableObject {
+    static let urlScheme = "theatricals://showTrailer?id="
     static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
     static let currentTrailersSDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current.xml")!
     
     private var cancellables = Set<AnyCancellable>()
     /// Monitor network connection
     private let monitor: NWPathMonitor
-
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var windowScene: UIWindowScene?
     
     /// Movie Trailer Data
     var moviesAvailable: Bool {
         model.count > 0
     }
-    @Published private(set) var model = [MovieInfo]()
+    /// Callback that is called when the movie info is loaded, and before poster images are downloaded. Return the `MovieInfo`s for which images should be fetched.
+    var onMoviesAvailable: (([MovieInfo]?) -> ([MovieInfo]))? {
+        didSet {
+            if moviesAvailable {
+                if let imagesToFetch = onMoviesAvailable?(model) {
+                    fetchPosterImagesFor(model: imagesToFetch, completion: {
+                        self.onImagesAvailable?(imagesToFetch)
+                    })
+                }
+                onMoviesAvailable = nil
+            }
+        }
+    }
+    /// Callback that is called when the movie posters requested as return value of `onMoviesAvailable` are downloaded, or if images were already ready, all `MovieInfo`s. Use `idsAndImages` with `MovieInfo.id` as the key to get the poster image for a movie.
+    var onImagesAvailable: (([MovieInfo]) -> ())? {
+        didSet {
+            if idsAndImages.count > 0, idsAndImages.count == model.count {
+                onImagesAvailable?(model)
+                onImagesAvailable = nil
+            }
+        }
+    }
+    @Published var model = [MovieInfo]()
     /// Whether streaming trailers from the internet is available.
     @Published private(set) var streamingAvailable = false
     /// Shared UI State
@@ -133,7 +153,8 @@ class MovieInfoDataStore: ObservableObject {
             }
             let fileManager = FileManager.default
             guard let filenames = try? fileManager.contentsOfDirectory(atPath: bundledTrailersPath), filenames.count == 2 else {
-                fatalError("Expected two files in currentTrailers.bundle")
+                assertionFailure("Expected two files in currentTrailers.bundle")
+                return
             }
             
             for filename in filenames {
@@ -148,16 +169,14 @@ class MovieInfoDataStore: ObservableObject {
                     /// file exists error: files of this name already present
                     ///  that can happen when the download is done while this runs.
                     if error.localizedDescription.contains("exist") || error.localizedDescription.contains("ERR516") {
-                        /// skip this file
-                        continue
+                        return
                     } else {
                         /// unknown errors are not handled; skip file
-                        /// TODO unified error handling show the user a message about example image not loading
-                        assertionFailure("Unknown error while copying image from example bundle to documents directory!")
+                        assertionFailure("Unknown error while copying image from bundle to local directory!")
                         DispatchQueue.main.async {
                             self.error = .otherError(error: error)
                         }
-                        continue
+                        return
                     }
                 }
             }
@@ -170,7 +189,12 @@ class MovieInfoDataStore: ObservableObject {
         let parserDelegate = MovieInfoXMLParserDelegate { maybeModel in
             if let model = maybeModel {
                 self.model = model.sorted(by: SortingMode.ReleaseAscending.predicate)
-                self.fetchPosterImagesFor(model: model)
+                let modelToFetch = self.onMoviesAvailable?(model) ?? model
+                self.onMoviesAvailable = nil
+                self.fetchPosterImagesFor(model: modelToFetch) {
+                    self.onImagesAvailable?(modelToFetch)
+                    self.onImagesAvailable = nil
+                }
             }
         }
         loadTrailers(parserDelegate: parserDelegate)
@@ -254,7 +278,7 @@ class MovieInfoDataStore: ObservableObject {
     }
     
     /// Tries to load the poster image for each `MovieInfo` in `movies` from disk, or from the network if a poster image is not found on disk.
-    private func fetchPosterImagesFor(model movies: [MovieInfo]) {
+    private func fetchPosterImagesFor(model movies: [MovieInfo], completion: (() -> ())? = nil) {
         /// Tries to load an image from the passed `URL` and stores it to `idsAndImages`.
         func loadImageFrom(url: URL?, id: Int) -> UIImage? {
             if let url = url, let data = try? Data(contentsOf: url) {
@@ -301,6 +325,7 @@ class MovieInfoDataStore: ObservableObject {
                     }
                 }
             }
+            completion?()
         }
     }
     

@@ -16,7 +16,7 @@ struct MovieInfoOverView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @ObservedObject private var settings = Settings.instance
-    @State var model: [MovieInfo]
+    @Binding var model: [MovieInfo]
     @State private var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
@@ -41,7 +41,7 @@ struct MovieInfoOverView: View {
 #if DEBUG
 struct SizeClassSwitchView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieInfoOverView(model: [MovieInfo.Example.AQuietPlaceII])
+        MovieInfoOverView(model: .constant([MovieInfo.Example.AQuietPlaceII]))
     }
 }
 #endif

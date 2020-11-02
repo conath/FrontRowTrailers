@@ -20,7 +20,10 @@ struct CoverFlowScrollView: View {
     @State private var searchPresented = false
     
     @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @EnvironmentObject private var windowSceneObject: WindowSceneObject
     @ObservedObject private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    @EnvironmentObject private var viewParameters: ViewParameters
     
     // Animation state
     @State private var viewAnimationProgress: CGFloat = 0
@@ -77,6 +80,9 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     }
+                                    .onChange(of: viewParameters.showTrailerID ?? -1) { _ in
+                                        handleShowTrailer(viewParameters.showTrailerID, reader)
+                                    }
                                 }
                             }
                             .offset(x: frame.size.width * (1-viewAnimationProgress), y: 0)
@@ -88,6 +94,7 @@ struct CoverFlowScrollView: View {
                         .fullScreenCover(item: $playingTrailer) { info in
                             InlineTrailerPlayerView(url: info.trailerURL!, enterFullScreenOnAppear: true)
                                 .modifier(CustomDarkAppearance())
+                                .environmentObject(windowSceneObject)
                         }
                         
                         // back in ZStack
@@ -221,7 +228,7 @@ struct CoverFlowScrollView: View {
                     dataStore.isPlaying = true
                 }
             }
-            if let windowScene = dataStore.windowScene {
+            if let windowScene = windowSceneObject.windowScene {
                 AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
             }
         } else {
@@ -230,6 +237,22 @@ struct CoverFlowScrollView: View {
             }
         }
         dataStore.setWatchedTrailer(info.id)
+    }
+    
+    private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {
+        if let id = movieId {
+            withAnimation {
+                reader.scrollTo(id, anchor: scrollAnchor)
+            }
+            DispatchQueue.main.async {
+                if let info = model.first(where: { $0.id == id }) {
+                    withAnimation {
+                        self.centeredItem = info
+                        playTrailer(info)
+                    }
+                }
+            }
+        }
     }
 }
 

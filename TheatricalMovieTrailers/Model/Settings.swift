@@ -64,13 +64,13 @@ class Settings: ObservableObject {
         // check for version upgrade
         let lastBuild = defaults.string(forKey: .lastBuildNumber)
         if lastBuild == nil {
-            defaults.setValue(UIApplication.shared.build, forKey: .lastBuildNumber)
+            defaults.setValue(UIApplication.build, forKey: .lastBuildNumber)
             // set default values
             isCoverFlow = true
             prefersDarkAppearance = true
             firstLaunchedDate = Date()
             defaults.setValue(Date(), forKey: .firstLaunchedDate)
-        } else if let prevBuild = lastBuild, prevBuild != UIApplication.shared.build {
+        } else if let prevBuild = lastBuild, prevBuild != UIApplication.build {
             if Int(prevBuild)! < 30 {
                 firstLaunchedDate = Date()
                 defaults.setValue(firstLaunchedDate, forKey: .firstLaunchedDate)

@@ -11,6 +11,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    let viewParameters = ViewParameters()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,15 +21,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let view = ContentView()
         let dataStore = MovieInfoDataStore.shared
-        let contentView = view.environmentObject(dataStore)
+        let contentView = view.environmentObject(dataStore).environmentObject(viewParameters)
+        
+        // Was the scene opened from a URL call (e. g. widget)
+        if let urlContext = connectionOptions.urlContexts.first, urlContext.url.absoluteString.hasPrefix(MovieInfoDataStore.urlScheme) {
+            let url = urlContext.url.absoluteString
+            guard let id = Int(url.suffix(from: url.firstIndex(of: "=")!).dropFirst()) else {
+                assertionFailure("Malformed id URL parameter: expected integer")
+                return
+            }
+            viewParameters.showTrailerID = Int(id)
+        }
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
-            dataStore.windowScene = windowScene
+            let windowSceneObject = WindowSceneObject(windowScene)
+            let contentView = contentView.environmentObject(windowSceneObject)
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
+        }
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
+        // Was the scene opened from a URL call (e. g. widget)
+        if let urlContext = urlContexts.first, urlContext.url.absoluteString.hasPrefix(MovieInfoDataStore.urlScheme) {
+            let url = urlContext.url.absoluteString
+            guard let id = Int(url.suffix(from: url.firstIndex(of: "=")!).dropFirst()) else {
+                assertionFailure("Malformed id URL parameter: expected integer")
+                return
+            }
+            viewParameters.showTrailerID = id
         }
     }
 
@@ -60,6 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    
 
 }
 

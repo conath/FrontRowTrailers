@@ -9,22 +9,21 @@ import SwiftUI
 
 struct MoviePosterView: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
-    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     
-    @State private var id: Int?
     @State private var reflectionDistance: CGFloat
     @State private var onTap: (() -> ())?
     @State private var image: UIImage? = nil
+    @State private var blurReflection = true
     
-    init(id: Int? = nil, reflectionDistance: CGFloat = -1.0, onTapGesture: (() -> ())? = nil) {
-        self._id = State<Int?>(initialValue: id)
+    init(reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
+        self._blurReflection = State<Bool>(initialValue: blurReflection)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
     }
     
-    init(id: Int? = nil, image: UIImage?, reflectionDistance: CGFloat = -1.0, onTapGesture: (() -> ())? = nil) {
-        self._id = State<Int?>(initialValue: id)
+    init(image: UIImage?, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
+        self._blurReflection = State<Bool>(initialValue: blurReflection)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
         self._image = State<UIImage?>(initialValue: image)
     }
@@ -36,8 +35,8 @@ struct MoviePosterView: View {
             if image.isSymbolImage {
                 image = posterImage.withTintColor(.white)
             }
-        } else if let id = id, let maybe = dataStore.idsAndImages[id], let posterImage = maybe {
-            image = posterImage
+//        } else if let id = id, let maybe = dataStore.idsAndImages[id], let posterImage = maybe {
+//            image = posterImage
         } else {
             image = UIImage(named: "moviePosterPlaceholder")
         }
@@ -62,7 +61,7 @@ struct MoviePosterView: View {
                             .degrees(180),
                             axis: (x: 0, y: 1, z: 0)
                         )
-                        .blur(radius: 1)
+                        .blur(radius: blurReflection ? 1 : 0)
                 }
                 Spacer()
             }
@@ -78,7 +77,7 @@ struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
         Color.black
             .overlay (
-                MoviePosterView(id: MovieInfo.Example.AQuietPlaceII.id, image: UIImage(named: "moviePosterPlaceholder"))
+                MoviePosterView(/*id: MovieInfo.Example.AQuietPlaceII.id, */image: UIImage(named: "moviePosterPlaceholder"))
             .padding(.top, 24)
         )
     }

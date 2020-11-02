@@ -9,6 +9,7 @@ import Foundation
 
 struct MovieInfo: Identifiable, Hashable {
     let id: Int
+    let postDate: Date
     
     let title: String
     let posterURL: URL?
@@ -39,6 +40,7 @@ struct MovieInfo: Identifiable, Hashable {
     /// Use as placeholder
     static let Empty = MovieInfo(
         id: -1,
+        postDate: Date(),
         title: "",
         posterURL: nil,
         trailerURL: nil,
@@ -56,6 +58,7 @@ struct MovieInfo: Identifiable, Hashable {
     struct Example {
         static let AQuietPlaceII = MovieInfo(
             id: 21837,
+            postDate: Date(),
             title: "A Quiet Place Part II",
             posterURL: URL(string: "http://trailers.apple.com/trailers/paramount/a-quiet-place-part-ii/images/poster-xlarge.jpg")!,
             trailerURL: URL(string: "https://trailers.apple.com/movies/paramount/a-quiet-place-part-2/a-quiet-place-part-2-trailer-2_a720p.m4v")!,
@@ -77,9 +80,10 @@ struct MovieInfo: Identifiable, Hashable {
 
 fileprivate class MutableMovieInfo {
     enum ExpectedValue {
-        case title, posterURL, trailerURL, trailerLength, synopsis, studio, director, actors, genres, releaseDate, copyright, none
+        case title, posterURL, trailerURL, trailerLength, synopsis, studio, director, actors, genres, postDate, releaseDate, copyright, none
     }
     var id = 0
+    var postDate: Date!
     var title = ""
     var posterURLString = ""
     var trailerURLString = ""
@@ -125,16 +129,20 @@ fileprivate class MutableMovieInfo {
         case .genres:
             genres.append(value)
             return // this is made up of multiple detected strings, so keep appending
-        case .releaseDate:
+        case .postDate:
             let dateFormatter = DateFormatter()
             dateFormatter.calendar = Calendar(identifier: .gregorian)
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let date = dateFormatter.date(from: value)
             // assertions only run in debug configurations, so this will alert
-            //  developers to an API change or bug but users won't notice except
-            //  for missing release date
-            assert(date != nil, "Failed to parse Date from releaseDate string \(value)")
-            releaseDate = date
+            //  developers to an API change or bug but users won't notice
+            assert(date != nil, "Failed to parse Date from postDate string \(value)")
+            postDate = date ?? Date()
+        case .releaseDate:
+            let dateFormatter = DateFormatter()
+            dateFormatter.calendar = Calendar(identifier: .gregorian)
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            releaseDate = dateFormatter.date(from: value)
         case .copyright:
             copyright = value
         }
@@ -142,7 +150,7 @@ fileprivate class MutableMovieInfo {
     }
     
     var movieInfo: MovieInfo {
-        MovieInfo(id: id, title: title, posterURL: URL(string: posterURLString), trailerURL: URL(string: trailerURLString), trailerLength: trailerLength, synopsis: synopsis, studio: studio, director: director, actors: actors, genres: genres, releaseDate: releaseDate, copyright: copyright)
+        MovieInfo(id: id, postDate: postDate, title: title, posterURL: URL(string: posterURLString), trailerURL: URL(string: trailerURLString), trailerLength: trailerLength, synopsis: synopsis, studio: studio, director: director, actors: actors, genres: genres, releaseDate: releaseDate, copyright: copyright)
     }
 }
 
@@ -159,9 +167,11 @@ class MovieInfoXMLParserDelegate: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
         case "movieinfo":
-            // new movie entry, save previous one
-            resultMI.append(mutableMI.movieInfo)
-            mutableMI = MutableMovieInfo()
+            // new movie entry. Have prev one? Save previous one.
+            if mutableMI.postDate != nil {
+                resultMI.append(mutableMI.movieInfo)
+                mutableMI = MutableMovieInfo()
+            }
             if let idString = attributeDict["id"], let int = Int(idString) {
                 mutableMI.id = int
             } else {
@@ -173,6 +183,8 @@ class MovieInfoXMLParserDelegate: NSObject, XMLParserDelegate {
             mutableMI.expectValue(.trailerLength)
         case "studio":
             mutableMI.expectValue(.studio)
+        case "postdate":
+            mutableMI.expectValue(.postDate)
         case "releasedate":
             mutableMI.expectValue(.releaseDate)
         case "copyright":
