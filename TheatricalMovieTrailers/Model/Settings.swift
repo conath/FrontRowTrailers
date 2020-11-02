@@ -11,7 +11,6 @@ import UIKit
 fileprivate extension String {
     static let lastBuildNumber = "lastBuildNumber"
     static let autoDark = "isAutoDarkAppearance"
-    static let coverFlow = "isCoverFlow"
     static let loadHighDefinition = "loadHighDefinition"
     static let firstLaunchedDate = "firstLaunchedDate"
     static let lastReviewRequestAppVersion = "lastReviewRequestAppVersion"
@@ -29,14 +28,6 @@ class Settings: ObservableObject {
             let newValue = prefersDarkAppearance ? ValueAlwaysDark : ValueAutomaticDark
             let defaults = UserDefaults()
             defaults.setValue(newValue, forKey: .autoDark)
-            defaults.synchronize()
-        }
-    }
-    // Added in Build 22
-    @Published var isCoverFlow = true {
-        didSet {
-            let defaults = UserDefaults()
-            defaults.setValue(isCoverFlow, forKey: .coverFlow)
             defaults.synchronize()
         }
     }
@@ -66,7 +57,6 @@ class Settings: ObservableObject {
         if lastBuild == nil {
             defaults.setValue(UIApplication.build, forKey: .lastBuildNumber)
             // set default values
-            isCoverFlow = true
             prefersDarkAppearance = true
             firstLaunchedDate = Date()
             defaults.setValue(Date(), forKey: .firstLaunchedDate)
@@ -83,7 +73,6 @@ class Settings: ObservableObject {
             if isAutoDark {
                 prefersDarkAppearance = false
             }
-            isCoverFlow = defaults.bool(forKey: .coverFlow)
             /// App Store Reviews Manager metadata
             firstLaunchedDate = defaults.value(forKey: .firstLaunchedDate) as! Date
             lastReviewRequestAppVersion = defaults.string(forKey: .lastReviewRequestAppVersion)

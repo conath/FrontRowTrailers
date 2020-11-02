@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var sortingMode = SortingMode.ReleaseAscending
     
     var body: some View {
-        MovieInfoOverView(model: $dataStore.model)
+        CoverFlowScrollView(model: $dataStore.model, sortingMode: $sortingMode)
         .overlay(
             Group {
                 if dataStore.model.count == 0 || dataStore.idsAndImages.count != dataStore.model.count {
@@ -33,5 +33,8 @@ struct ContentView: View {
         .transition(.opacity)
         .modifier(CustomDarkAppearance())
         .statusBar(hidden: true)
+        .onChange(of: sortingMode) { sortingMode in
+            dataStore.model.sort(by: sortingMode.predicate)
+        }
     }
 }
