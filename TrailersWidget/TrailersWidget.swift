@@ -68,11 +68,11 @@ class Provider: IntentTimelineProvider {
                 images[info.id] = dataStore.idsAndImages[info.id]
             }
             
-            var entries: [TrailerEntry] = []
             // Generate a timeline consisting of three entries a day apart, starting from the current date.
-            let currentDate = Date()
+            var entries: [TrailerEntry] = []
+            let morning = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
             for offset in 0 ..< 3 {
-                let entryDate = Calendar.current.date(byAdding: .day, value: offset, to: currentDate)!
+                let entryDate = Calendar.current.date(byAdding: .day, value: offset, to: morning)!
                 let entry = TrailerEntry(date: entryDate, configuration: configuration, info: info[offset], image: images[info[offset].id, default: nil], dataStore: dataStore)
                 entries.append(entry)
             }
