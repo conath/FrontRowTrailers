@@ -63,10 +63,11 @@ class MovieInfoDataStore: ObservableObject {
     // MARK: File URLs
     private var localStorageDirectory: URL {
         let fileManager = FileManager.default
-        guard let url = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            fatalError("Couldn't get local storage directory (.cachesDirectory)")
+        guard let sharedContainerURL = fileManager.containerURL(
+                forSecurityApplicationGroupIdentifier: "group.cafe.chrisp.tmt") else {
+            fatalError("Couldn't get App Group shared container.")
         }
-        return url
+        return sharedContainerURL
     }
     private var localCurrentTrailersURL: URL {
         return localStorageDirectory.appendingPathComponent("currentTrailers.xml")

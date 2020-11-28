@@ -120,6 +120,8 @@
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
+		834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheatricalMovieTrailers.entitlements; sourceTree = "<group>"; };
+		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailersWidgetExtension.entitlements; sourceTree = "<group>"; };
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		8316E0D724A64AD300467F14 = {
 			isa = PBXGroup;
 			children = (
+				834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */,
 				8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */,
 				831F1B6B25499412008D24D4 /* TrailersWidget */,
 				831F1B6625499412008D24D4 /* Frameworks */,
@@ -186,6 +189,7 @@
 		8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */ = {
 			isa = PBXGroup;
 			children = (
+				834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */,
 				8316E0F124A64AD400467F14 /* Info.plist */,
 				8316E0E324A64AD300467F14 /* AppDelegate.swift */,
 				8316E0E524A64AD300467F14 /* SceneDelegate.swift */,
@@ -598,9 +602,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -624,9 +629,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -649,9 +655,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -673,9 +680,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
