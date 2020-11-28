@@ -52,7 +52,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 assertionFailure("Malformed id URL parameter: expected integer")
                 return
             }
-            viewParameters.showTrailerID = id
+            /// App needs a bit to catch up
+            DispatchQueue.main.async { [self] in
+                viewParameters.showTrailerID = id
+            }
         }
     }
 
