@@ -241,7 +241,7 @@ struct CoverFlowScrollView: View {
                 playingTrailer = info
             }
         }
-        dataStore.setWatchedTrailer(info.id)
+        dataStore.setWatchedTrailer(info)
     }
     
     private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {

@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import TelemetryClient
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
@@ -17,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let configuration = TelemetryManagerConfiguration(appID: TelemetryAppId)
+        TelemetryManager.initialize(with: configuration)
+        TelemetryManager.send("appLaunchedRegularly")
         
         NotificationCenter.default.addObserver(forName: UIScreen.didDisconnectNotification, object: nil, queue: nil) { _ in
             DispatchQueue.main.async {
