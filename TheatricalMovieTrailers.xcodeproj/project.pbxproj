@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		8316E0EA24A64AD400467F14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8316E0E924A64AD400467F14 /* Assets.xcassets */; };
 		8316E0ED24A64AD400467F14 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8316E0EC24A64AD400467F14 /* Preview Assets.xcassets */; };
 		8316E0F024A64AD400467F14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */; };
-		8316E0FA24A64B3F00467F14 /* MovieTrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0F924A64B3F00467F14 /* MovieTrailerView.swift */; };
 		8316E0FC24A64B5E00467F14 /* MovieInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E0FB24A64B5E00467F14 /* MovieInfo.swift */; };
 		8316E10224A64CD500467F14 /* ExternalTrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E10124A64CD500467F14 /* ExternalTrailerView.swift */; };
 		831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8F424ABE34A008EDC6F /* Settings.swift */; };
@@ -55,6 +54,8 @@
 		8387DA7B254CC6520014B669 /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838403482538B7B80056E50A /* MoviePosterView.swift */; };
 		83AC626D254EDDAB00197B0B /* ViewParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC626C254EDDAB00197B0B /* ViewParameters.swift */; };
 		83AC6276255018F700197B0B /* DispatchQueue+async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC6275255018F700197B0B /* DispatchQueue+async.swift */; };
+		83B53B39258A7889003ACD7D /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 83B53B38258A7889003ACD7D /* TelemetryClient */; };
+		83B53B3D258A78A3003ACD7D /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 83B53B3C258A78A3003ACD7D /* TelemetryClient */; };
 		83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
 		83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */; };
 		83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE5112537600F00E22FAE /* CoverFlowListView.swift */; };
@@ -103,7 +104,6 @@
 		8316E0EC24A64AD400467F14 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8316E0EF24A64AD400467F14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8316E0F124A64AD400467F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8316E0F924A64B3F00467F14 /* MovieTrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTrailerView.swift; sourceTree = "<group>"; };
 		8316E0FB24A64B5E00467F14 /* MovieInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieInfo.swift; sourceTree = "<group>"; };
 		8316E10124A64CD500467F14 /* ExternalTrailerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalTrailerView.swift; sourceTree = "<group>"; };
 		831CD8F424ABE34A008EDC6F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -151,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B53B39258A7889003ACD7D /* TelemetryClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				831F1B6A25499412008D24D4 /* SwiftUI.framework in Frameworks */,
+				83B53B3D258A78A3003ACD7D /* TelemetryClient in Frameworks */,
 				831F1B6825499412008D24D4 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +266,6 @@
 		8380C5A124A6713300CA1EB4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8316E0F924A64B3F00467F14 /* MovieTrailerView.swift */,
 				8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */,
 				83D5252824A661760086707E /* MovieMetaView.swift */,
 				8380C5A224A6721A00CA1EB4 /* ExternalView.swift */,
@@ -315,6 +316,9 @@
 				831F1B7525499416008D24D4 /* PBXTargetDependency */,
 			);
 			name = TheatricalMovieTrailers;
+			packageProductDependencies = (
+				83B53B38258A7889003ACD7D /* TelemetryClient */,
+			);
 			productName = TheatricalMovieTrailers;
 			productReference = 8316E0E024A64AD300467F14 /* TheatricalMovieTrailers.app */;
 			productType = "com.apple.product-type.application";
@@ -332,6 +336,9 @@
 			dependencies = (
 			);
 			name = TrailersWidgetExtension;
+			packageProductDependencies = (
+				83B53B3C258A78A3003ACD7D /* TelemetryClient */,
+			);
 			productName = TrailersWidgetExtension;
 			productReference = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -362,6 +369,9 @@
 				Base,
 			);
 			mainGroup = 8316E0D724A64AD300467F14;
+			packageReferences = (
+				83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */,
+			);
 			productRefGroup = 8316E0E124A64AD300467F14 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -418,7 +428,6 @@
 				834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */,
 				83EDFA672540C21200460EDB /* MovieSearchView.swift in Sources */,
 				831CD8F524ABE34A008EDC6F /* Settings.swift in Sources */,
-				8316E0FA24A64B3F00467F14 /* MovieTrailerView.swift in Sources */,
 				83D21174253F9CDD00EF54A3 /* SortingMode.swift in Sources */,
 				831CD8FB24ABEC36008EDC6F /* CustomDarkAppearance.swift in Sources */,
 				834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */,
@@ -660,7 +669,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -669,7 +678,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -686,7 +695,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -695,7 +704,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -735,6 +744,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppTelemetry/SwiftClient";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		83B53B38258A7889003ACD7D /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
+		83B53B3C258A78A3003ACD7D /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8316E0D824A64AD300467F14 /* Project object */;
 }
