@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import TelemetryClient
 
 class Provider: IntentTimelineProvider {
     let dataStore = MovieInfoDataStore.shared
@@ -106,7 +107,8 @@ struct TrailersWidgetEntryView : View {
     }
     
     var body: some View {
-        GeometryReader { frame in
+        sendTelemetry()
+        return GeometryReader { frame in
             ZStack {
                 if showsDetails {
                     switch family {
@@ -128,9 +130,21 @@ struct TrailersWidgetEntryView : View {
                     }
                 }
             }
-            .widgetURL(URL(string: "\(MovieInfoDataStore.urlScheme)\(entry.info.id)")!)
         }
         .foregroundColor(.white).background(Color.black)
+        .widgetURL(URL(string: "\(MovieInfoDataStore.urlScheme)\(entry.info.id)")!)
+    }
+    
+    private func sendTelemetry() {
+        var trailerScopeString: String
+        switch entry.configuration.trailerScope {
+        case .releasingSoonest :
+            trailerScopeString = "releasingSoonest"
+        default:
+            trailerScopeString = "newestAdded"
+        }
+        let data = ["trailerID":"\(entry.info.id)", "movieTitle":entry.info.title, "trailerScope":trailerScopeString]
+        TelemetryManager.send("widgetRendered", with: data)
     }
 }
 
