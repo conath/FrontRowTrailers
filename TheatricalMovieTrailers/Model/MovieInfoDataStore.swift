@@ -8,6 +8,7 @@
 import Combine
 import Network
 import UIKit.UIImage
+import TelemetryClient
 
 class MovieInfoDataStore: ObservableObject {
     static let urlScheme = "theatricals://showTrailer?id="
@@ -351,12 +352,13 @@ class MovieInfoDataStore: ObservableObject {
         return defaults.array(forKey: .watchedTrailers) as? [Int] ?? []
     }
     
-    /// Stores the `watched` dictionary in `UserDefaults`.
-    func setWatchedTrailer(_ id: Int) {
-        watched.append(id)
+    /// Stores the `watched` dictionary in `UserDefaults` and sends a Telemetry signal with
+    func setWatchedTrailer(_ model: MovieInfo) {
+        watched.append(model.id)
         let defaults = UserDefaults()
         defaults.setValue(watched, forKey: .watchedTrailers)
         defaults.synchronize()
+        TelemetryManager.send("trailerWatched", with: ["trailerID":"\(model.id)", "movieTitle":model.title, "watchedCount":"\(watched.count)"])
     }
 }
 
