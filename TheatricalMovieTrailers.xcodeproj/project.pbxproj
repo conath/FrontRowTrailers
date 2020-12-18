@@ -58,6 +58,7 @@
 		83B53B3D258A78A3003ACD7D /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 83B53B3C258A78A3003ACD7D /* TelemetryClient */; };
 		83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
 		83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */; };
+		83C814C6258CF4150028C6D6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055C2541B34A0069A8D1 /* Secrets.swift */; };
 		83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE5112537600F00E22FAE /* CoverFlowListView.swift */; };
 		83D21174253F9CDD00EF54A3 /* SortingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D21173253F9CDD00EF54A3 /* SortingMode.swift */; };
 		83D2117825405FC900EF54A3 /* InlineTrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2117725405FC900EF54A3 /* InlineTrailerPlayerView.swift */; };
@@ -460,6 +461,7 @@
 				8383E904254C60EC00F44F5E /* FramedImage.swift in Sources */,
 				831F1B6D25499412008D24D4 /* TrailersWidget.swift in Sources */,
 				831F1B892549BC86008D24D4 /* AppError.swift in Sources */,
+				83C814C6258CF4150028C6D6 /* Secrets.swift in Sources */,
 				8387DA7B254CC6520014B669 /* MoviePosterView.swift in Sources */,
 				8387DA6E254CBD720014B669 /* MoviePosterWithTitle.swift in Sources */,
 				8387DA78254CC3780014B669 /* LargeMoviePosterWithTitle.swift in Sources */,
@@ -614,7 +616,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -624,7 +626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -642,7 +644,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -652,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -669,7 +671,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -678,7 +680,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -695,7 +697,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -704,7 +706,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

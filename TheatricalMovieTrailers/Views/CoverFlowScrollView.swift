@@ -7,6 +7,7 @@
 
 import AVKit
 import SwiftUI
+import TelemetryClient
 
 struct CoverFlowScrollView: View {
     private let scrollAnchor = UnitPoint(x: 0.5, y: 1.0)
@@ -80,6 +81,7 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     }
+                                    // Widget tapped => show trailer by id
                                     .onChange(of: viewParameters.showTrailerID ?? -1) { _ in
                                         handleShowTrailer(viewParameters.showTrailerID, reader)
                                     }
@@ -255,6 +257,9 @@ struct CoverFlowScrollView: View {
                         self.centeredItem = info
                         playTrailer(info)
                     }
+                    // send telemetry
+                    let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
+                    TelemetryManager.send("widgetTapped", with: data)
                 }
             }
         }

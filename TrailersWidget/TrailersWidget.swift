@@ -136,6 +136,8 @@ struct TrailersWidgetEntryView : View {
     }
     
     private func sendTelemetry() {
+        let configuration = TelemetryManagerConfiguration(appID: TelemetryAppId)
+        TelemetryManager.initialize(with: configuration)
         var trailerScopeString: String
         switch entry.configuration.trailerScope {
         case .releasingSoonest :
