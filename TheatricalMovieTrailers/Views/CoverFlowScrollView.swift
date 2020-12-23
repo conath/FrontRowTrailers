@@ -223,17 +223,28 @@ struct CoverFlowScrollView: View {
                 }
             }
         }
+        .onChange(of: centeredItem) { centeredItem in
+            if appDelegate.isExternalScreenConnected {
+                dataStore.selectedTrailerModel = centeredItem
+            }
+        }
     }
     
     private func playTrailer(_ info: MovieInfo) {
         if appDelegate.isExternalScreenConnected {
             dataStore.isPlaying = false
-            dataStore.selectedTrailerModel = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                dataStore.selectedTrailerModel = info
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    dataStore.isPlaying = true
+            if dataStore.selectedTrailerModel != nil && dataStore.selectedTrailerModel != info {
+                withAnimation {
+                    dataStore.selectedTrailerModel = nil
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    withAnimation {
+                        dataStore.selectedTrailerModel = info
+                    }
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                dataStore.isPlaying = true
             }
             if let windowScene = windowSceneObject.windowScene {
                 AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
