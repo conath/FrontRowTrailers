@@ -181,7 +181,9 @@ struct CoverFlowScrollView: View {
                         .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in
                             if let nowPlaying = playingTrailer, isExternalScreenConnected {
                                 // screen was connected while trailer is playing, play it on external
-                                dataStore.selectedTrailerModel = nowPlaying
+                                withAnimation(.easeIn) {
+                                    dataStore.selectedTrailerModel = nowPlaying
+                                }
                                 DispatchQueue.main.async {
                                     playingTrailer = nil
                                     dataStore.isPlaying = true
@@ -225,7 +227,9 @@ struct CoverFlowScrollView: View {
         }
         .onChange(of: centeredItem) { centeredItem in
             if appDelegate.isExternalScreenConnected {
-                dataStore.selectedTrailerModel = centeredItem
+                withAnimation(.easeIn) {
+                    dataStore.selectedTrailerModel = centeredItem
+                }
             }
         }
     }
@@ -234,17 +238,17 @@ struct CoverFlowScrollView: View {
         if appDelegate.isExternalScreenConnected {
             dataStore.isPlaying = false
             if dataStore.selectedTrailerModel != nil && dataStore.selectedTrailerModel != info {
-                withAnimation {
+                withAnimation(.easeIn) {
                     dataStore.selectedTrailerModel = nil
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    withAnimation {
-                        dataStore.selectedTrailerModel = info
-                    }
-                }
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                dataStore.isPlaying = true
+            DispatchQueue.main.asyncAfter(0.05) {
+                withAnimation(.easeIn) {
+                    dataStore.selectedTrailerModel = info
+                }
+                DispatchQueue.main.asyncAfter(0.05) {
+                    dataStore.isPlaying = true
+                }
             }
             if let windowScene = windowSceneObject.windowScene {
                 AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
