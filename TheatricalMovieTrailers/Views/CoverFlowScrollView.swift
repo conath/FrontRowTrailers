@@ -257,9 +257,10 @@ struct CoverFlowScrollView: View {
                         self.centeredItem = info
                         playTrailer(info)
                     }
-                    // send telemetry
+                    /// telemetry data
                     let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
-                    TelemetryManager.send("widgetTapped", with: data)
+                    /// send without user ID to not track anyone's watching habits
+                    TelemetryManager.send("widgetTapped", for: "", with: data)
                 }
             }
         }

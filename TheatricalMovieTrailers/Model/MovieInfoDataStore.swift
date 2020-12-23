@@ -358,7 +358,8 @@ class MovieInfoDataStore: ObservableObject {
         let defaults = UserDefaults()
         defaults.setValue(watched, forKey: .watchedTrailers)
         defaults.synchronize()
-        TelemetryManager.send("trailerWatched", with: ["trailerID":"\(model.id)", "movieTitle":model.title, "watchedCount":"\(watched.count)"])
+        /// send without user ID to not track anyone's watching habits
+        TelemetryManager.send("trailerWatched", for: "", with: ["trailerID":"\(model.id)", "movieTitle":model.title, "watchedCount":"\(watched.count)"])
     }
 }
 
