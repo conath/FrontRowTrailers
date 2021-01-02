@@ -257,10 +257,11 @@ struct CoverFlowScrollView: View {
     }
     
     private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {
+        if viewAnimationProgress != 1 {
+            viewAnimationProgress = 1
+        }
         if let id = movieId {
-            withAnimation {
-                reader.scrollTo(id, anchor: scrollAnchor)
-            }
+            reader.scrollTo(id, anchor: scrollAnchor)
             DispatchQueue.main.asyncAfter(0.5) {
                 if let info = model.first(where: { $0.id == id }) {
                     withAnimation {
