@@ -80,8 +80,11 @@ private enum Direction {
 ///  the trailer is deselected and a screensaver is shown.
 struct ExternalView: View {
     @ObservedObject private var dataStore = MovieInfoDataStore.shared
+    /// Screensaver logistics
     @StateObject private var fps = FPS()
-    /// Logo starts off at (0, 0)
+    private let screensaverTimeout: TimeInterval = 5 * 60
+    @State private var timeout: Timer?
+    /// Screensaver state; Logo starts off at (0, 0)
     @State private var offset = CGPoint.zero
     @State private var direction = Direction.downRight
     
@@ -91,13 +94,20 @@ struct ExternalView: View {
                 ExternalTrailerView(model: selected, posterImage: $dataStore.posterImage)
                     .onAppear {
                         let nowSelected = selected
-                        DispatchQueue.main.asyncAfter(5 * 60) {
-                            /// five minutes later, is the same trailer still on screen?
+                        /// Recreate the screensaver timeout timer
+                        timeout?.invalidate()
+                        timeout = Timer.scheduledTimer(withTimeInterval: screensaverTimeout, repeats: false, block: { timer in
+                            /// Important: don't capture `self` as we're a struct
+                            let dataStore = MovieInfoDataStore.shared
+                            /// Some time later, is the same trailer still on screen?
+                            /// The value of `nowSelected` is captured in this closure
                             /// If it's not playing, remove it to show screensaver
                             if nowSelected == dataStore.selectedTrailerModel && !dataStore.isPlaying {
                                 dataStore.selectedTrailerModel = nil
                             }
-                        }
+                        })
+                        /// It doesn't matter if the screensaver starts after exactly five minutes
+                        timeout!.tolerance = 10
                     }
                     .transition(.opacity)
             } else {
