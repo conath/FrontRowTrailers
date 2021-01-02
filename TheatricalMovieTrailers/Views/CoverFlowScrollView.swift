@@ -50,6 +50,7 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     }, onCenteredItemChanged: { info in
+                                        guard viewAnimationProgress == 1 else { return }
                                         if let info = info, centeredItem != info {
                                             // not already centering an item, so do that now
                                             centeringItem = info
@@ -58,11 +59,11 @@ struct CoverFlowScrollView: View {
                                                     withAnimation(.easeOut) {
                                                         reader.scrollTo(info.id, anchor: scrollAnchor)
                                                     }
-                                                }
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                    if centeringItem == info {
-                                                        withAnimation(.easeIn) {
-                                                            centeredItem = info
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                        if centeringItem == info {
+                                                            withAnimation(.easeIn) {
+                                                                centeredItem = info
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -215,14 +216,8 @@ struct CoverFlowScrollView: View {
         }
         .onAppear {
             let duration: Double = 2
-            let delay: Double = 0.5
-            withAnimation(Animation.easeOut(duration: duration).delay(delay)) {
+            withAnimation(Animation.easeOut(duration: duration)) {
                 viewAnimationProgress = 1
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
-                withAnimation {
-                    self.centeredItem = self.model.first
-                }
             }
         }
         .onChange(of: centeredItem) { centeredItem in
