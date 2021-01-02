@@ -110,24 +110,28 @@ struct TrailersWidgetEntryView : View {
         sendTelemetry()
         return GeometryReader { frame in
             ZStack {
-                if showsDetails {
-                    switch family {
-                    case .systemLarge:
-                        /// large poster, title and details
-                        MoviePosterWithMetadata(info: entry.info, image: getImage(entry.info))
-                    default:
-                        /// small poster, title and details on the side
-                        MoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                if entry.configuration.showText as? Bool ?? true {
+                    if showsDetails {
+                        switch family {
+                        case .systemLarge:
+                            /// large poster, title and details
+                            MoviePosterWithMetadata(info: entry.info, image: getImage(entry.info))
+                        default:
+                            /// small poster, title and details on the side
+                            MoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                        }
+                    } else {
+                        switch family {
+                        case .systemLarge:
+                            /// large poster, title and details
+                            LargeMoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
+                        default:
+                            /// medium and small size not supported
+                            EmptyView()
+                        }
                     }
                 } else {
-                    switch family {
-                    case .systemLarge:
-                        /// large poster, title and details
-                        LargeMoviePosterWithTitle(info: entry.info, image: getImage(entry.info))
-                    default:
-                        /// medium and small size not supported
-                        EmptyView()
-                    }
+                    LargePosterReflectionWithTitle(info: entry.info, image: getImage(entry.info), showMeta: false)
                 }
             }
         }

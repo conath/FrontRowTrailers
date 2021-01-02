@@ -50,6 +50,7 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     }, onCenteredItemChanged: { info in
+                                        guard viewAnimationProgress == 1 else { return }
                                         if let info = info, centeredItem != info {
                                             // not already centering an item, so do that now
                                             centeringItem = info
@@ -58,11 +59,11 @@ struct CoverFlowScrollView: View {
                                                     withAnimation(.easeOut) {
                                                         reader.scrollTo(info.id, anchor: scrollAnchor)
                                                     }
-                                                }
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                    if centeringItem == info {
-                                                        withAnimation(.easeIn) {
-                                                            centeredItem = info
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                        if centeringItem == info {
+                                                            withAnimation(.easeIn) {
+                                                                centeredItem = info
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -181,7 +182,9 @@ struct CoverFlowScrollView: View {
                         .onChange(of: appDelegate.isExternalScreenConnected, perform: { isExternalScreenConnected in
                             if let nowPlaying = playingTrailer, isExternalScreenConnected {
                                 // screen was connected while trailer is playing, play it on external
-                                dataStore.selectedTrailerModel = nowPlaying
+                                withAnimation(.easeIn) {
+                                    dataStore.selectedTrailerModel = nowPlaying
+                                }
                                 DispatchQueue.main.async {
                                     playingTrailer = nil
                                     dataStore.isPlaying = true
@@ -213,13 +216,14 @@ struct CoverFlowScrollView: View {
         }
         .onAppear {
             let duration: Double = 2
-            let delay: Double = 0.5
-            withAnimation(Animation.easeOut(duration: duration).delay(delay)) {
+            withAnimation(Animation.easeOut(duration: duration)) {
                 viewAnimationProgress = 1
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
-                withAnimation {
-                    self.centeredItem = self.model.first
+        }
+        .onChange(of: centeredItem) { centeredItem in
+            if appDelegate.isExternalScreenConnected {
+                withAnimation(.easeIn) {
+                    dataStore.selectedTrailerModel = centeredItem
                 }
             }
         }
@@ -228,10 +232,16 @@ struct CoverFlowScrollView: View {
     private func playTrailer(_ info: MovieInfo) {
         if appDelegate.isExternalScreenConnected {
             dataStore.isPlaying = false
-            dataStore.selectedTrailerModel = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                dataStore.selectedTrailerModel = info
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            if dataStore.selectedTrailerModel != nil && dataStore.selectedTrailerModel != info {
+                withAnimation(.easeIn) {
+                    dataStore.selectedTrailerModel = nil
+                }
+            }
+            DispatchQueue.main.asyncAfter(0.05) {
+                withAnimation(.easeIn) {
+                    dataStore.selectedTrailerModel = info
+                }
+                DispatchQueue.main.asyncAfter(0.05) {
                     dataStore.isPlaying = true
                 }
             }
@@ -247,20 +257,26 @@ struct CoverFlowScrollView: View {
     }
     
     private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {
-        if let id = movieId {
-            withAnimation {
-                reader.scrollTo(id, anchor: scrollAnchor)
-            }
+        if viewAnimationProgress != 1 {
+            viewAnimationProgress = 1
+        }
+        if let id = movieId, let info = model.first(where: { $0.id == id }) {
+            reader.scrollTo(id, anchor: scrollAnchor)
+            centeredItem = info
             DispatchQueue.main.asyncAfter(0.5) {
-                if let info = model.first(where: { $0.id == id }) {
-                    withAnimation {
-                        self.centeredItem = info
-                        playTrailer(info)
-                    }
-                    // send telemetry
-                    let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
-                    TelemetryManager.send("widgetTapped", with: data)
+                /// We have to set it again because the scrollView wants to center the first trailer
+                /// so when the app starts cold from the widget, after returning from the player
+                /// the ScrollView would have scrolled back to the first item.
+                DispatchQueue.main.asyncAfter(2) {
+                    centeredItem = info
                 }
+                withAnimation {
+                    playTrailer(info)
+                }
+                /// telemetry data
+                let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
+                /// send without user ID to not track anyone's watching habits
+                TelemetryManager.send("widgetTapped", for: "", with: data)
             }
         }
     }

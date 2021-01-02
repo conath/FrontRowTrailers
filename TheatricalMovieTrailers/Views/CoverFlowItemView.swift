@@ -13,7 +13,7 @@ struct CoverFlowItemView: View {
     @State var onSelected: (Bool) -> ()
     @State var onCentered: (Bool) -> ()
     @State var isCentered = false
-    @EnvironmentObject private var dataStore: MovieInfoDataStore
+    @ObservedObject private var dataStore = MovieInfoDataStore.shared
     @State private var image: UIImage? = nil
     
     var body: some View {

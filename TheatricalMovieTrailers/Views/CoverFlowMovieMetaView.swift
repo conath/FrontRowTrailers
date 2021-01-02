@@ -45,6 +45,7 @@ struct CoverFlowMovieMetaView: View {
                     )
                 })
                 .disabled(!dataStore.streamingAvailable)
+                .hoverEffect(.lift)
                 .padding(.init(top: 0, leading: 16, bottom: 16, trailing: 16))
                 
                 Button(action: {
@@ -108,6 +109,7 @@ struct CoverFlowMovieMetaView: View {
                         )
                     })
                     .disabled(!dataStore.streamingAvailable)
+                    .hoverEffect(.lift)
                     .padding()
                     /// Share button
                     if let url = model.trailerURL {
@@ -128,6 +130,7 @@ struct CoverFlowMovieMetaView: View {
                                 RoundedRectangle(cornerRadius: 25, style: .continuous)
                             )
                         }
+                        .hoverEffect(.lift)
                         .padding()
                         .sheet(isPresented: $shareSheetPresented, content: { () -> ShareSheet in
                             let items: [Any]

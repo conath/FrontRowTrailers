@@ -56,7 +56,6 @@ struct ExternalTrailerView: View {
                 if let url = model.trailerURL {
                     let avPlayer: AVPlayer? = AVPlayer(url: url)
                     self.avPlayer = avPlayer
-                    self.avPlayer?.play()
                 }
             })
             .onChange(of: model, perform: { model in
@@ -67,6 +66,13 @@ struct ExternalTrailerView: View {
                     self.avPlayer?.play()
                 }
             })
+            .onChange(of: dataStore.isPlaying) { isPlaying in
+                if isPlaying {
+                    self.avPlayer?.play()
+                } else {
+                    self.avPlayer?.pause()
+                }
+            }
         }
     }
 }

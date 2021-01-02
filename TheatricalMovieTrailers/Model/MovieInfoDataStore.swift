@@ -46,6 +46,7 @@ class MovieInfoDataStore: ObservableObject {
         }
     }
     @Published var model = [MovieInfo]()
+    @Published var lastUpdated: Date? = nil
     /// Whether streaming trailers from the internet is available.
     @Published private(set) var streamingAvailable = false
     /// Shared UI State
@@ -97,6 +98,7 @@ class MovieInfoDataStore: ObservableObject {
             let age = lastDownloaded.distance(to: Date())
             let numberOfSecondsInThreeDays: Double = 3*24*60*60
             if age < numberOfSecondsInThreeDays {
+                lastUpdated = lastDownloaded
                 /// no need to re-download the XML
                 loadTrailersFromDisk()
                 isLoading = true
@@ -228,6 +230,7 @@ class MovieInfoDataStore: ObservableObject {
             } else if let tempUrl = url {
                 DispatchQueue.main.async {
                     streamingAvailable = true
+                    lastUpdated = Date()
                 }
                 /// Copy the downloaded file to the offline currentTrailers path
                 let fileManager = FileManager.default
@@ -262,6 +265,14 @@ class MovieInfoDataStore: ObservableObject {
             }
         }
         task.resume()
+    }
+    
+    func update() {
+        if streamingAvailable {
+            model = []
+            idsAndImages = [:]
+            downloadTrailers()
+        }
     }
     
     // MARK: - Load Movie Info from XML & URL
@@ -358,7 +369,8 @@ class MovieInfoDataStore: ObservableObject {
         let defaults = UserDefaults()
         defaults.setValue(watched, forKey: .watchedTrailers)
         defaults.synchronize()
-        TelemetryManager.send("trailerWatched", with: ["trailerID":"\(model.id)", "movieTitle":model.title, "watchedCount":"\(watched.count)"])
+        /// send without user ID to not track anyone's watching habits
+        TelemetryManager.send("trailerWatched", for: "", with: ["trailerID":"\(model.id)", "movieTitle":model.title, "watchedCount":"\(watched.count)"])
     }
 }
 
