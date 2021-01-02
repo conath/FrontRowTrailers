@@ -40,7 +40,6 @@
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */; };
-		836E1A0A259D25FB00284C44 /* TouchDownUpEventModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E1A09259D25FB00284C44 /* TouchDownUpEventModifier.swift */; };
 		837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB13F2548CE200071CB2E /* ShareSheet.swift */; };
 		837DB1432548D5E30071CB2E /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
@@ -125,7 +124,6 @@
 		834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheatricalMovieTrailers.entitlements; sourceTree = "<group>"; };
 		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailersWidgetExtension.entitlements; sourceTree = "<group>"; };
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
-		836E1A09259D25FB00284C44 /* TouchDownUpEventModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDownUpEventModifier.swift; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 				8300055C2541B34A0069A8D1 /* Secrets.swift */,
 				837DB13F2548CE200071CB2E /* ShareSheet.swift */,
 				837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */,
-				836E1A09259D25FB00284C44 /* TouchDownUpEventModifier.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -415,7 +412,6 @@
 			files = (
 				831F1B7325499416008D24D4 /* TrailersWidget.intentdefinition in Sources */,
 				838788B42539F680007CAF90 /* CoverFlowMovieMetaView.swift in Sources */,
-				836E1A0A259D25FB00284C44 /* TouchDownUpEventModifier.swift in Sources */,
 				83BD3612254363A300C4588E /* UIResponder+currentResponder.swift in Sources */,
 				83F59A45253DCAFD00EEA7A5 /* CoverFlowScrollView.swift in Sources */,
 				83D5252924A661760086707E /* MovieMetaView.swift in Sources */,
