@@ -40,6 +40,8 @@
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */; };
+		8379E84F25A0904400A1CDF2 /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
+		8379E86025A09EC100A1CDF2 /* LargePosterReflectionWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */; };
 		837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB13F2548CE200071CB2E /* ShareSheet.swift */; };
 		837DB1432548D5E30071CB2E /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
@@ -124,6 +126,7 @@
 		834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheatricalMovieTrailers.entitlements; sourceTree = "<group>"; };
 		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailersWidgetExtension.entitlements; sourceTree = "<group>"; };
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
+		8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePosterReflectionWithTitle.swift; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
@@ -231,6 +234,7 @@
 				831F1B7125499416008D24D4 /* Info.plist */,
 				8387DA6D254CBD720014B669 /* MoviePosterWithTitle.swift */,
 				8387DA77254CC3450014B669 /* LargeMoviePosterWithTitle.swift */,
+				8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */,
 				8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */,
 			);
 			path = TrailersWidget;
@@ -452,11 +456,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8379E86025A09EC100A1CDF2 /* LargePosterReflectionWithTitle.swift in Sources */,
 				831F1B862549BC72008D24D4 /* Settings.swift in Sources */,
 				831F1B942549C2D6008D24D4 /* UIApplication+version+build.swift in Sources */,
 				831F1B7225499416008D24D4 /* TrailersWidget.intentdefinition in Sources */,
 				831F1B7D25499B3D008D24D4 /* MovieInfo.swift in Sources */,
 				831F1B832549BC04008D24D4 /* MovieInfoDataStore.swift in Sources */,
+				8379E84F25A0904400A1CDF2 /* CoverFlowRotatingView.swift in Sources */,
 				8387DA72254CBD7F0014B669 /* MoviePosterWithMetadata.swift in Sources */,
 				8383E904254C60EC00F44F5E /* FramedImage.swift in Sources */,
 				831F1B6D25499412008D24D4 /* TrailersWidget.swift in Sources */,
