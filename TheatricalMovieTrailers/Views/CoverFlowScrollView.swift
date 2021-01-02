@@ -260,19 +260,23 @@ struct CoverFlowScrollView: View {
         if viewAnimationProgress != 1 {
             viewAnimationProgress = 1
         }
-        if let id = movieId {
+        if let id = movieId, let info = model.first(where: { $0.id == id }) {
             reader.scrollTo(id, anchor: scrollAnchor)
+            centeredItem = info
             DispatchQueue.main.asyncAfter(0.5) {
-                if let info = model.first(where: { $0.id == id }) {
-                    withAnimation {
-                        self.centeredItem = info
-                        playTrailer(info)
-                    }
-                    /// telemetry data
-                    let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
-                    /// send without user ID to not track anyone's watching habits
-                    TelemetryManager.send("widgetTapped", for: "", with: data)
+                /// We have to set it again because the scrollView wants to center the first trailer
+                /// so when the app starts cold from the widget, after returning from the player
+                /// the ScrollView would have scrolled back to the first item.
+                DispatchQueue.main.asyncAfter(2) {
+                    centeredItem = info
                 }
+                withAnimation {
+                    playTrailer(info)
+                }
+                /// telemetry data
+                let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
+                /// send without user ID to not track anyone's watching habits
+                TelemetryManager.send("widgetTapped", for: "", with: data)
             }
         }
     }
