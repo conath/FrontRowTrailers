@@ -26,8 +26,11 @@ struct CoverFlowScrollView: View {
     
     @EnvironmentObject private var viewParameters: ViewParameters
     
-    // Animation state
+    /// Animation state
     @State private var viewAnimationProgress: CGFloat = 0
+    
+    /// Audio Player
+    @State fileprivate var audioFeedback = AudioFeedback()
         
     var body: some View {
         GeometryReader { frame in
@@ -39,10 +42,8 @@ struct CoverFlowScrollView: View {
                                 ScrollViewReader { reader in
                                     CoverFlowListView(frame: frame, model: $model, onSelected: { (info, isCentered) in
                                         if isCentered {
-                                            // Tapped on poster that was already centered
-                                            if dataStore.streamingAvailable {
-                                                playTrailer(info)
-                                            }
+                                            /// Tapped on poster that was already centered
+                                            tryPlayTrailer(info)
                                         } else {
                                             withAnimation(.easeOut) {
                                                 centeringItem = info
@@ -52,7 +53,7 @@ struct CoverFlowScrollView: View {
                                     }, onCenteredItemChanged: { info in
                                         guard viewAnimationProgress == 1 else { return }
                                         if let info = info, centeredItem != info {
-                                            // not already centering an item, so do that now
+                                            /// not already centering an item, so do that now
                                             centeringItem = info
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                                 if centeringItem == info {
@@ -74,15 +75,14 @@ struct CoverFlowScrollView: View {
                                             }
                                         }
                                     })
-                                    // onChange doesn't do optionals D:
-                                    .onChange(of: centeredItem ?? MovieInfo.Empty) { info in
-                                        if centeredItem != nil {
+                                    .onChange(of: centeredItem) { info in
+                                        if let info = info {
                                             withAnimation(.easeOut) {
                                                 reader.scrollTo(info.id, anchor: scrollAnchor)
                                             }
                                         }
                                     }
-                                    // Widget tapped => show trailer by id
+                                    /// Widget tapped => show trailer by id
                                     .onChange(of: viewParameters.showTrailerID ?? -1) { _ in
                                         handleShowTrailer(viewParameters.showTrailerID, reader)
                                     }
@@ -165,7 +165,7 @@ struct CoverFlowScrollView: View {
                         
                         // MARK: Movie Metadata
                         CoverFlowMovieMetaView(model: centeredItem ?? MovieInfo.Empty, onPlay: { info in
-                            playTrailer(info)
+                            tryPlayTrailer(info)
                         }, onDetailsTap: { info in
                             withAnimation(.easeInOut) {
                                 vertReader.scrollTo(info.id * 1024, anchor: .bottom)
@@ -227,33 +227,48 @@ struct CoverFlowScrollView: View {
                 }
             }
         }
-    }
-    
-    private func playTrailer(_ info: MovieInfo) {
-        if appDelegate.isExternalScreenConnected {
-            dataStore.isPlaying = false
-            if dataStore.selectedTrailerModel != nil && dataStore.selectedTrailerModel != info {
-                withAnimation(.easeIn) {
-                    dataStore.selectedTrailerModel = nil
-                }
-            }
-            DispatchQueue.main.asyncAfter(0.05) {
-                withAnimation(.easeIn) {
-                    dataStore.selectedTrailerModel = info
-                }
-                DispatchQueue.main.asyncAfter(0.05) {
-                    dataStore.isPlaying = true
-                }
-            }
-            if let windowScene = windowSceneObject.windowScene {
-                AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
-            }
-        } else {
-            withAnimation {
-                playingTrailer = info
+        .onChange(of: centeringItem) { centeringItem in
+            if centeringItem != nil {
+                audioFeedback.selectionChange()
             }
         }
-        dataStore.setWatchedTrailer(info)
+        .onChange(of: playingTrailer) { nowPlaying in
+            if nowPlaying == nil {
+                audioFeedback.exit()
+            }
+        }
+    }
+    
+    private func tryPlayTrailer(_ info: MovieInfo) {
+        if dataStore.streamingAvailable {
+            audioFeedback.selection()
+            if appDelegate.isExternalScreenConnected {
+                dataStore.isPlaying = false
+                if dataStore.selectedTrailerModel != nil && dataStore.selectedTrailerModel != info {
+                    withAnimation(.easeIn) {
+                        dataStore.selectedTrailerModel = nil
+                    }
+                }
+                DispatchQueue.main.asyncAfter(0.05) {
+                    withAnimation(.easeIn) {
+                        dataStore.selectedTrailerModel = info
+                    }
+                    DispatchQueue.main.asyncAfter(0.05) {
+                        dataStore.isPlaying = true
+                    }
+                }
+                if let windowScene = windowSceneObject.windowScene {
+                    AppStoreReviewsManager.requestReviewIfAppropriate(in: windowScene)
+                }
+            } else {
+                withAnimation {
+                    playingTrailer = info
+                }
+            }
+            dataStore.setWatchedTrailer(info)
+        } else {
+            audioFeedback.limit()
+        }
     }
     
     private func handleShowTrailer(_ movieId: Int?, _ reader: ScrollViewProxy) {
@@ -271,7 +286,7 @@ struct CoverFlowScrollView: View {
                     centeredItem = info
                 }
                 withAnimation {
-                    playTrailer(info)
+                    tryPlayTrailer(info)
                 }
                 /// telemetry data
                 let data = ["trailerID":"\(info.id)", "movieTitle":info.title]
@@ -289,3 +304,42 @@ struct CoverFlowScrollView_Previews: PreviewProvider {
     }
 }
 #endif
+
+// MARK: - UI Audio Feedback
+fileprivate class AudioFeedback {
+    private let selectAudioPlayer: AVAudioPlayer?
+    private let limitAudioPlayer: AVAudioPlayer?
+    private let exitAudioPlayer: AVAudioPlayer?
+    private let selectionChangeAudioPlayer: AVAudioPlayer?
+    
+    init() {
+        selectAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Selection", withExtension: "aif")!)
+        limitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Limit", withExtension: "aif")!)
+        exitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Exit", withExtension: "aif")!)
+        selectionChangeAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "SelectionChange", withExtension: "aif")!)
+    }
+    
+    private func tryPlay(_ player:AVAudioPlayer?) {
+        if Settings.instance.playUISounds, let player = player {
+            DispatchQueue.global(qos: .userInitiated).async {
+                player.play()
+            }
+        }
+    }
+    
+    public func selection() {
+        tryPlay(selectAudioPlayer)
+    }
+    
+    public func limit() {
+        tryPlay(limitAudioPlayer)
+    }
+    
+    public func exit() {
+        tryPlay(exitAudioPlayer)
+    }
+    
+    public func selectionChange() {
+        tryPlay(selectionChangeAudioPlayer)
+    }
+}

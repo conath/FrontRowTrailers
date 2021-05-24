@@ -44,7 +44,7 @@ struct CoverFlowMovieMetaView: View {
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                     )
                 })
-                .disabled(!dataStore.streamingAvailable)
+                .foregroundColor(dataStore.streamingAvailable ? Color(.systemBlue) : Color(.systemGray))
                 .hoverEffect(.lift)
                 .padding(.init(top: 0, leading: 16, bottom: 16, trailing: 16))
                 
@@ -108,7 +108,7 @@ struct CoverFlowMovieMetaView: View {
                             RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                         )
                     })
-                    .disabled(!dataStore.streamingAvailable)
+                    .foregroundColor(dataStore.streamingAvailable ? Color(.systemBlue) : Color(.systemGray))
                     .hoverEffect(.lift)
                     .padding()
                     /// Share button

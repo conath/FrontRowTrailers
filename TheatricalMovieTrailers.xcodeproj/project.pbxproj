@@ -42,6 +42,10 @@
 		834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */; };
 		8379E84F25A0904400A1CDF2 /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		8379E86025A09EC100A1CDF2 /* LargePosterReflectionWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */; };
+		837BFE0E265C4E3400E2B86A /* Limit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0D265C4E1C00E2B86A /* Limit.aif */; };
+		837BFE0F265C4E3600E2B86A /* Selection.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0C265C4E1C00E2B86A /* Selection.aif */; };
+		837BFE12265C4EE900E2B86A /* Exit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE10265C4EE500E2B86A /* Exit.aif */; };
+		837BFE13265C4EE900E2B86A /* SelectionChange.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE11265C4EE500E2B86A /* SelectionChange.aif */; };
 		837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB13F2548CE200071CB2E /* ShareSheet.swift */; };
 		837DB1432548D5E30071CB2E /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
@@ -127,6 +131,10 @@
 		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailersWidgetExtension.entitlements; sourceTree = "<group>"; };
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
 		8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePosterReflectionWithTitle.swift; sourceTree = "<group>"; };
+		837BFE0C265C4E1C00E2B86A /* Selection.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Selection.aif; sourceTree = "<group>"; };
+		837BFE0D265C4E1C00E2B86A /* Limit.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Limit.aif; sourceTree = "<group>"; };
+		837BFE10265C4EE500E2B86A /* Exit.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Exit.aif; sourceTree = "<group>"; };
+		837BFE11265C4EE500E2B86A /* SelectionChange.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = SelectionChange.aif; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
@@ -240,9 +248,21 @@
 			path = TrailersWidget;
 			sourceTree = "<group>";
 		};
+		837BFE0B265C4E1500E2B86A /* Audio Files */ = {
+			isa = PBXGroup;
+			children = (
+				837BFE10265C4EE500E2B86A /* Exit.aif */,
+				837BFE11265C4EE500E2B86A /* SelectionChange.aif */,
+				837BFE0C265C4E1C00E2B86A /* Selection.aif */,
+				837BFE0D265C4E1C00E2B86A /* Limit.aif */,
+			);
+			path = "Audio Files";
+			sourceTree = "<group>";
+		};
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				837BFE0B265C4E1500E2B86A /* Audio Files */,
 				83AC6270255018CE00197B0B /* API Extensions */,
 				831F1B5D2549792A008D24D4 /* currentTrailers.bundle */,
 				8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */,
@@ -396,6 +416,10 @@
 				8316E0ED24A64AD400467F14 /* Preview Assets.xcassets in Resources */,
 				8316E0EA24A64AD400467F14 /* Assets.xcassets in Resources */,
 				831F1B5E2549792A008D24D4 /* currentTrailers.bundle in Resources */,
+				837BFE0E265C4E3400E2B86A /* Limit.aif in Resources */,
+				837BFE13265C4EE900E2B86A /* SelectionChange.aif in Resources */,
+				837BFE0F265C4E3600E2B86A /* Selection.aif in Resources */,
+				837BFE12265C4EE900E2B86A /* Exit.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,7 +646,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -632,7 +656,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -650,7 +674,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheatricalMovieTrailers/TheatricalMovieTrailers.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"TheatricalMovieTrailers/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_PREVIEWS = YES;
@@ -660,7 +684,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -677,7 +701,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -686,7 +710,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -703,7 +727,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				INFOPLIST_FILE = TrailersWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -712,7 +736,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.TrailersWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

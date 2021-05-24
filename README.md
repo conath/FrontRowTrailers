@@ -47,6 +47,7 @@ This app does not collect any personally identifiable information. See [Privacy]
 See [License](LICENSE) for details about the source code license.
 
 Two XML files from iTunes Movie Trailers are included with the project for reference and educational purposes. The [License](LICENSE) does not cover these XML files.
+Four AIFF files from [Front Row](https://en.wikipedia.org/wiki/Front_Row_(software)) are included with the project. These files are also not covered by the [License](LICENSE).
 
-The Apple Logo, AirPlay, iOS, and iTunes are trademarks of Apple Inc., registered in the U.S. and other countries.  
+The Apple Logo, AirPlay, iOS, iTunes, and Front Row are trademarks of Apple Inc., registered in the U.S. and other countries.  
 FRIENDSGIVING is © 2020 SABAN FILMS.

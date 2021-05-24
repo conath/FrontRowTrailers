@@ -14,6 +14,7 @@ fileprivate extension String {
     static let loadHighDefinition = "loadHighDefinition"
     static let firstLaunchedDate = "firstLaunchedDate"
     static let lastReviewRequestAppVersion = "lastReviewRequestAppVersion"
+    static let playUISounds = "playUISounds"
 }
 
 class Settings: ObservableObject {
@@ -53,6 +54,15 @@ class Settings: ObservableObject {
             defaults.synchronize()
         }
     }
+    /// Added in Build 40
+    /// Whether to play FrontRow-inspired UI sounds
+    @Published var playUISounds = true {
+        didSet {
+            let defaults = Self.userDefaults
+            defaults.setValue(playUISounds, forKey: .playUISounds)
+            defaults.synchronize()
+        }
+    }
     
     private init() {
         let defaults = Self.userDefaults
@@ -60,7 +70,6 @@ class Settings: ObservableObject {
         let lastBuild = defaults.string(forKey: .lastBuildNumber)
         if lastBuild == nil {
             let oldDefaults = UserDefaults()
-            /// If last build is 31, that used non-specific UserDefaults suite. Must migrate!
             let oldBuild = oldDefaults.string(forKey: .lastBuildNumber)
             if let old = oldBuild, let oldNumber = Int(old) {
                 if oldNumber < 30 {
@@ -70,6 +79,7 @@ class Settings: ObservableObject {
                     firstLaunchedDate = oldDefaults.value(forKey: .firstLaunchedDate) as! Date
                 }
             }
+            /// If last build is older than 30, that used non-specific UserDefaults suite. Must migrate!
             if oldDefaults.string(forKey: .lastBuildNumber) == "31" {
                 /// Migrate settings to new defaults suite
                 let isAutoDark = oldDefaults.integer(forKey: .autoDark) == ValueAutomaticDark
@@ -91,8 +101,13 @@ class Settings: ObservableObject {
                 defaults.setValue(Date(), forKey: .firstLaunchedDate)
             }
         } else if let prevBuild = lastBuild, prevBuild != UIApplication.build {
+            let prevBuild = Int(prevBuild)!
             /// Version upgrade happened
-            /// There are no changes yet in the new settings.
+            /// Upgrade from older to 40
+            if prevBuild < 40 {
+                /// Added playUISounds key; default value should be true but it's false for a boolean
+                defaults.setValue(true, forKey: .playUISounds)
+            }
             defaults.setValue(UIApplication.build, forKey: .lastBuildNumber)
         }
         /// Load settings
@@ -103,5 +118,7 @@ class Settings: ObservableObject {
         /// App Store Reviews Manager metadata
         firstLaunchedDate = defaults.value(forKey: .firstLaunchedDate) as! Date
         lastReviewRequestAppVersion = defaults.string(forKey: .lastReviewRequestAppVersion)
+        /// UI Sounds
+        playUISounds = defaults.bool(forKey: .playUISounds)
     }
 }

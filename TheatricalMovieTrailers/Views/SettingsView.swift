@@ -25,6 +25,16 @@ struct SettingsView: View {
                 }
                 Spacer().frame(height: 22)
                 
+                Toggle("Interaction sounds", isOn: $settings.playUISounds)
+                if settings.playUISounds {
+                    Text("Subtle sounds will play for some interactions.")
+                        .font(.subheadline)
+                } else {
+                    Text("No sounds will be played for any interactions.")
+                        .font(.subheadline)
+                }
+                Spacer().frame(height: 22)
+                
                 if dataStore.moviesAvailable {
                     Button("Update list of Trailers") {
                         dataStore.update()

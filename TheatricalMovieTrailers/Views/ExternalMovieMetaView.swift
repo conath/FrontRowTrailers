@@ -29,8 +29,6 @@ struct ExternalMovieMetaView: View {
                     }
                     .frame(width: metaWidth)
                     
-                    //Divider()
-                    
                     Text(model.synopsis)
                         .lineLimit(6)
                         .font(.system(size: 25))
