@@ -58,7 +58,7 @@ struct CoverFlowItemView: View {
                     }
                 }
             }
-            .onChange(of: dataStore.imagesAvailable, perform: { _ in
+            .onChange(of: dataStore.idsAndImages, perform: { _ in
                 DispatchQueue.main.async {
                     self.image = dataStore.idsAndImages[model.id, default: nil]
                 }
