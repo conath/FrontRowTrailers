@@ -26,9 +26,6 @@ struct MoviePosterView: View {
         var image: UIImage!
         if let posterImage = self.image {
             image = posterImage
-            if image.isSymbolImage {
-                image = posterImage.withTintColor(.white)
-            }
         } else {
             image = UIImage(named: "moviePosterPlaceholder")
         }

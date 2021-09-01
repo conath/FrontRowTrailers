@@ -52,9 +52,7 @@ class MovieInfoDataStore: ObservableObject {
     /// Shared UI State
     @Published var error: AppError? = nil
     @Published var idsAndImages = [Int: UIImage?]()
-    var imagesAvailable: Bool {
-        model.count == idsAndImages.count
-    }
+    
     @Published private(set) var watched: [Int]
     @Published var selectedTrailerModel: MovieInfo?
     @Published var posterImage: UIImage?
