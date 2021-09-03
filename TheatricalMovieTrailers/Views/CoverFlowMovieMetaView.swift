@@ -77,7 +77,6 @@ struct CoverFlowMovieMetaView: View {
                         .lineLimit(.max)
                         .font(.body)
                         .padding([.leading, .trailing])
-                        .accessibility(label: Text("Synopsis"))
                 }
                 .frame(minHeight: 100, maxHeight: geo.size.height * 0.5)
                 
