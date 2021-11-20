@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8316E0DF24A64AD300467F14"
-               BuildableName = "TheatricalMovieTrailers.app"
-               BlueprintName = "TheatricalMovieTrailers"
+               BuildableName = "TMT iOS.app"
+               BlueprintName = "TMT iOS"
                ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -72,8 +72,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8316E0DF24A64AD300467F14"
-            BuildableName = "TheatricalMovieTrailers.app"
-            BlueprintName = "TheatricalMovieTrailers"
+            BuildableName = "TMT iOS.app"
+            BlueprintName = "TMT iOS"
             ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -101,14 +101,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
       launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8316E0DF24A64AD300467F14"
-            BuildableName = "TheatricalMovieTrailers.app"
-            BlueprintName = "TheatricalMovieTrailers"
+            BuildableName = "TMT iOS.app"
+            BlueprintName = "TMT iOS"
             ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
