@@ -341,7 +341,7 @@ class MovieInfoDataStore: ObservableObject {
         func tryDownloadImage(for movieInfo: MovieInfo, localURL: URL) {
             if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
                let bits = image.representations.first as? NSBitmapImageRep,
-               let data = bits.representation(using: .jpeg, properties: [:]) {
+               let data = bits.representation(using: .jpeg, properties: [.compressionFactor:0.8]) {
                 do {
                     try data.write(to: localURL)
                 } catch {
