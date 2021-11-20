@@ -128,7 +128,7 @@
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
 		834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheatricalMovieTrailers.entitlements; sourceTree = "<group>"; };
-		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailersWidgetExtension.entitlements; sourceTree = "<group>"; };
+		834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TrailersWidgetExtension.entitlements; path = TrailersWidget/TrailersWidgetExtension.entitlements; sourceTree = SOURCE_ROOT; };
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
 		8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePosterReflectionWithTitle.swift; sourceTree = "<group>"; };
 		837BFE0C265C4E1C00E2B86A /* Selection.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Selection.aif; sourceTree = "<group>"; };
@@ -183,7 +183,6 @@
 		8316E0D724A64AD300467F14 = {
 			isa = PBXGroup;
 			children = (
-				834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */,
 				8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */,
 				831F1B6B25499412008D24D4 /* TrailersWidget */,
 				831F1B6625499412008D24D4 /* Frameworks */,
@@ -236,6 +235,7 @@
 		831F1B6B25499412008D24D4 /* TrailersWidget */ = {
 			isa = PBXGroup;
 			children = (
+				834FF5BC2572A43F00A4AF39 /* TrailersWidgetExtension.entitlements */,
 				831F1B6C25499412008D24D4 /* TrailersWidget.swift */,
 				831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */,
 				831F1B6F25499416008D24D4 /* Assets.xcassets */,
@@ -698,7 +698,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrailersWidget/TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 41;
@@ -724,7 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = TrailersWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrailersWidget/TrailersWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 41;
