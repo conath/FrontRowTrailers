@@ -102,6 +102,17 @@ struct ContentView: View {
             withAnimation {
                 loading = !moviesAvailable
             }
+            if moviesAvailable {
+                dataStore.model.sort(by: sortingMode.predicate)
+                DispatchQueue.main.asyncAfter(0.2) {
+                    if let first = dataStore.model.first {
+                        withAnimation {
+                            dataStore.selectedTrailerModel = first
+                            fadingInImage = imageForMovie(first)
+                        }
+                    }
+                }
+            }
         })
     }
     

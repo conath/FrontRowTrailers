@@ -27,8 +27,8 @@ struct MovieTrailerListView: View {
     
     var body: some View {
         ScrollViewReader { scroller in
-                VStack(alignment: .leading) {
-                    ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading) {
+                ScrollView(.vertical, showsIndicators: false) {
                     /// List of movie titles
                     ForEach($dataStore.model) { $movieInfo in
                         GeometryReader { geo in
@@ -64,6 +64,8 @@ struct MovieTrailerListView: View {
                     SelectionIndicator(frame: frame)
                         .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - 3)
                 }
+                /// have to reference sortingMode somehow, else the view won't update
+                .background(sortingMode.rawValue.isEmpty ? EmptyView() : EmptyView())
             }
         }
         .background(KeyEventHandling(onUpArrow: {
