@@ -10,7 +10,15 @@ import SwiftUI
 import TelemetryClient
 
 struct CoverFlowScrollView: View {
-    private let scrollAnchor = UnitPoint(x: 0.5, y: 1.0)
+    private var scrollAnchor: UnitPoint {
+        get {
+            if #available(iOS 15, *) {
+                return UnitPoint(x: 1.5, y: 2.0)
+            } else {
+                return UnitPoint(x: 0.5, y: 1.0)
+            }
+        }
+    }
     
     @Binding var model: [MovieInfo]
     @Binding var sortingMode: SortingMode
