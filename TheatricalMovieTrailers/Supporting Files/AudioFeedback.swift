@@ -18,9 +18,9 @@ class AudioFeedback {
         limitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Limit", withExtension: "aif")!)
         exitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Exit", withExtension: "aif")!)
         selectionChangeAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "SelectionChange", withExtension: "aif")!)
-        #if os(iOS)
+#if os(iOS)
         setAudioPriority(playingTrailer: false)
-        #endif
+#endif
     }
     
     private func tryPlay(_ player:AVAudioPlayer?) {
@@ -49,8 +49,9 @@ class AudioFeedback {
         tryPlay(selectionChangeAudioPlayer)
     }
     
-    @available(iOS 14, *)
+#if os(iOS)
     public func setAudioPriority(playingTrailer: Bool) {
         try? AVAudioSession.sharedInstance().setCategory(playingTrailer ? .playback : .ambient)
     }
+#endif
 }
