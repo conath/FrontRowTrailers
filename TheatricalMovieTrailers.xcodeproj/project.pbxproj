@@ -40,6 +40,9 @@
 		837BFE13265C4EE900E2B86A /* SelectionChange.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE11265C4EE500E2B86A /* SelectionChange.aif */; };
 		837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB13F2548CE200071CB2E /* ShareSheet.swift */; };
 		837DB1432548D5E30071CB2E /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */; };
+		837E13E12767FD5C004B564B /* MovieTrailerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E02767FD5C004B564B /* MovieTrailerListView.swift */; };
+		837E13E4276800A5004B564B /* SelectionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E3276800A5004B564B /* SelectionIndicator.swift */; };
+		837E13E727680374004B564B /* KeyEventHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E627680374004B564B /* KeyEventHandling.swift */; };
 		837E13EB2768185F004B564B /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E92768185F004B564B /* AudioFeedback.swift */; };
 		837E13EC276818A2004B564B /* SelectionChange.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE11265C4EE500E2B86A /* SelectionChange.aif */; };
 		837E13ED276818A2004B564B /* Selection.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0C265C4E1C00E2B86A /* Selection.aif */; };
@@ -153,6 +156,9 @@
 		837BFE11265C4EE500E2B86A /* SelectionChange.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = SelectionChange.aif; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
+		837E13E02767FD5C004B564B /* MovieTrailerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTrailerListView.swift; sourceTree = "<group>"; };
+		837E13E3276800A5004B564B /* SelectionIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionIndicator.swift; sourceTree = "<group>"; };
+		837E13E627680374004B564B /* KeyEventHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyEventHandling.swift; sourceTree = "<group>"; };
 		837E13E92768185F004B564B /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
@@ -297,6 +303,23 @@
 			path = "Audio Files";
 			sourceTree = "<group>";
 		};
+		837E13E22767FD69004B564B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				837E13E02767FD5C004B564B /* MovieTrailerListView.swift */,
+				837E13E3276800A5004B564B /* SelectionIndicator.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		837E13E527680356004B564B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				837E13E627680374004B564B /* KeyEventHandling.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +390,8 @@
 			children = (
 				83BAA7AA274872640064825F /* TMT_MacApp.swift */,
 				83BAA7AC274872640064825F /* ContentView.swift */,
+				837E13E22767FD69004B564B /* Views */,
+				837E13E527680356004B564B /* Utilities */,
 				83FA29FC2748905800445816 /* Settings.swift */,
 				83BAA7AE274872650064825F /* Assets.xcassets */,
 				83BAA7B3274872650064825F /* TMT_Mac.entitlements */,
@@ -607,11 +632,14 @@
 				83FA2A002748930100445816 /* CustomDarkAppearance.swift in Sources */,
 				83BAA7AB274872640064825F /* TMT_MacApp.swift in Sources */,
 				83FA29FB27488F3600445816 /* AppError.swift in Sources */,
+				837E13E727680374004B564B /* KeyEventHandling.swift in Sources */,
 				83FA29F7274889D900445816 /* MovieInfo.swift in Sources */,
 				83FA29FD2748905800445816 /* Settings.swift in Sources */,
 				83FA2A012748933F00445816 /* DispatchQueue+async.swift in Sources */,
+				837E13E12767FD5C004B564B /* MovieTrailerListView.swift in Sources */,
 				83FA29FA27488F2700445816 /* MovieInfoDataStore.swift in Sources */,
 				83FA29F6274889D900445816 /* SortingMode.swift in Sources */,
+				837E13E4276800A5004B564B /* SelectionIndicator.swift in Sources */,
 				83FA29FF2748909B00445816 /* NSApplication+version+build.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
