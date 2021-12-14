@@ -235,12 +235,14 @@ struct CoverFlowScrollView: View {
         .onChange(of: playingTrailer) { nowPlaying in
             if nowPlaying == nil {
                 audioFeedback.exit()
+                audioFeedback.setAudioPriority(playingTrailer: false)
             }
         }
     }
     
     private func tryPlayTrailer(_ info: MovieInfo) {
         if dataStore.streamingAvailable {
+            audioFeedback.setAudioPriority(playingTrailer: true)
             audioFeedback.selection()
             if appDelegate.isExternalScreenConnected {
                 dataStore.isPlaying = false
@@ -317,6 +319,9 @@ fileprivate class AudioFeedback {
         limitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Limit", withExtension: "aif")!)
         exitAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Exit", withExtension: "aif")!)
         selectionChangeAudioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "SelectionChange", withExtension: "aif")!)
+        #if os(iOS)
+        setAudioPriority(playingTrailer: false)
+        #endif
     }
     
     private func tryPlay(_ player:AVAudioPlayer?) {
@@ -341,5 +346,10 @@ fileprivate class AudioFeedback {
     
     public func selectionChange() {
         tryPlay(selectionChangeAudioPlayer)
+    }
+    
+    @available(iOS 14, *)
+    public func setAudioPriority(playingTrailer: Bool) {
+        try? AVAudioSession.sharedInstance().setCategory(playingTrailer ? .playback : .ambient)
     }
 }
