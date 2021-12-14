@@ -40,6 +40,12 @@
 		837BFE13265C4EE900E2B86A /* SelectionChange.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE11265C4EE500E2B86A /* SelectionChange.aif */; };
 		837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB13F2548CE200071CB2E /* ShareSheet.swift */; };
 		837DB1432548D5E30071CB2E /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */; };
+		837E13EB2768185F004B564B /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E92768185F004B564B /* AudioFeedback.swift */; };
+		837E13EC276818A2004B564B /* SelectionChange.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE11265C4EE500E2B86A /* SelectionChange.aif */; };
+		837E13ED276818A2004B564B /* Selection.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0C265C4E1C00E2B86A /* Selection.aif */; };
+		837E13EE276818A2004B564B /* Limit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0D265C4E1C00E2B86A /* Limit.aif */; };
+		837E13EF276818A2004B564B /* Exit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE10265C4EE500E2B86A /* Exit.aif */; };
+		837E13F027681F6B004B564B /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E13E92768185F004B564B /* AudioFeedback.swift */; };
 		8380C59C24A665B000CA1EB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		8380C5A324A6721A00CA1EB4 /* ExternalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C5A224A6721A00CA1EB4 /* ExternalView.swift */; };
 		8383E8F1254C581200F44F5E /* WindowSceneObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383E8F0254C581200F44F5E /* WindowSceneObject.swift */; };
@@ -147,6 +153,7 @@
 		837BFE11265C4EE500E2B86A /* SelectionChange.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = SelectionChange.aif; sourceTree = "<group>"; };
 		837DB13F2548CE200071CB2E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
+		837E13E92768185F004B564B /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
 		8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMetaView.swift; sourceTree = "<group>"; };
 		8380C5A224A6721A00CA1EB4 /* ExternalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalView.swift; sourceTree = "<group>"; };
 		8383E8F0254C581200F44F5E /* WindowSceneObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSceneObject.swift; sourceTree = "<group>"; };
@@ -301,6 +308,7 @@
 				8300055C2541B34A0069A8D1 /* Secrets.swift */,
 				837DB13F2548CE200071CB2E /* ShareSheet.swift */,
 				837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */,
+				837E13E92768185F004B564B /* AudioFeedback.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -513,7 +521,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				83FA29E2274887CF00445816 /* Assets.xcassets in Resources */,
+				837E13ED276818A2004B564B /* Selection.aif in Resources */,
+				837E13EF276818A2004B564B /* Exit.aif in Resources */,
+				837E13EC276818A2004B564B /* SelectionChange.aif in Resources */,
 				83BAA7B2274872650064825F /* Preview Assets.xcassets in Resources */,
+				837E13EE276818A2004B564B /* Limit.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +549,7 @@
 				837DB1402548CE200071CB2E /* ShareSheet.swift in Sources */,
 				83CBE5122537600F00E22FAE /* CoverFlowListView.swift in Sources */,
 				83BAC28E2538CC56004D59BC /* FramedImage.swift in Sources */,
+				837E13F027681F6B004B564B /* AudioFeedback.swift in Sources */,
 				8300055D2541B34A0069A8D1 /* Secrets.swift in Sources */,
 				833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */,
 				8316E0E624A64AD300467F14 /* SceneDelegate.swift in Sources */,
@@ -590,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BAA7AD274872640064825F /* ContentView.swift in Sources */,
+				837E13EB2768185F004B564B /* AudioFeedback.swift in Sources */,
 				83FA2A002748930100445816 /* CustomDarkAppearance.swift in Sources */,
 				83BAA7AB274872640064825F /* TMT_MacApp.swift in Sources */,
 				83FA29FB27488F3600445816 /* AppError.swift in Sources */,
