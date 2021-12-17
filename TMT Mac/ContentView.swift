@@ -12,9 +12,12 @@ struct ContentView: View {
     @EnvironmentObject var dataStore: MovieInfoDataStore
     @State var sortingMode = SortingMode.ReleaseAscending
     @State private var loading = false
+    @State private var fadeInOut = true
     
     @State private var fadingOutImage: NSImage?
     @State private var fadingInImage: NSImage?
+    
+    let fadeDuration = 1.0
     
     static let audioFeedback = AudioFeedback()
     
@@ -63,7 +66,14 @@ struct ContentView: View {
                 .frame(width: 0.5*frame.size.width)
                 .frame(maxHeight: .infinity)
                 /// Movie titles and selection overlay
-                MovieTrailerListView(sortingMode: $sortingMode, fadingOutImage: $fadingOutImage, fadingInImage: $fadingInImage, frame: frame)
+                MovieTrailerListView(sortingMode: $sortingMode, fadingOutImage: $fadingOutImage, fadingInImage: $fadingInImage, onQuit: {
+                    withAnimation(.easeIn(duration: fadeDuration)) {
+                        self.fadeInOut = true
+                    }
+                    DispatchQueue.main.asyncAfter(fadeDuration) {
+                        NSApplication.shared.terminate(self)
+                    }
+                }, frame: frame)
             }
         }
         /// loading overlay
@@ -76,6 +86,12 @@ struct ContentView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.init(NSColor.windowBackgroundColor))
+                }
+                if fadeInOut {
+                    ZStack {}
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black)
+                    .transition(.opacity)
                 }
             }
         )
@@ -101,6 +117,10 @@ struct ContentView: View {
         .onChange(of: dataStore.moviesAvailable, perform: { moviesAvailable in
             withAnimation {
                 loading = !moviesAvailable
+            }
+            
+            withAnimation(.easeIn(duration: fadeDuration)) {
+                self.fadeInOut = false
             }
             if moviesAvailable {
                 dataStore.model.sort(by: sortingMode.predicate)

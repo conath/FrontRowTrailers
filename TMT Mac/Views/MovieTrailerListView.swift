@@ -16,6 +16,7 @@ struct MovieTrailerListView: View {
     @Binding var fadingInImage: NSImage?
     
     @State var selectedY: CGFloat?
+    @State var onQuit: (() -> ())?
     
     private var audioFeedback: AudioFeedback {
         get {
@@ -88,7 +89,7 @@ struct MovieTrailerListView: View {
                 let nextMovieInfo = dataStore.model[index]
                 updateSelectedMovie(newSelection: nextMovieInfo)
             }
-        }))
+        }, onQuit: onQuit))
     }
     
     private func updateSelectedMovie(newSelection: MovieInfo) {

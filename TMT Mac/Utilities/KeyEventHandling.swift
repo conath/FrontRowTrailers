@@ -12,38 +12,54 @@ import SwiftUI
 struct KeyEventHandling: NSViewRepresentable {
     var onUpArrow: (() -> ())? = nil
     var onDownArrow: (() -> ())? = nil
+    var onQuit: (() -> ())? = nil
     
     class Coordinator: NSObject {
         var parent: KeyEventHandling
         
         init(_ parent: KeyEventHandling) {
             self.parent = parent
+            super.init()
+            
+            var localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { event in
+                if !self.handleKeyDown(with: event) {
+                    return event
+                } else {
+                    return nil
+                }
+            }
         }
-    }
-    
-    class KeyView: NSView {
-        var onUpArrow: (() -> ())? = nil
-        var onDownArrow: (() -> ())? = nil
         
-        override var acceptsFirstResponder: Bool { true }
-        override func keyDown(with event: NSEvent) {
+        
+        // TODO: Add Esc. button
+        
+        func handleKeyDown(with event: NSEvent) -> Bool {
             let noModifier: NSEvent.ModifierFlags = NSEvent.ModifierFlags(rawValue: 10486016)
             if event.modifierFlags == noModifier {
                 switch Int(event.keyCode) {
                 case kVK_UpArrow:
-                    onUpArrow?()
+                    parent.onUpArrow?()
                     break
                 case kVK_DownArrow:
-                    onDownArrow?()
+                    parent.onDownArrow?()
                     break
                 default:
-                    super.keyDown(with: event)
+                    return false
                 }
+                return true
+            } else
+            /// `cmd-q` ?
+            if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == NSEvent.ModifierFlags.command.rawValue &&
+                        Int(event.keyCode) == kVK_ANSI_Q {
+                parent.onQuit?()
+                return true
             } else {
-                super.keyDown(with: event)
+                return false
             }
         }
     }
+    
+    class KeyView: NSView {}
 
     func makeNSView(context: Context) -> KeyView {
         let view = KeyView()
@@ -61,8 +77,6 @@ struct KeyEventHandling: NSViewRepresentable {
     func updateNSView(_ nsView: KeyView, context: Context) {
         nsView.window?.makeFirstResponder(nsView)
         context.coordinator.parent = self
-        nsView.onUpArrow = context.coordinator.parent.onUpArrow
-        nsView.onDownArrow = context.coordinator.parent.onDownArrow
     }
 }
 
