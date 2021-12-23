@@ -16,20 +16,29 @@ struct KeyEventHandling: NSViewRepresentable {
     
     class Coordinator: NSObject {
         var parent: KeyEventHandling
+        var keyHandler: Any? = nil
         
         init(_ parent: KeyEventHandling) {
             self.parent = parent
             super.init()
             
-            var localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { event in
-                if !self.handleKeyDown(with: event) {
-                    return event
-                } else {
+            keyHandler = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { event in
+                if self.handleKeyDown(with: event) {
+                    /// we handled it, don't send it to the system
                     return nil
+                } else {
+                    /// not handled, send back to event system
+                    return event
                 }
             }
         }
         
+        deinit {
+            if let keyHandler = keyHandler {
+                NSEvent.removeMonitor(keyHandler)
+            }
+            keyHandler = nil
+        }
         
         // TODO: Add Esc. button
         
