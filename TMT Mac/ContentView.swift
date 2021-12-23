@@ -37,12 +37,9 @@ struct ContentView: View {
         GeometryReader { frame in
             HStack {
                 /// Movie poster image views with fade out and in transition
-                ZStack {
+                VStack {
                     if fadingOutImage != nil {
-                        Image(nsImage: fadingOutImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: frame.size.width * 0.3)
+                        MoviePosterView(image: fadingOutImage)
                             .transition(.asymmetric(insertion: .identity, removal: .opacity))
                             .onAppear {
                                 withAnimation {
@@ -56,15 +53,13 @@ struct ContentView: View {
                             }
                     }
                     if fadingInImage != nil {
-                        Image(nsImage: fadingInImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: frame.size.width * 0.3)
+                        MoviePosterView(image: fadingInImage)
                             .transition(.asymmetric(insertion: .opacity, removal: .identity))
                     }
                 }
                 .frame(width: 0.5*frame.size.width)
                 .frame(maxHeight: .infinity)
+                .offset(x: 0, y: frame.size.height * 0.15)
                 /// Movie titles and selection overlay
                 MovieTrailerListView(sortingMode: $sortingMode, fadingOutImage: $fadingOutImage, fadingInImage: $fadingInImage, onQuit: {
                     withAnimation(.easeIn(duration: fadeDuration)) {
