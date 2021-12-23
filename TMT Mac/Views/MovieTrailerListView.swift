@@ -17,6 +17,9 @@ struct MovieTrailerListView: View {
     
     @State var selectedY: CGFloat?
     @State var onQuit: (() -> ())?
+    @State private var scrolling = false
+    
+    private let scrollAnimationDuration = 0.4
     
     private var audioFeedback: AudioFeedback {
         get {
@@ -49,11 +52,20 @@ struct MovieTrailerListView: View {
                                 .onChange(of: dataStore.selectedTrailerModel) { selected in
                                     if selected == movieInfo {
                                         audioFeedback.selectionChange()
-                                        withAnimation(.easeOut(duration: 0.5)) {
+                                        withAnimation(.easeOut(duration: scrollAnimationDuration)) {
+                                            scroller.scrollTo(movieInfo.id, anchor: .center)
+                                            /// in this animation block we don't actually get the final midY (for when it finishes scrolling),
+                                            /// which we would need. But we need to set the selectedY here to cause another view update
                                             selectedY = geo.frame(in: .global).midY
                                         }
-                                        withAnimation(.easeInOut(duration: 0.5)) {
-                                            scroller.scrollTo(movieInfo.id, anchor: .center)
+                                    }
+                                }
+                                /// the ScrollView animates and updates the frame of the item many times
+                                .onChange(of: geo.frame(in: .global).midY) { y in
+                                    if movieInfo == dataStore.selectedTrailerModel {
+                                        /// very short animation to keep it centered while scrolling, like in Front Row
+                                        withAnimation(.easeOut(duration: 0.01)) {
+                                            selectedY = geo.frame(in: .global).midY
                                         }
                                     }
                                 }
