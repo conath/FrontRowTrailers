@@ -14,5 +14,6 @@ struct TMT_MacApp: App {
         WindowGroup {
             ContentView().environmentObject(dataStore)
         }
+        .windowStyle(.hiddenTitleBar)
     }
 }

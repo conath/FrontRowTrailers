@@ -19,6 +19,7 @@ struct MovieTrailerListView: View {
     @State var onQuit: (() -> ())?
     @State private var scrolling = false
     
+    private let topAndBottomSpacer: CGFloat = 10
     private let scrollAnimationDuration = 0.4
     
     private var audioFeedback: AudioFeedback {
@@ -32,7 +33,7 @@ struct MovieTrailerListView: View {
     var body: some View {
         ScrollViewReader { scroller in
             VStack(alignment: .leading) {
-                Spacer(minLength: 10)
+                Spacer(minLength: topAndBottomSpacer)
                 ScrollView(.vertical, showsIndicators: false) {
                     /// List of movie titles
                     ForEach($dataStore.model) { $movieInfo in
@@ -76,11 +77,12 @@ struct MovieTrailerListView: View {
                 .overlay {
                     /// selection indicator
                     SelectionIndicator(frame: frame)
-                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - ContentView.listItemHeight * 1 / 3 - frame.safeAreaInsets.top)
+                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - ContentView.listItemHeight * 1 / 3 - frame.safeAreaInsets.top + topAndBottomSpacer / 2)
                 }
                 /// have to reference sortingMode somehow, else the view won't update
                 .background(sortingMode.rawValue.isEmpty ? EmptyView() : EmptyView())
             }
+            Spacer(minLength: topAndBottomSpacer)
         }
         .background(KeyEventHandling(onEnter: {
             guard let selected = dataStore.selectedTrailerModel else { return }
