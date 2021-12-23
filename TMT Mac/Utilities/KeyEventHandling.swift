@@ -12,6 +12,7 @@ import SwiftUI
 struct KeyEventHandling: NSViewRepresentable {
     var onUpArrow: (() -> ())? = nil
     var onDownArrow: (() -> ())? = nil
+    var onEsc: (() -> ())? = nil
     var onQuit: (() -> ())? = nil
     
     class Coordinator: NSObject {
@@ -40,11 +41,11 @@ struct KeyEventHandling: NSViewRepresentable {
             keyHandler = nil
         }
         
-        // TODO: Add Esc. button
-        
         func handleKeyDown(with event: NSEvent) -> Bool {
-            let noModifier: NSEvent.ModifierFlags = NSEvent.ModifierFlags(rawValue: 10486016)
-            if event.modifierFlags == noModifier {
+            let modifierFlags = event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue
+            let noModifier: UInt = 0
+            let arrowKeyModifierFlag: UInt = 10485760
+            if modifierFlags == noModifier || modifierFlags == arrowKeyModifierFlag {
                 switch Int(event.keyCode) {
                 case kVK_UpArrow:
                     parent.onUpArrow?()
@@ -52,13 +53,16 @@ struct KeyEventHandling: NSViewRepresentable {
                 case kVK_DownArrow:
                     parent.onDownArrow?()
                     break
+                case kVK_Escape:
+                    parent.onEsc?()
+                    break
                 default:
                     return false
                 }
                 return true
             } else
             /// `cmd-q` ?
-            if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == NSEvent.ModifierFlags.command.rawValue &&
+            if modifierFlags == NSEvent.ModifierFlags.command.rawValue &&
                         Int(event.keyCode) == kVK_ANSI_Q {
                 parent.onQuit?()
                 return true

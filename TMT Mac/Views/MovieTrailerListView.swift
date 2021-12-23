@@ -89,6 +89,14 @@ struct MovieTrailerListView: View {
                 let nextMovieInfo = dataStore.model[index]
                 updateSelectedMovie(newSelection: nextMovieInfo)
             }
+        }, onEsc: {
+            if dataStore.isPlaying {
+                withAnimation {
+                    dataStore.isPlaying = false
+                }
+            } else {
+                onQuit?()
+            }
         }, onQuit: onQuit))
     }
     
