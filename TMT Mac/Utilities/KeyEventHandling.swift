@@ -10,6 +10,7 @@ import Carbon.HIToolbox
 import SwiftUI
 
 struct KeyEventHandling: NSViewRepresentable {
+    var onEnter: (() -> ())? = nil
     var onUpArrow: (() -> ())? = nil
     var onDownArrow: (() -> ())? = nil
     var onEsc: (() -> ())? = nil
@@ -42,11 +43,14 @@ struct KeyEventHandling: NSViewRepresentable {
         }
         
         func handleKeyDown(with event: NSEvent) -> Bool {
-            let modifierFlags = event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue
-            let noModifier: UInt = 0
-            let arrowKeyModifierFlag: UInt = 10485760
-            if modifierFlags == noModifier || modifierFlags == arrowKeyModifierFlag {
+            let fixedFlagMask = event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue
+            let modifierFlags: NSEvent.ModifierFlags = NSEvent.ModifierFlags(rawValue: fixedFlagMask)
+            let arrowKeyModifierFlag: NSEvent.ModifierFlags = [.numericPad, .function]
+            if modifierFlags == [] || modifierFlags == arrowKeyModifierFlag || modifierFlags == .numericPad {
                 switch Int(event.keyCode) {
+                case kVK_Return, kVK_ANSI_KeypadEnter:
+                    parent.onEnter?()
+                    break
                 case kVK_UpArrow:
                     parent.onUpArrow?()
                     break
@@ -62,7 +66,7 @@ struct KeyEventHandling: NSViewRepresentable {
                 return true
             } else
             /// `cmd-q` ?
-            if modifierFlags == NSEvent.ModifierFlags.command.rawValue &&
+            if modifierFlags == NSEvent.ModifierFlags.command &&
                         Int(event.keyCode) == kVK_ANSI_Q {
                 parent.onQuit?()
                 return true

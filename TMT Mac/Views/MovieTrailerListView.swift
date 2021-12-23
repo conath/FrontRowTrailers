@@ -44,7 +44,7 @@ struct MovieTrailerListView: View {
                                 .tag(movieInfo.id)
                                 .onTapGesture {
                                     if movieInfo == dataStore.selectedTrailerModel {
-                                        print("play trailer")
+                                        playTrailer(movieInfo)
                                     } else {
                                         updateSelectedMovie(newSelection: movieInfo)
                                     }
@@ -82,7 +82,11 @@ struct MovieTrailerListView: View {
                 .background(sortingMode.rawValue.isEmpty ? EmptyView() : EmptyView())
             }
         }
-        .background(KeyEventHandling(onUpArrow: {
+        .background(KeyEventHandling(onEnter: {
+            guard let selected = dataStore.selectedTrailerModel else { return }
+            playTrailer(selected)
+        },
+        onUpArrow: {
             guard let selected = dataStore.selectedTrailerModel else { return }
             let index = dataStore.model.firstIndex(of: selected)! - 1
             if index < 0 {
@@ -129,5 +133,9 @@ struct MovieTrailerListView: View {
     
     private func imageForMovie(_ movieInfo: MovieInfo) -> NSImage {
         return (dataStore.idsAndImages[movieInfo.id] ?? NSImage(named: "MoviePosterPlaceholder"))!
+    }
+    
+    private func playTrailer(_ movieInfo: MovieInfo) {
+        print("Play trailer \(movieInfo.title)")
     }
 }
