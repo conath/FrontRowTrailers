@@ -29,6 +29,7 @@ struct MovieTrailerListView: View {
     var body: some View {
         ScrollViewReader { scroller in
             VStack(alignment: .leading) {
+                Spacer(minLength: 10)
                 ScrollView(.vertical, showsIndicators: false) {
                     /// List of movie titles
                     ForEach($dataStore.model) { $movieInfo in
@@ -63,7 +64,7 @@ struct MovieTrailerListView: View {
                 .overlay {
                     /// selection indicator
                     SelectionIndicator(frame: frame)
-                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - 3)
+                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - ContentView.listItemHeight * 1 / 3 - frame.safeAreaInsets.top)
                 }
                 /// have to reference sortingMode somehow, else the view won't update
                 .background(sortingMode.rawValue.isEmpty ? EmptyView() : EmptyView())
