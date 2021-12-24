@@ -69,6 +69,14 @@ struct ContentView: View {
                     .background(Color.black)
                     .transition(.opacity)
                 }
+                if dataStore.isPlaying, dataStore.selectedTrailerModel?.trailerURL != nil {
+                    ZStack {
+                        TrailerPlayerView(url: dataStore.selectedTrailerModel!.trailerURL!, isShown: $dataStore.isPlaying)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black)
+                    .transition(.opacity)
+                }
             }
         )
         .alert(item: $dataStore.error, content: { error  -> Alert in

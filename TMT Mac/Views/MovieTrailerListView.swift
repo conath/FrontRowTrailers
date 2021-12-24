@@ -135,6 +135,9 @@ struct MovieTrailerListView: View {
     
     private func playTrailer(_ movieInfo: MovieInfo) {
         audioFeedback.selection()
-        print("Play trailer \(movieInfo.title)")
+        withAnimation {
+            dataStore.selectedTrailerModel = movieInfo
+            dataStore.isPlaying = true
+        }
     }
 }
