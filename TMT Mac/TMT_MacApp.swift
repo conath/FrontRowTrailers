@@ -12,7 +12,15 @@ struct TMT_MacApp: App {
     let dataStore = MovieInfoDataStore.shared
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(dataStore)
+            ContentView()
+                .environmentObject(dataStore)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(0.1) {
+                        if let window = NSApplication.shared.windows.last {
+                            window.toggleFullScreen(nil)
+                        }
+                    }
+                }
         }
         .windowStyle(.hiddenTitleBar)
     }
