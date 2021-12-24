@@ -13,14 +13,14 @@ struct MoviePosterView: View {
     
     @State private var reflectionDistance: CGFloat
     @State private var onTap: (() -> ())?
-    @State private var image: NSImage?
+    @Binding private var image: NSImage?
     @State private var blurReflection = true
     
-    init(image: NSImage?, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
+    init(image: Binding<NSImage?>, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
         self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
         self._blurReflection = State<Bool>(initialValue: blurReflection)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
-        self._image = State<NSImage?>(wrappedValue: image)
+        self._image = image
     }
     
     var body: some View {
@@ -68,7 +68,7 @@ struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
         Color.black
             .overlay (
-                MoviePosterView(image: NSImage(named: "moviePosterPlaceholder"))
+                MoviePosterView(image: .constant(NSImage(named: "moviePosterPlaceholder")))
             .padding(.top, 24)
         )
     }

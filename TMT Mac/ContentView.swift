@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var settings = Settings.instance
-    @EnvironmentObject var dataStore: MovieInfoDataStore
+    @ObservedObject private var settings = Settings.instance
+    @EnvironmentObject private var dataStore: MovieInfoDataStore
     @State var sortingMode = SortingMode.ReleaseAscending
     @State private var loading = false
     @State private var fadeInOut = true
@@ -37,26 +37,7 @@ struct ContentView: View {
         GeometryReader { frame in
             HStack {
                 /// Movie poster image views with fade out and in transition
-                VStack {
-                    if fadingOutImage != nil {
-                        MoviePosterView(image: fadingOutImage)
-                            .transition(.asymmetric(insertion: .identity, removal: .opacity))
-                            .onAppear {
-                                withAnimation {
-                                    fadingOutImage = nil
-                                }
-                                if let selected = dataStore.selectedTrailerModel {
-                                    withAnimation(.default.delay(0.7)) {
-                                        fadingInImage = imageForMovie(selected)
-                                    }
-                                }
-                            }
-                    }
-                    if fadingInImage != nil {
-                        MoviePosterView(image: fadingInImage)
-                            .transition(.asymmetric(insertion: .opacity, removal: .identity))
-                    }
-                }
+                FadeInOutPosterView(posterImage: $dataStore.posterImage)
                 .frame(width: 0.5*frame.size.width)
                 .frame(maxHeight: .infinity)
                 .offset(x: 0, y: frame.size.height * 0.15)
