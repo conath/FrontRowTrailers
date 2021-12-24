@@ -61,7 +61,7 @@ struct MovieTrailerListView: View {
                                         }
                                     }
                                 }
-                                /// the ScrollView animates and updates the frame of the item many times
+                            /// the ScrollView animates and updates the frame of the item many times
                                 .onChange(of: geo.frame(in: .global).midY) { y in
                                     if movieInfo == dataStore.selectedTrailerModel {
                                         /// very short animation to keep it centered while scrolling, like in Front Row
@@ -84,39 +84,44 @@ struct MovieTrailerListView: View {
             }
             Spacer(minLength: topAndBottomSpacer)
         }
-        .background(KeyEventHandling(onEnter: {
-            guard let selected = dataStore.selectedTrailerModel else { return }
-            playTrailer(selected)
-        },
-        onUpArrow: {
-            guard let selected = dataStore.selectedTrailerModel else { return }
-            let index = dataStore.model.firstIndex(of: selected)! - 1
-            if index < 0 {
-                /// reached start of list
-                audioFeedback.limit()
-            } else {
-                let prevMovieInfo = dataStore.model[index]
-                updateSelectedMovie(newSelection: prevMovieInfo)
-            }
-        }, onDownArrow: {
-            guard let selected = dataStore.selectedTrailerModel else { return }
-            let index = dataStore.model.firstIndex(of: selected)! + 1
-            if index == dataStore.model.count {
-                /// reached end of list
-                audioFeedback.limit()
-            } else {
-                let nextMovieInfo = dataStore.model[index]
-                updateSelectedMovie(newSelection: nextMovieInfo)
-            }
-        }, onEsc: {
-            if dataStore.isPlaying {
-                withAnimation {
-                    dataStore.isPlaying = false
+        .background(KeyEventHandling(
+            onEnter: {
+                guard let selected = dataStore.selectedTrailerModel else { return }
+                playTrailer(selected)
+            },
+            onUpArrow: {
+                guard let selected = dataStore.selectedTrailerModel else { return }
+                let index = dataStore.model.firstIndex(of: selected)! - 1
+                if index < 0 {
+                    /// reached start of list
+                    audioFeedback.limit()
+                } else {
+                    let prevMovieInfo = dataStore.model[index]
+                    updateSelectedMovie(newSelection: prevMovieInfo)
                 }
-            } else {
+            }, onDownArrow: {
+                guard let selected = dataStore.selectedTrailerModel else { return }
+                let index = dataStore.model.firstIndex(of: selected)! + 1
+                if index == dataStore.model.count {
+                    /// reached end of list
+                    audioFeedback.limit()
+                } else {
+                    let nextMovieInfo = dataStore.model[index]
+                    updateSelectedMovie(newSelection: nextMovieInfo)
+                }
+            }, onEsc: {
+                audioFeedback.exit()
+                if dataStore.isPlaying {
+                    withAnimation {
+                        dataStore.isPlaying = false
+                    }
+                } else {
+                    onQuit?()
+                }
+            }, onQuit: {
+                audioFeedback.exit()
                 onQuit?()
-            }
-        }, onQuit: onQuit))
+            }))
     }
     
     private func updateSelectedMovie(newSelection: MovieInfo) {
@@ -138,6 +143,7 @@ struct MovieTrailerListView: View {
     }
     
     private func playTrailer(_ movieInfo: MovieInfo) {
+        audioFeedback.selection()
         print("Play trailer \(movieInfo.title)")
     }
 }
