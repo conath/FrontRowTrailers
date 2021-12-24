@@ -34,6 +34,7 @@
 		8352746A27753FF9008799F7 /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838403482538B7B80056E50A /* MoviePosterView.swift */; };
 		8352746C27754016008799F7 /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8352746B27754016008799F7 /* MoviePosterView.swift */; };
 		835486142775EE520039A29C /* FadeInOutPosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835486132775EE520039A29C /* FadeInOutPosterView.swift */; };
+		83548615277600550039A29C /* TrailerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */; };
 		8379E84F25A0904400A1CDF2 /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		8379E86025A09EC100A1CDF2 /* LargePosterReflectionWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */; };
 		837BFE0E265C4E3400E2B86A /* Limit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 837BFE0D265C4E1C00E2B86A /* Limit.aif */; };
@@ -309,10 +310,11 @@
 		837E13E22767FD69004B564B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				835486132775EE520039A29C /* FadeInOutPosterView.swift */,
 				8352746B27754016008799F7 /* MoviePosterView.swift */,
 				837E13E02767FD5C004B564B /* MovieTrailerListView.swift */,
 				837E13E3276800A5004B564B /* SelectionIndicator.swift */,
-				835486132775EE520039A29C /* FadeInOutPosterView.swift */,
+				830AA4182536FB94006A3AEB /* TrailerPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -637,6 +639,7 @@
 				8352746C27754016008799F7 /* MoviePosterView.swift in Sources */,
 				83FA29FB27488F3600445816 /* AppError.swift in Sources */,
 				837E13E727680374004B564B /* KeyEventHandling.swift in Sources */,
+				83548615277600550039A29C /* TrailerPlayerView.swift in Sources */,
 				83FA29F7274889D900445816 /* MovieInfo.swift in Sources */,
 				83FA29FD2748905800445816 /* Settings.swift in Sources */,
 				83FA2A012748933F00445816 /* DispatchQueue+async.swift in Sources */,
