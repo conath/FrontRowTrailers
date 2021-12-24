@@ -42,7 +42,7 @@ struct ContentView: View {
                 .frame(maxHeight: .infinity)
                 .offset(x: 0, y: frame.size.height * 0.15)
                 /// Movie titles and selection overlay
-                MovieTrailerListView(sortingMode: $sortingMode, fadingOutImage: $fadingOutImage, fadingInImage: $fadingInImage, onQuit: {
+                MovieTrailerListView(sortingMode: $sortingMode, onQuit: {
                     withAnimation(.easeIn(duration: fadeDuration)) {
                         self.fadeInOut = true
                     }

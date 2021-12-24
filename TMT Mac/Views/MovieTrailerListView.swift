@@ -12,8 +12,6 @@ struct MovieTrailerListView: View {
     @EnvironmentObject private var dataStore: MovieInfoDataStore
     
     @Binding var sortingMode: SortingMode
-    @Binding var fadingOutImage: NSImage?
-    @Binding var fadingInImage: NSImage?
     
     @State var selectedY: CGFloat?
     @State var onQuit: (() -> ())?
@@ -127,13 +125,6 @@ struct MovieTrailerListView: View {
     private func updateSelectedMovie(newSelection: MovieInfo) {
         guard dataStore.selectedTrailerModel != newSelection else { return }
         withAnimation {
-            if let selected = dataStore.selectedTrailerModel {
-                let image = imageForMovie(selected)
-                fadingOutImage = image
-                fadingInImage = nil
-            } else {
-                fadingInImage = imageForMovie(newSelection)
-            }
             dataStore.selectedTrailerModel = newSelection
         }
     }
