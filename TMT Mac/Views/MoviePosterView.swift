@@ -68,8 +68,8 @@ struct MoviePosterView_Previews: PreviewProvider {
         Color.black
             .overlay (
                 MoviePosterView(image: .constant(Image("moviePosterPlaceholder")))
-            .padding(.top, 24)
-        )
+                    .padding(.top, 24)
+            )
     }
 }
 #endif

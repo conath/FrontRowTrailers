@@ -12,7 +12,7 @@ struct FadeInOutPosterView: View {
     
     @EnvironmentObject private var dataStore: MovieInfoDataStore
     @Binding var posterImage: Image?
-
+    
     @State private var shownImage = Image?.none
     @State private var delayImageChange = false
     @State private var noImageOpacity: Double = 0

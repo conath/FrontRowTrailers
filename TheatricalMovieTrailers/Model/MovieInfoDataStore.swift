@@ -16,14 +16,14 @@ import AppKit
 import TelemetryClient
 
 class MovieInfoDataStore: ObservableObject {
-    #if os(iOS)
+#if os(iOS)
     /// need the platform-dependent image class to we can create an image from data
     typealias PlatformImage = UIKit.UIImage
     private let appGroupID = "group.cafe.chrisp.tmt"
-    #elseif os(macOS)
+#elseif os(macOS)
     typealias PlatformImage = AppKit.NSImage
     private let appGroupID = "cafe.chrisp.tmt-group"
-    #endif
+#endif
     
     static let urlScheme = "theatricals://showTrailer?id="
     static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
@@ -78,9 +78,9 @@ class MovieInfoDataStore: ObservableObject {
     private var localStorageDirectory: URL {
         let fileManager = FileManager.default
         guard let sharedContainerURL = fileManager.containerURL(
-                forSecurityApplicationGroupIdentifier: appGroupID) else {
-            fatalError("Couldn't get App Group shared container.")
-        }
+            forSecurityApplicationGroupIdentifier: appGroupID) else {
+                fatalError("Couldn't get App Group shared container.")
+            }
         return sharedContainerURL
     }
     private var localCurrentTrailersURL: URL {
@@ -328,7 +328,7 @@ class MovieInfoDataStore: ObservableObject {
                 return nil
             }
         }
-        #if os(iOS)
+#if os(iOS)
         func tryDownloadImage(for movieInfo: MovieInfo, localURL: URL) {
             if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
                let jpgData = image.jpegData(compressionQuality: 0.8) {
@@ -340,7 +340,7 @@ class MovieInfoDataStore: ObservableObject {
                 }
             }
         }
-        #elseif os(macOS)
+#elseif os(macOS)
         func tryDownloadImage(for movieInfo: MovieInfo, localURL: URL) {
             if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
                let bits = image.representations.first as? NSBitmapImageRep,
@@ -352,8 +352,8 @@ class MovieInfoDataStore: ObservableObject {
                 }
             }
         }
-        #endif
-            
+#endif
+        
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             let fileManager = FileManager.default
             for movieInfo in movies {

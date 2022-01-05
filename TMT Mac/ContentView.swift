@@ -38,9 +38,9 @@ struct ContentView: View {
             HStack {
                 /// Movie poster image views with fade out and in transition
                 FadeInOutPosterView(posterImage: $dataStore.posterImage)
-                .frame(width: 0.5*frame.size.width)
-                .frame(maxHeight: .infinity)
-                .offset(x: 0, y: frame.size.height * 0.15)
+                    .frame(width: 0.5*frame.size.width)
+                    .frame(maxHeight: .infinity)
+                    .offset(x: 0, y: frame.size.height * 0.15)
                 /// Movie titles and selection overlay
                 MovieTrailerListView(sortingMode: $sortingMode, onQuit: {
                     withAnimation(.easeIn(duration: fadeDuration)) {

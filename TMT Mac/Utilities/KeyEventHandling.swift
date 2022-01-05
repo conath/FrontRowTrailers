@@ -67,7 +67,7 @@ struct KeyEventHandling: NSViewRepresentable {
             } else
             /// `cmd-q` ?
             if modifierFlags == NSEvent.ModifierFlags.command &&
-                        Int(event.keyCode) == kVK_ANSI_Q {
+                Int(event.keyCode) == kVK_ANSI_Q {
                 parent.onQuit?()
                 return true
             } else {
@@ -77,7 +77,7 @@ struct KeyEventHandling: NSViewRepresentable {
     }
     
     class KeyView: NSView {}
-
+    
     func makeNSView(context: Context) -> KeyView {
         let view = KeyView()
         DispatchQueue.main.asyncAfter(1) { // wait till next event cycle
@@ -90,7 +90,7 @@ struct KeyEventHandling: NSViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
     func updateNSView(_ nsView: KeyView, context: Context) {
         nsView.window?.makeFirstResponder(nsView)
         context.coordinator.parent = self
