@@ -129,8 +129,8 @@ struct MovieTrailerListView: View {
         }
     }
     
-    private func imageForMovie(_ movieInfo: MovieInfo) -> NSImage {
-        return (dataStore.idsAndImages[movieInfo.id] ?? NSImage(named: "moviePosterPlaceholder"))!
+    private func imageForMovie(_ movieInfo: MovieInfo) -> Image {
+        return (dataStore.idsAndImages[movieInfo.id] ?? Image("moviePosterPlaceholder"))!
     }
     
     private func playTrailer(_ movieInfo: MovieInfo) {

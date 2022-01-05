@@ -10,14 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject private var settings = Settings.instance
     @EnvironmentObject private var dataStore: MovieInfoDataStore
-    @State var sortingMode = SortingMode.ReleaseAscending
+    @State private var sortingMode = SortingMode.ReleaseAscending
     @State private var loading = false
     @State private var fadeInOut = true
     
-    @State private var fadingOutImage: NSImage?
-    @State private var fadingInImage: NSImage?
+    @State private var fadingOutImage: Image?
+    @State private var fadingInImage: Image?
     
-    let fadeDuration = 1.0
+    private let fadeDuration = 1.0
     
     static let audioFeedback = AudioFeedback()
     
@@ -120,7 +120,7 @@ struct ContentView: View {
         })
     }
     
-    private func imageForMovie(_ movieInfo: MovieInfo) -> NSImage {
-        return (dataStore.idsAndImages[movieInfo.id] ?? NSImage(named: "moviePosterPlaceholder"))!
+    private func imageForMovie(_ movieInfo: MovieInfo) -> Image {
+        return (dataStore.idsAndImages[movieInfo.id] ?? Image("moviePosterPlaceholder"))!
     }
 }

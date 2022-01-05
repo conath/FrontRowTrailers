@@ -11,9 +11,9 @@ struct FadeInOutPosterView: View {
     private let animationDuration: Double = 0.3
     
     @EnvironmentObject private var dataStore: MovieInfoDataStore
-    @Binding var posterImage: MovieInfoDataStore.Image?
+    @Binding var posterImage: Image?
 
-    @State private var shownImage = MovieInfoDataStore.Image?.none
+    @State private var shownImage = Image?.none
     @State private var delayImageChange = false
     @State private var noImageOpacity: Double = 0
     
@@ -26,7 +26,7 @@ struct FadeInOutPosterView: View {
             } else if shownImage != nil {
                 /// don't want this MoviePosterView to get `nil` passed in
                 /// because then its width animates when the image is set again
-                MoviePosterView(image: $shownImage)
+                MoviePosterView(image: .constant(shownImage!))
                     .transition(.opacity)
             } else {
                 /// placeholder shown if image is unavailable

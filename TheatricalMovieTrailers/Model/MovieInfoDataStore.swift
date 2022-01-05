@@ -7,6 +7,7 @@
 
 import Combine
 import Network
+import SwiftUI
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
@@ -16,11 +17,12 @@ import TelemetryClient
 
 class MovieInfoDataStore: ObservableObject {
     #if os(iOS)
-    typealias Image = UIKit.UIImage
-    let appGroupID = "group.cafe.chrisp.tmt"
+    /// need the platform-dependent image class to we can create an image from data
+    typealias PlatformImage = UIKit.UIImage
+    private let appGroupID = "group.cafe.chrisp.tmt"
     #elseif os(macOS)
-    typealias Image = AppKit.NSImage
-    let appGroupID = "cafe.chrisp.tmt-group"
+    typealias PlatformImage = AppKit.NSImage
+    private let appGroupID = "cafe.chrisp.tmt-group"
     #endif
     
     static let urlScheme = "theatricals://showTrailer?id="
@@ -311,13 +313,14 @@ class MovieInfoDataStore: ObservableObject {
     /// Tries to load the poster image for each `MovieInfo` in `movies` from disk, or from the network if a poster image is not found on disk.
     private func fetchPosterImagesFor(model movies: [MovieInfo], completion: (() -> ())? = nil) {
         /// Tries to load an image from the passed `URL` and stores it to `idsAndImages`.
-        func loadImageFrom(url: URL?, id: Int) -> Image? {
+        func loadImageFrom(url: URL?, id: Int) -> PlatformImage? {
             if let url = url, let data = try? Data(contentsOf: url) {
-                let image = Image(data: data)
+                let platformImage = PlatformImage(data: data)
+                let swiftUIImage = platformImage == nil ? nil : Image(nsImage: platformImage!)
                 DispatchQueue.main.async {
-                    self.idsAndImages.updateValue(image, forKey: id)
+                    self.idsAndImages.updateValue(swiftUIImage, forKey: id)
                 }
-                return image
+                return platformImage
             } else {
                 DispatchQueue.main.async {
                     self.idsAndImages.updateValue(nil, forKey: id)
