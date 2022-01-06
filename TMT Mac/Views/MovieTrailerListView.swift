@@ -12,13 +12,14 @@ struct MovieTrailerListView: View {
     @EnvironmentObject private var dataStore: MovieInfoDataStore
     
     @Binding var sortingMode: SortingMode
-    
-    @State var selectedY: CGFloat?
     @State var onQuit: (() -> ())?
-    @State private var scrolling = false
+    
+    @State private var selectedY: CGFloat?
+    @State private var isHovering = false
     
     private let topAndBottomSpacer: CGFloat = 10
     private let scrollAnimationDuration = 0.4
+    private let scrollCenterDistanceThreshold: CGFloat = 0.45
     
     private var audioFeedback: AudioFeedback {
         get {
@@ -41,18 +42,32 @@ struct MovieTrailerListView: View {
                                 .truncationMode(.tail)
                                 .font(Font.title.bold())
                                 .tag(movieInfo.id)
-                                .onTapGesture {
-                                    if movieInfo == dataStore.selectedTrailerModel {
-                                        playTrailer(movieInfo)
-                                    } else {
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.topLeading)
+                            /// select on hover over row
+                                .onHover(perform: { isHovering in
+                                    if isHovering && movieInfo != dataStore.selectedTrailerModel {
+                                        self.isHovering = isHovering
                                         updateSelectedMovie(newSelection: movieInfo)
+                                        let myY = geo.frame(in: .global).midY
+                                        if abs(frame.size.height / 2 - myY) / (frame.size.height / 2) > scrollCenterDistanceThreshold {
+                                            withAnimation {
+                                                scroller.scrollTo(movieInfo.id, anchor: .center)
+                                            }
+                                        }
                                     }
-                                }
+                                })
                                 .onChange(of: dataStore.selectedTrailerModel) { selected in
                                     if selected == movieInfo {
+                                        if !isHovering {
+                                            NSCursor.setHiddenUntilMouseMoves(true)
+                                            withAnimation {
+                                                scroller.scrollTo(movieInfo.id, anchor: .center)
+                                            }
+                                        } else {
+                                            isHovering = false
+                                        }
                                         audioFeedback.selectionChange()
                                         withAnimation(.easeOut(duration: scrollAnimationDuration)) {
-                                            scroller.scrollTo(movieInfo.id, anchor: .center)
                                             /// in this animation block we don't actually get the final midY (for when it finishes scrolling),
                                             /// which we would need. But we need to set the selectedY here to cause another view update
                                             selectedY = geo.frame(in: .global).midY
@@ -75,7 +90,12 @@ struct MovieTrailerListView: View {
                 .overlay {
                     /// selection indicator
                     SelectionIndicator(frame: frame)
-                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - ContentView.listItemHeight * 1 / 3 - frame.safeAreaInsets.top + topAndBottomSpacer / 2)
+                        .offset(x: 0, y: (selectedY ?? 0) - frame.size.height / 2 - ContentView.listItemHeight * 3 / 12 - frame.safeAreaInsets.top + topAndBottomSpacer / 2)
+                        .onTapGesture {
+                            if let movieInfo = dataStore.selectedTrailerModel {
+                                playTrailer(movieInfo)
+                            }
+                        }
                 }
                 /// have to reference sortingMode somehow, else the view won't update
                 .background(sortingMode.rawValue.isEmpty ? EmptyView() : EmptyView())
