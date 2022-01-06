@@ -90,6 +90,9 @@ struct ContentView: View {
         .onAppear {
             if !dataStore.moviesAvailable {
                 DispatchQueue.main.asyncAfter(0.5) {
+                    withAnimation(.easeIn(duration: fadeDuration)) {
+                        self.fadeInOut = false
+                    }
                     if !dataStore.moviesAvailable {
                         withAnimation {
                             loading = true
