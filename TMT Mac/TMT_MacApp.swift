@@ -18,6 +18,11 @@ struct TMT_MacApp: App {
                     DispatchQueue.main.asyncAfter(0.1) {
                         if let window = NSApplication.shared.windows.last {
                             window.toggleFullScreen(nil)
+                            /// give it a moment
+                            DispatchQueue.main.asyncAfter(0.1) {
+                                let swiftUIWindow = NSApplication.shared.windows[0]
+                                swiftUIWindow.becomeKey()
+                            }
                         }
                     }
                 }

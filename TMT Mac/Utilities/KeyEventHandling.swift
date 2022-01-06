@@ -92,14 +92,6 @@ struct KeyEventHandling: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: KeyView, context: Context) {
-        nsView.window?.makeFirstResponder(nsView)
         context.coordinator.parent = self
-    }
-}
-
-struct TestKeyboardEventHandling: View {
-    var body: some View {
-        Text("Hello, World!")
-            .background(KeyEventHandling())
     }
 }
