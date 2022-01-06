@@ -153,6 +153,7 @@
 		834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayerViewController+enterFullScreen.swift"; sourceTree = "<group>"; };
 		835486132775EE520039A29C /* FadeInOutPosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInOutPosterView.swift; sourceTree = "<group>"; };
 		8354861727760D8E0039A29C /* MoviePosterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePosterView.swift; sourceTree = "<group>"; };
+		8379A49F27870DEF00B61EE7 /* Theatrical-Trailers-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Theatrical-Trailers-Info.plist"; sourceTree = "<group>"; };
 		8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePosterReflectionWithTitle.swift; sourceTree = "<group>"; };
 		837BFE0C265C4E1C00E2B86A /* Selection.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Selection.aif; sourceTree = "<group>"; };
 		837BFE0D265C4E1C00E2B86A /* Limit.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Limit.aif; sourceTree = "<group>"; };
@@ -394,6 +395,7 @@
 		83BAA7A9274872640064825F /* TMT Mac */ = {
 			isa = PBXGroup;
 			children = (
+				8379A49F27870DEF00B61EE7 /* Theatrical-Trailers-Info.plist */,
 				83BAA7AA274872640064825F /* TMT_MacApp.swift */,
 				83BAA7AC274872640064825F /* ContentView.swift */,
 				837E13E22767FD69004B564B /* Views */,
@@ -915,6 +917,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TMT Mac/Theatrical-Trailers-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -949,6 +952,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TMT Mac/Theatrical-Trailers-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
