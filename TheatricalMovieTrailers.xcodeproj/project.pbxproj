@@ -230,6 +230,7 @@
 		8316E0D724A64AD300467F14 = {
 			isa = PBXGroup;
 			children = (
+				8379A4A0278714DF00B61EE7 /* Shared */,
 				8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */,
 				831F1B6B25499412008D24D4 /* TrailersWidget */,
 				83BAA7A9274872640064825F /* TMT Mac */,
@@ -297,6 +298,17 @@
 			path = TrailersWidget;
 			sourceTree = "<group>";
 		};
+		8379A4A0278714DF00B61EE7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				83FA29E8274889C400445816 /* MovieInfo.swift */,
+				83FA29EA274889C400445816 /* MovieInfoDataStore.swift */,
+				83FA29E9274889C400445816 /* SortingMode.swift */,
+				8300055F2541C58E0069A8D1 /* AppError.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		837BFE0B265C4E1500E2B86A /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,11 +359,7 @@
 		8380C5A024A6712800CA1EB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				83FA29E8274889C400445816 /* MovieInfo.swift */,
-				83FA29EA274889C400445816 /* MovieInfoDataStore.swift */,
 				83FA29EB274889C400445816 /* Settings.swift */,
-				83FA29E9274889C400445816 /* SortingMode.swift */,
-				8300055F2541C58E0069A8D1 /* AppError.swift */,
 				8383E8F0254C581200F44F5E /* WindowSceneObject.swift */,
 				83AC626C254EDDAB00197B0B /* ViewParameters.swift */,
 			);

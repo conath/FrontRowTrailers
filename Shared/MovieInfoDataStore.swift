@@ -22,7 +22,7 @@ class MovieInfoDataStore: ObservableObject {
     private let appGroupID = "group.cafe.chrisp.tmt"
 #elseif os(macOS)
     typealias PlatformImage = AppKit.NSImage
-    private let appGroupID = "cafe.chrisp.tmt-group"
+    private let appGroupID = "U96PJYMZWW.tmt-group"
 #endif
     
     static let urlScheme = "theatricals://showTrailer?id="
