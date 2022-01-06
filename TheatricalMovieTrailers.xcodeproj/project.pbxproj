@@ -298,13 +298,25 @@
 			path = TrailersWidget;
 			sourceTree = "<group>";
 		};
+		8356DBB72787AA2D0073B37A /* API Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
+				83AC6275255018F700197B0B /* DispatchQueue+async.swift */,
+			);
+			path = "API Extensions";
+			sourceTree = "<group>";
+		};
 		8379A4A0278714DF00B61EE7 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8356DBB72787AA2D0073B37A /* API Extensions */,
+				837BFE0B265C4E1500E2B86A /* Audio Files */,
+				8300055F2541C58E0069A8D1 /* AppError.swift */,
+				837E13E92768185F004B564B /* AudioFeedback.swift */,
 				83FA29E8274889C400445816 /* MovieInfo.swift */,
 				83FA29EA274889C400445816 /* MovieInfoDataStore.swift */,
 				83FA29E9274889C400445816 /* SortingMode.swift */,
-				8300055F2541C58E0069A8D1 /* AppError.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -343,15 +355,13 @@
 		8380C59F24A670D800CA1EB4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				837BFE0B265C4E1500E2B86A /* Audio Files */,
 				83AC6270255018CE00197B0B /* API Extensions */,
 				831F1B5D2549792A008D24D4 /* currentTrailers.bundle */,
 				8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */,
 				8316E0E924A64AD400467F14 /* Assets.xcassets */,
+				837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */,
 				8300055C2541B34A0069A8D1 /* Secrets.swift */,
 				837DB13F2548CE200071CB2E /* ShareSheet.swift */,
-				837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */,
-				837E13E92768185F004B564B /* AudioFeedback.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -392,10 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */,
-				831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */,
 				833CB264253A147500E1D15C /* UIApplication+version+build.swift */,
 				83BD3611254363A300C4588E /* UIResponder+currentResponder.swift */,
-				83AC6275255018F700197B0B /* DispatchQueue+async.swift */,
 			);
 			path = "API Extensions";
 			sourceTree = "<group>";
