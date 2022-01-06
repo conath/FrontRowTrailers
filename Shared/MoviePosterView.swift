@@ -3,7 +3,7 @@
 //  TheatricalMovieTrailers
 //
 //  Created by Christoph Parstorfer on 15.10.20.
-//  Ported to macOS by Christoph Parstorfer on 24.12.21.
+//  Theatrical Trailers
 //
 
 import SwiftUI
@@ -24,7 +24,7 @@ struct MoviePosterView: View {
     }
     
     var body: some View {
-        let image = self.image ?? Image("moviePosterPlaceholder")
+        let image = self.image ?? .moviePosterPlaceholder
         
         return GeometryReader { geo in
             HStack {
@@ -67,7 +67,7 @@ struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
         Color.black
             .overlay (
-                MoviePosterView(image: .constant(Image("moviePosterPlaceholder")))
+                MoviePosterView(image: .constant(.moviePosterPlaceholder))
                     .padding(.top, 24)
             )
     }

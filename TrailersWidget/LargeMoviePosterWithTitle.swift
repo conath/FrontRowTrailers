@@ -12,12 +12,13 @@ struct LargeMoviePosterWithTitle: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     
     @State var info: MovieInfo
-    @State var image: UIImage
+    @State var image: Image
     
     var body: some View {
         GeometryReader { frame in
             VStack(alignment: .center) {
-                FramedImage(uiImage: image)
+                image
+                    .resizable()
                     .aspectRatio(filmPosterAspectRatio, contentMode: .fit)
                     .clipped()
                 
@@ -40,7 +41,7 @@ struct LargeMoviePosterWithTitle: View {
 #if DEBUG
 struct LargeMoviePosterWithTitle_Previews: PreviewProvider {
     static var previews: some View {
-        LargeMoviePosterWithTitle(info: MovieInfo.Example.AQuietPlaceII, image: UIImage(named: "moviePosterPlaceholder")!)
+        LargeMoviePosterWithTitle(info: MovieInfo.Example.AQuietPlaceII, image: Image.moviePosterPlaceholder)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

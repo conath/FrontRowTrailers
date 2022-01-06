@@ -112,7 +112,7 @@ struct MovieSearchView: View {
                         dismiss()
                     } label: {
                         HStack {
-                            Image(uiImage: getImage(info.id))
+                            getImage(info.id)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 88, height: 62)
@@ -163,12 +163,12 @@ struct MovieSearchView: View {
         }
     }
     
-    private func getImage(_ id: Int) -> UIImage {
-        let image: UIImage
+    private func getImage(_ id: Int) -> Image {
+        let image: Image
         if let poster = dataStore.idsAndImages[id], let posterImage = poster {
             image = posterImage
         } else {
-            image = UIImage(named: "moviePosterPlaceholder")!
+            image = .moviePosterPlaceholder
         }
         return image
     }

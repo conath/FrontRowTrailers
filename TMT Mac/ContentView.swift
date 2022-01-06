@@ -124,6 +124,6 @@ struct ContentView: View {
     }
     
     private func imageForMovie(_ movieInfo: MovieInfo) -> Image {
-        return (dataStore.idsAndImages[movieInfo.id] ?? Image("moviePosterPlaceholder"))!
+        return (dataStore.idsAndImages[movieInfo.id] ?? .moviePosterPlaceholder)!
     }
 }

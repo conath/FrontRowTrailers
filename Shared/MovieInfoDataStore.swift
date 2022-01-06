@@ -316,7 +316,11 @@ class MovieInfoDataStore: ObservableObject {
         func loadImageFrom(url: URL?, id: Int) -> PlatformImage? {
             if let url = url, let data = try? Data(contentsOf: url) {
                 let platformImage = PlatformImage(data: data)
+                #if os(macOS)
                 let swiftUIImage = platformImage == nil ? nil : Image(nsImage: platformImage!)
+                #else
+                let swiftUIImage = platformImage == nil ? nil : Image(uiImage: platformImage!)
+                #endif
                 DispatchQueue.main.async {
                     self.idsAndImages.updateValue(swiftUIImage, forKey: id)
                 }

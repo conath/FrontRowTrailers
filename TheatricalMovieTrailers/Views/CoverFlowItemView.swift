@@ -14,7 +14,7 @@ struct CoverFlowItemView: View {
     @State var onCentered: (Bool) -> ()
     @State var isCentered = false
     @ObservedObject private var dataStore = MovieInfoDataStore.shared
-    @State private var image: UIImage? = nil
+    @State private var image: Image? = nil
     
     var body: some View {
         GeometryReader { movGeo in

@@ -12,7 +12,7 @@ struct LargePosterReflectionWithTitle: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     
     @State var info: MovieInfo
-    @State var image: UIImage
+    @State var image: Image
     @State var showMeta = false
     
     var body: some View {
@@ -53,8 +53,13 @@ struct LargePosterReflectionWithTitle: View {
 #if DEBUG
 struct LargePosterReflectionWithTitle_Previews: PreviewProvider {
     static var previews: some View {
-        LargeMoviePosterWithTitle(info: MovieInfo.Example.AQuietPlaceII, image: UIImage(named: "moviePosterPlaceholder")!)
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
+        Group {
+            LargePosterReflectionWithTitle(info: MovieInfo.Example.AQuietPlaceII, image: .moviePosterPlaceholder)
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
+            
+            LargePosterReflectionWithTitle(info: MovieInfo.Example.AQuietPlaceII, image: .moviePosterPlaceholder, showMeta: true)
+                .previewContext(WidgetPreviewContext(family: .systemLarge))
+        }
     }
 }
 #endif
