@@ -316,6 +316,7 @@
 			children = (
 				8356DBB72787AA2D0073B37A /* API Extensions */,
 				837BFE0B265C4E1500E2B86A /* Audio Files */,
+				831F1B5D2549792A008D24D4 /* currentTrailers.bundle */,
 				8300055F2541C58E0069A8D1 /* AppError.swift */,
 				837E13E92768185F004B564B /* AudioFeedback.swift */,
 				83FA29E8274889C400445816 /* MovieInfo.swift */,
@@ -360,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				83AC6270255018CE00197B0B /* API Extensions */,
-				831F1B5D2549792A008D24D4 /* currentTrailers.bundle */,
 				8316E0EE24A64AD400467F14 /* LaunchScreen.storyboard */,
 				8316E0E924A64AD400467F14 /* Assets.xcassets */,
 				837DB1422548D5E30071CB2E /* AppStoreReviewsManager.swift */,
