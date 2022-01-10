@@ -58,6 +58,9 @@ struct MoviePosterView: View {
                 onTap?()
             })
             .accessibilityHidden(true)
+#if os(macOS)
+            .offset(x: 0, y: geo.size.height * 0.15)
+#endif
         }
     }
 }

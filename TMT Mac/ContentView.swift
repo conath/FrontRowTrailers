@@ -36,11 +36,8 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { frame in
             HStack {
-                /// Movie poster image views with fade out and in transition
-                FadeInOutPosterView(posterImage: $dataStore.posterImage)
+                MovieInfoContainerView()
                     .frame(width: 0.5*frame.size.width)
-                    .frame(maxHeight: .infinity)
-                    .offset(x: 0, y: frame.size.height * 0.15)
                 /// Movie titles and selection overlay
                 MovieTrailerListView(sortingMode: $sortingMode, onQuit: {
                     withAnimation(.easeIn(duration: fadeDuration)) {
