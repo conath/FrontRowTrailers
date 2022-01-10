@@ -36,7 +36,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { frame in
             HStack {
-                MovieInfoContainerView()
+                MovieInfoContainerView(frame: frame)
                     .frame(width: 0.5*frame.size.width)
                 /// Movie titles and selection overlay
                 MovieTrailerListView(sortingMode: $sortingMode, onQuit: {
