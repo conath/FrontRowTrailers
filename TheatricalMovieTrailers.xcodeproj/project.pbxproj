@@ -65,6 +65,7 @@
 		8387DA72254CBD7F0014B669 /* MoviePosterWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */; };
 		8387DA78254CC3780014B669 /* LargeMoviePosterWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387DA77254CC3450014B669 /* LargeMoviePosterWithTitle.swift */; };
 		83AB8429278CDF9800428FB4 /* MovieInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AB8428278CDF9800428FB4 /* MovieInfoContainerView.swift */; };
+		83AB842C278CFF6200428FB4 /* TrailerMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380C59B24A665B000CA1EB4 /* TrailerMetaView.swift */; };
 		83AC626D254EDDAB00197B0B /* ViewParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC626C254EDDAB00197B0B /* ViewParameters.swift */; };
 		83AC6276255018F700197B0B /* DispatchQueue+async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC6275255018F700197B0B /* DispatchQueue+async.swift */; };
 		83B53B39258A7889003ACD7D /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 83B53B38258A7889003ACD7D /* TelemetryClient */; };
@@ -663,6 +664,7 @@
 				837E13EB2768185F004B564B /* AudioFeedback.swift in Sources */,
 				83FA2A002748930100445816 /* CustomDarkAppearance.swift in Sources */,
 				83BAA7AB274872640064825F /* TMT_MacApp.swift in Sources */,
+				83AB842C278CFF6200428FB4 /* TrailerMetaView.swift in Sources */,
 				83FA29FB27488F3600445816 /* AppError.swift in Sources */,
 				837E13E727680374004B564B /* KeyEventHandling.swift in Sources */,
 				83548615277600550039A29C /* TrailerPlayerView.swift in Sources */,
