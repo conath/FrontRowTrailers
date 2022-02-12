@@ -15,7 +15,7 @@ On TV (via AirPlay or adapter):
 
 ## Screenshot (Beta for macOS)
 
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/dev-mac/Theatricals-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
 
 ## Installation
 
