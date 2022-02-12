@@ -45,7 +45,7 @@ struct MovieTrailerListView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.topLeading)
                             /// select on hover over row
                                 .onHover(perform: { isHovering in
-                                    if isHovering && movieInfo != dataStore.selectedTrailerModel {
+                                    if !dataStore.isPlaying && isHovering && movieInfo != dataStore.selectedTrailerModel {
                                         self.isHovering = isHovering
                                         updateSelectedMovie(newSelection: movieInfo)
                                         let myY = geo.frame(in: .global).midY
@@ -104,10 +104,12 @@ struct MovieTrailerListView: View {
         }
         .background(KeyEventHandling(
             onEnter: {
+                guard !dataStore.isPlaying else { return }
                 guard let selected = dataStore.selectedTrailerModel else { return }
                 playTrailer(selected)
             },
             onUpArrow: {
+                guard !dataStore.isPlaying else { return }
                 guard let selected = dataStore.selectedTrailerModel else { return }
                 let index = dataStore.model.firstIndex(of: selected)! - 1
                 if index < 0 {
@@ -118,6 +120,7 @@ struct MovieTrailerListView: View {
                     updateSelectedMovie(newSelection: prevMovieInfo)
                 }
             }, onDownArrow: {
+                guard !dataStore.isPlaying else { return }
                 guard let selected = dataStore.selectedTrailerModel else { return }
                 let index = dataStore.model.firstIndex(of: selected)! + 1
                 if index == dataStore.model.count {
