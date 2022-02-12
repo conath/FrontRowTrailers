@@ -28,6 +28,7 @@
 		831F1B892549BC86008D24D4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055F2541C58E0069A8D1 /* AppError.swift */; };
 		831F1B942549C2D6008D24D4 /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
+		833A78AB27B72B60009A91A6 /* MacFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833A78AA27B72B60009A91A6 /* MacFont.swift */; };
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
 		834FFDC4254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FFDC3254085ED007E63C2 /* AVPlayerViewController+enterFullScreen.swift */; };
@@ -151,6 +152,7 @@
 		831F1B6F25499416008D24D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		831F1B7125499416008D24D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
+		833A78AA27B72B60009A91A6 /* MacFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacFont.swift; sourceTree = "<group>"; };
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
 		834FF5BB2572A42500A4AF39 /* TheatricalMovieTrailers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheatricalMovieTrailers.entitlements; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				83BAA7B3274872650064825F /* TMT_Mac.entitlements */,
 				83BAA7B0274872650064825F /* Preview Content */,
 				83FA29FE2748909B00445816 /* NSApplication+version+build.swift */,
+				833A78AA27B72B60009A91A6 /* MacFont.swift */,
 			);
 			path = "TMT Mac";
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				83FA29F7274889D900445816 /* MovieInfo.swift in Sources */,
 				83FA29FD2748905800445816 /* Settings.swift in Sources */,
 				83FA2A012748933F00445816 /* DispatchQueue+async.swift in Sources */,
+				833A78AB27B72B60009A91A6 /* MacFont.swift in Sources */,
 				8354861827760D8E0039A29C /* MoviePosterView.swift in Sources */,
 				837E13E12767FD5C004B564B /* MovieTrailerListView.swift in Sources */,
 				835486142775EE520039A29C /* FadeInOutPosterView.swift in Sources */,

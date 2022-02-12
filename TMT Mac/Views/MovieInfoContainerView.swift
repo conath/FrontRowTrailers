@@ -16,10 +16,10 @@ struct MovieInfoContainerView: View {
     @State private var shownMovieInfoMetadata: MovieInfo? = nil
     
     private var heightFactor: CGFloat {
-        1 - 0.4 * animationProgress
+        1 - 0.2 * animationProgress
     }
     private var yOffset: CGFloat {
-        animationProgress * -frame.size.height * 0.2
+        animationProgress * -frame.size.height * 0.15
     }
     private var angle: CGFloat {
         10 - animationProgress * 10
@@ -53,19 +53,59 @@ struct MovieInfoContainerView: View {
                     Spacer()
                         .frame(maxWidth: .infinity, maxHeight: frame.size.height * 0.5)
                     // Title
-                    Text(info.title)
-                        .font(.largeTitle)
-                        .bold()
-                    // Studio
-                    Text(info.studio)
-                        .font(.title3)
-                    // Trailer length
-                    Text("Trailer: \(info.trailerLength)")
-                        .font(.title3)
+                    HStack {
+                        Text(info.title)
+                            .font(.titleGrande)
+                        Spacer()
+                        Text(info.trailerLength)
+                            .font(.titleGrande)
+                    }
+                    Divider()
+                    // Synopsis
+                    Text(info.synopsis)
+                        .font(.bodyGrande)
+                        .lineLimit(5)
+                    Divider()
+                    Group {
+                        // Cast
+                        HLabelAndContent(label: "Cast:", content: info.actors.joined(separator: ", "), frame: frame)
+                        // Director
+                        HLabelAndContent(label: "Director:", content: info.director, frame: frame)
+                        // Genre
+                        HLabelAndContent(label: "Genre:", content: info.genres.joined(separator: ", "), frame: frame)
+                        // Release Date
+                        HLabelAndContent(label: "Release:", content: info.releaseDateString, frame: frame)
+                    }
+                    Divider()
+                    // Copyright
+                    Text(info.copyright)
+                        .font(.smallGrande)
                     Spacer()
                 }
                 .padding()
+                .padding()
                 .transition(.opacity)
+            }
+        }
+    }
+    
+    struct HLabelAndContent: View {
+        @State var label: String
+        @State var content: String
+        @State var frame: GeometryProxy
+        
+        var body: some View {
+            HStack(alignment: .top) {
+                ZStack(alignment: .trailing) {
+                    Text("DirectorD")
+                        .font(.bodyGrande)
+                        .foregroundColor(.clear)
+                        .accessibilityHidden(true)
+                    Text(label)
+                        .font(.bodyGrande)
+                }
+                Text(content)
+                    .font(.boldGrande)
             }
         }
     }

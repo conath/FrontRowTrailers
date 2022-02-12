@@ -40,7 +40,7 @@ struct MovieTrailerListView: View {
                             Text(movieInfo.title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-                                .font(Font.title.bold())
+                                .font(.titleGrande)
                                 .tag(movieInfo.id)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.topLeading)
                             /// select on hover over row
