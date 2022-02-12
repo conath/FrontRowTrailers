@@ -15,7 +15,7 @@ struct CustomDarkAppearance: ViewModifier {
             content
                 .preferredColorScheme(settings.prefersDarkAppearance ? .some(.dark) : .none)
             #if os(macOS)
-                .background(Color.black)
+                .background(settings.prefersDarkAppearance ? Color.black : nil)
             #endif
         )
     }
