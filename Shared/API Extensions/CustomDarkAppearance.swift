@@ -12,7 +12,11 @@ struct CustomDarkAppearance: ViewModifier {
     
     func body(content: Content) -> some View {
         AnyView(
-            content.preferredColorScheme(settings.prefersDarkAppearance ? .some(.dark) : .none)
+            content
+                .preferredColorScheme(settings.prefersDarkAppearance ? .some(.dark) : .none)
+            #if os(macOS)
+                .background(Color.black)
+            #endif
         )
     }
 }

@@ -11,7 +11,7 @@ import AVKit
 struct ExternalTrailerView: View {
     @State var model: MovieInfo
     @ObservedObject private var dataStore = MovieInfoDataStore.shared
-    @Binding var posterImage: UIImage?
+    @Binding var posterImage: Image?
     
     @State private var avPlayer: AVPlayer?
     
@@ -24,7 +24,7 @@ struct ExternalTrailerView: View {
                         TrailerMetaView(model: $model, largeTitle: true)
                         if let image = posterImage {
                             HStack() {
-                                Image(uiImage: image)
+                                image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .padding(.all, 5)
@@ -80,7 +80,7 @@ struct ExternalTrailerView: View {
 #if DEBUG
 struct ExternalTrailerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExternalTrailerView(model: MovieInfo.Example.AQuietPlaceII, posterImage: .constant(UIImage()))
+        ExternalTrailerView(model: MovieInfo.Example.AQuietPlaceII, posterImage: .constant(.moviePosterPlaceholder))
             .previewLayout(.fixed(width: 1280, height: 720))
     }
 }

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct FramedImage: View {
     private let inset: CGFloat = 16
-    @State var uiImage: UIImage
+    @State var image: Image
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Image(uiImage: uiImage)
+                image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: geo.size.width - inset/2, height: geo.size.height - inset/2)
@@ -28,7 +28,7 @@ struct FramedImage: View {
 
 struct FramedImage_Previews: PreviewProvider {
     static var previews: some View {
-        FramedImage(uiImage: UIImage(named: "moviePosterPlaceholder")!)
+        FramedImage(image: .moviePosterPlaceholder)
             .previewLayout(.fixed(width: 540, height: 840))
     }
 }

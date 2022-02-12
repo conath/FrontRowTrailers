@@ -7,10 +7,24 @@
 
 import Combine
 import Network
-import UIKit.UIImage
+import SwiftUI
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 import TelemetryClient
 
 class MovieInfoDataStore: ObservableObject {
+#if os(iOS)
+    /// need the platform-dependent image class to we can create an image from data
+    typealias PlatformImage = UIKit.UIImage
+    private let appGroupID = "group.cafe.chrisp.tmt"
+#elseif os(macOS)
+    typealias PlatformImage = AppKit.NSImage
+    private let appGroupID = "U96PJYMZWW.tmt-group"
+#endif
+    
     static let urlScheme = "theatricals://showTrailer?id="
     static let currentTrailersHDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current_720p.xml")!
     static let currentTrailersSDURL = URL(string: "https://trailers.apple.com/trailers/home/xml/current.xml")!
@@ -51,11 +65,11 @@ class MovieInfoDataStore: ObservableObject {
     @Published private(set) var streamingAvailable = false
     /// Shared UI State
     @Published var error: AppError? = nil
-    @Published var idsAndImages = [Int: UIImage?]()
+    @Published var idsAndImages = [Int: Image?]()
     
     @Published private(set) var watched: [Int]
     @Published var selectedTrailerModel: MovieInfo?
-    @Published var posterImage: UIImage?
+    @Published var posterImage: Image?
     @Published var isPlaying = false
     /// Singleton
     static let shared = MovieInfoDataStore()
@@ -64,9 +78,9 @@ class MovieInfoDataStore: ObservableObject {
     private var localStorageDirectory: URL {
         let fileManager = FileManager.default
         guard let sharedContainerURL = fileManager.containerURL(
-                forSecurityApplicationGroupIdentifier: "group.cafe.chrisp.tmt") else {
-            fatalError("Couldn't get App Group shared container.")
-        }
+            forSecurityApplicationGroupIdentifier: appGroupID) else {
+                fatalError("Couldn't get App Group shared container.")
+            }
         return sharedContainerURL
     }
     private var localCurrentTrailersURL: URL {
@@ -299,13 +313,18 @@ class MovieInfoDataStore: ObservableObject {
     /// Tries to load the poster image for each `MovieInfo` in `movies` from disk, or from the network if a poster image is not found on disk.
     private func fetchPosterImagesFor(model movies: [MovieInfo], completion: (() -> ())? = nil) {
         /// Tries to load an image from the passed `URL` and stores it to `idsAndImages`.
-        func loadImageFrom(url: URL?, id: Int) -> UIImage? {
+        func loadImageFrom(url: URL?, id: Int) -> PlatformImage? {
             if let url = url, let data = try? Data(contentsOf: url) {
-                let image = UIImage(data: data)
+                let platformImage = PlatformImage(data: data)
+                #if os(macOS)
+                let swiftUIImage = platformImage == nil ? nil : Image(nsImage: platformImage!)
+                #else
+                let swiftUIImage = platformImage == nil ? nil : Image(uiImage: platformImage!)
+                #endif
                 DispatchQueue.main.async {
-                    self.idsAndImages.updateValue(image, forKey: id)
+                    self.idsAndImages.updateValue(swiftUIImage, forKey: id)
                 }
-                return image
+                return platformImage
             } else {
                 DispatchQueue.main.async {
                     self.idsAndImages.updateValue(nil, forKey: id)
@@ -313,7 +332,32 @@ class MovieInfoDataStore: ObservableObject {
                 return nil
             }
         }
-            
+#if os(iOS)
+        func tryDownloadImage(for movieInfo: MovieInfo, localURL: URL) {
+            if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
+               let jpgData = image.jpegData(compressionQuality: 0.8) {
+                /// store on disk
+                do {
+                    try jpgData.write(to: localURL)
+                } catch {
+                    self.error = AppError.otherError(error: error)
+                }
+            }
+        }
+#elseif os(macOS)
+        func tryDownloadImage(for movieInfo: MovieInfo, localURL: URL) {
+            if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
+               let bits = image.representations.first as? NSBitmapImageRep,
+               let data = bits.representation(using: .jpeg, properties: [.compressionFactor:0.8]) {
+                do {
+                    try data.write(to: localURL)
+                } catch {
+                    self.error = AppError.otherError(error: error)
+                }
+            }
+        }
+#endif
+        
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             let fileManager = FileManager.default
             for movieInfo in movies {
@@ -333,15 +377,7 @@ class MovieInfoDataStore: ObservableObject {
                         }
                         continue
                     }
-                    if let image = loadImageFrom(url: movieInfo.posterURL, id: movieInfo.id),
-                       let jpgData = image.jpegData(compressionQuality: 0.8) {
-                        /// store on disk
-                        do {
-                            try jpgData.write(to: localURL)
-                        } catch {
-                            self.error = AppError.otherError(error: error)
-                        }
-                    }
+                    tryDownloadImage(for: movieInfo, localURL: localURL)
                 }
             }
             completion?()

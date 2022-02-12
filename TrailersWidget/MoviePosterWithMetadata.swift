@@ -12,7 +12,7 @@ struct MoviePosterWithMetadata: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     
     @State var info: MovieInfo
-    @State var image: UIImage
+    @State var image: Image
     
     var body: some View {
         GeometryReader { frame in
@@ -28,7 +28,7 @@ struct MoviePosterWithMetadata: View {
                     .padding([.leading,  .trailing])
                 
                 HStack(alignment: .top) {
-                    FramedImage(uiImage: image)
+                    FramedImage(image: image)
                         .frame(width: frame.size.width / 2 - 16)
                         .aspectRatio(filmPosterAspectRatio, contentMode: .fit)
                         .clipped()
@@ -67,7 +67,7 @@ struct MoviePosterWithMetadata: View {
 #if DEBUG
 struct MoviePosterWithMetadata_Previews: PreviewProvider {
     static var previews: some View {
-        MoviePosterWithMetadata(info: MovieInfo.Example.AQuietPlaceII, image: UIImage(named: "moviePosterPlaceholder")!)
+        MoviePosterWithMetadata(info: MovieInfo.Example.AQuietPlaceII, image: Image.moviePosterPlaceholder)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }

@@ -13,7 +13,7 @@ import TelemetryClient
 class Provider: IntentTimelineProvider {
     let dataStore = MovieInfoDataStore.shared
     var info = [MovieInfo]()
-    var images = [Int: UIImage?]()
+    var images = [Int: Image?]()
     
     func placeholder(in context: Context) -> TrailerEntry {
         TrailerEntry(date: Date(), configuration: ConfigurationIntent(), info: MovieInfo.Empty)
@@ -66,7 +66,7 @@ class Provider: IntentTimelineProvider {
         /// Download poster images
         dataStore.onImagesAvailable = { [self] model in
             for info in model {
-                images[info.id] = dataStore.idsAndImages[info.id]
+                images[info.id] = dataStore.idsAndImages[info.id] ?? nil
             }
             
             // Generate a timeline consisting of three entries a day apart, starting from the current date.
@@ -88,7 +88,7 @@ struct TrailerEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
     let info: MovieInfo
-    var image: UIImage? = nil
+    var image: Image? = nil
     var dataStore: MovieInfoDataStore? = nil
 }
 
@@ -98,11 +98,11 @@ struct TrailersWidgetEntryView : View {
     /// Supported families are .systemMedium and .systemLarge
     @Environment(\.widgetFamily) private var family: WidgetFamily
     
-    func getImage(_ info: MovieInfo) -> UIImage {
+    func getImage(_ info: MovieInfo) -> Image {
         if let i = entry.dataStore?.idsAndImages[info.id], let poster = i {
             return poster
         } else {
-            return UIImage(named: "moviePosterPlaceholder")!
+            return .moviePosterPlaceholder
         }
     }
     

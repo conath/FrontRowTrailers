@@ -3,6 +3,7 @@
 //  TheatricalMovieTrailers
 //
 //  Created by Christoph Parstorfer on 15.10.20.
+//  Theatrical Trailers
 //
 
 import SwiftUI
@@ -10,41 +11,40 @@ import SwiftUI
 struct MoviePosterView: View {
     private let filmPosterAspectRatio = CGFloat(0.7063020214)
     
-    @State private var reflectionDistance: CGFloat
+    private var reflectionDistance: CGFloat
     @State private var onTap: (() -> ())?
-    @Binding private var image: UIImage?
+    @Binding private var image: Image?
     @State private var blurReflection = true
     
-    init(image: Binding<UIImage?>, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
-        self._reflectionDistance = State<CGFloat>(initialValue: reflectionDistance)
+    init(image: Binding<Image?>, reflectionDistance: CGFloat = -1.0, blurReflection: Bool = true, onTapGesture: (() -> ())? = nil) {
+        self.reflectionDistance = reflectionDistance
         self._blurReflection = State<Bool>(initialValue: blurReflection)
         self._onTap = State<(() -> ())?>(initialValue: onTapGesture)
         self._image = image
     }
     
     var body: some View {
-        var image: UIImage!
-        if let posterImage = self.image {
-            image = posterImage
-        } else {
-            image = UIImage(named: "moviePosterPlaceholder")
-        }
-        var fadeImage = image.cgImage!
-        fadeImage = fadeImage.masking(UIImage(named: "posterMirrorImageGradientMask")!.cgImage!)!
+        let image = self.image ?? .moviePosterPlaceholder
         
         return GeometryReader { geo in
             HStack {
                 Spacer()
                 VStack(alignment: .center, spacing: reflectionDistance) {
-                    Image(uiImage: image)
+                    image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxHeight: geo.size.height * 2 / 3)
-                    Image(uiImage: UIImage(cgImage: fadeImage))
+                    image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .frame(maxHeight: geo.size.height * 2 / 3)
                         .opacity(0.7)
-                        .frame(maxHeight: geo.size.height * 2 / 3)
+                        .mask(
+                            Image("posterMirrorImageGradientMask")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .luminanceToAlpha()
+                        )
                         .rotationEffect(.degrees(180), anchor: .center)
                         .rotation3DEffect(
                             .degrees(180),
@@ -58,6 +58,9 @@ struct MoviePosterView: View {
                 onTap?()
             })
             .accessibilityHidden(true)
+#if os(macOS)
+            .offset(x: 0, y: geo.size.height * 0.15)
+#endif
         }
     }
 }
@@ -67,9 +70,9 @@ struct MoviePosterView_Previews: PreviewProvider {
     static var previews: some View {
         Color.black
             .overlay (
-                MoviePosterView(image: .constant(UIImage(named: "moviePosterPlaceholder")))
-            .padding(.top, 24)
-        )
+                MoviePosterView(image: .constant(.moviePosterPlaceholder))
+                    .padding(.top, 24)
+            )
     }
 }
 #endif
