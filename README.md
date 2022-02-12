@@ -3,7 +3,7 @@ Free iOS app written in SwiftUI that provides a nice movie trailer watching expe
 
 **New:** A preview of Theatricals for Mac is now available on [TestFlight](https://testflight.apple.com/join/2XJmjp1A).  
 
-## Screenshots
+## Screenshots (iOS)
 
 On device:  
 <img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
@@ -12,6 +12,10 @@ On device:
 
 On TV (via AirPlay or adapter):  
 ![Screenshot of TV interface showing a movie poster on the left, the words "An Apple original" on the right in a video player, and metadata about a movie below.](Theatricals-AirPlay.jpg)
+
+## Screenshot (Beta for macOS)
+
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/dev-mac/Theatricals-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
 
 ## Installation
 
