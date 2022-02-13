@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "83BAA7A7274872640064825F"
                BuildableName = "Theatrical Trailers.app"
-               BlueprintName = "Theatrical Trailers"
+               BlueprintName = "Front Row Trailers"
                ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,7 +46,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "83BAA7A7274872640064825F"
             BuildableName = "Theatrical Trailers.app"
-            BlueprintName = "Theatrical Trailers"
+            BlueprintName = "Front Row Trailers"
             ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "83BAA7A7274872640064825F"
             BuildableName = "Theatrical Trailers.app"
-            BlueprintName = "Theatrical Trailers"
+            BlueprintName = "Front Row Trailers"
             ReferencedContainer = "container:TheatricalMovieTrailers.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

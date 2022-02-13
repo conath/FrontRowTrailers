@@ -183,7 +183,7 @@
 		83AB8428278CDF9800428FB4 /* MovieInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoContainerView.swift; sourceTree = "<group>"; };
 		83AC626C254EDDAB00197B0B /* ViewParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParameters.swift; sourceTree = "<group>"; };
 		83AC6275255018F700197B0B /* DispatchQueue+async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+async.swift"; sourceTree = "<group>"; };
-		83BAA7A8274872640064825F /* Theatrical Trailers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Theatrical Trailers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83BAA7A8274872640064825F /* Front Row Trailers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Front Row Trailers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BAA7AA274872640064825F /* TMT_MacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMT_MacApp.swift; sourceTree = "<group>"; };
 		83BAA7AC274872640064825F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		83BAA7AE274872650064825F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 			children = (
 				8316E0E024A64AD300467F14 /* TMT iOS.app */,
 				831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */,
-				83BAA7A8274872640064825F /* Theatrical Trailers.app */,
+				83BAA7A8274872640064825F /* Front Row Trailers.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -488,9 +488,9 @@
 			productReference = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		83BAA7A7274872640064825F /* Theatrical Trailers */ = {
+		83BAA7A7274872640064825F /* Front Row Trailers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Theatrical Trailers" */;
+			buildConfigurationList = 83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Front Row Trailers" */;
 			buildPhases = (
 				83BAA7A4274872640064825F /* Sources */,
 				83BAA7A5274872640064825F /* Frameworks */,
@@ -500,12 +500,12 @@
 			);
 			dependencies = (
 			);
-			name = "Theatrical Trailers";
+			name = "Front Row Trailers";
 			packageProductDependencies = (
 				83FA29F827488A5C00445816 /* TelemetryClient */,
 			);
 			productName = "TMT Mac";
-			productReference = 83BAA7A8274872640064825F /* Theatrical Trailers.app */;
+			productReference = 83BAA7A8274872640064825F /* Front Row Trailers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -546,7 +546,7 @@
 			targets = (
 				8316E0DF24A64AD300467F14 /* TMT iOS */,
 				831F1B6425499412008D24D4 /* TrailersWidgetExtension */,
-				83BAA7A7274872640064825F /* Theatrical Trailers */,
+				83BAA7A7274872640064825F /* Front Row Trailers */,
 			);
 		};
 /* End PBXProject section */
@@ -1032,7 +1032,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Theatrical Trailers" */ = {
+		83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Front Row Trailers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83BAA7B4274872650064825F /* Debug */,
