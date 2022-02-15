@@ -1,28 +1,26 @@
 # Front Row Trailers
-Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone and iPad, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. Front Row Trailers is [available on the App Store](https://apps.apple.com/app/id1534845010).
-
-**New:** A preview of Theatricals for Mac is now available on [TestFlight](https://testflight.apple.com/join/2XJmjp1A).  
+Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone, iPad, and Mac, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. Front Row Trailers is [available on the App Store](https://apps.apple.com/app/id1534845010).
 
 ## Screenshots (iOS)
 
 On device:  
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Search.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Widgets.jpg?raw=true" alt="Screenshot of iOS home screen showing a search bar and three widgets. Each widget shows at least a movie title and corresponding poster image; while some show metadata, as well." width="300"/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-Search.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-Widgets.jpg?raw=true" alt="Screenshot of iOS home screen showing a search bar and three widgets. Each widget shows at least a movie title and corresponding poster image; while some show metadata, as well." width="300"/>
 
 On TV (via AirPlay or adapter):  
 ![Screenshot of TV interface showing a movie poster on the left, the words "An Apple original" on the right in a video player, and metadata about a movie below.](docs/assets/FRT-AirPlay.jpg)
 
-## Screenshot (Beta for macOS)
+## Screenshot (macOS)
 
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-Mac.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
 
 ## Installation
 
 The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are sometimes available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Front Row".  
 
 
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
 
 To build from source, you need Xcode 12 and an Apple Developer account. Clone or download the repository, open the Xcode project and change the bunde identifier and development team. Then build and run.
 
@@ -38,6 +36,18 @@ When an external screen is connected, the device displays only the poster artwor
 On a real iOS device: use AirPlay Mirroring from Control Center or connect directly via a compatible adapter.
 
 In the iOS Simulator: Click "I/O" in the menu bar, then choose any resolution under "External Displays".
+
+## Version History 
+
+The project was first made available on the App Store in November 2020 as "Theatrical Trailers". The app received several updates throughout 2021, adding iOS Widgets, telemetry, iPad pointer support, an AirPlay screensaver, and interaction sounds.  
+
+In January of 2022, work began to port the app to Mac. The iOS version ran very poorly on Apple Silicon Macs and had therefore not been available on the Mac App Store. The native Mac app, designed to replicate the Front Row and Apple TV 1 user experiences, was released in February of 2022 after a short beta testing period. At the same time, the project was renamed to Front Row Trailers, the [website](https://frontrow-trailers.app/) was created, and the app icon was redesigned.
+
+## About the name
+
+The term "Front Row" was trademarked by Apple Inc. for [their media center software](https://en.wikipedia.org/wiki/Front_Row_(software) from 2006 to 2018.  
+Apple Inc. is not affiliated with the creators of Front Row Trailers, apart from distribution on the App Store.  
+
 
 ## Contributing
 
