@@ -19,7 +19,7 @@ On TV (via AirPlay or adapter):
 
 ## Installation
 
-The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Theatricals".  
+The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are sometimes available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Front Row".  
 
 
 <img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
