@@ -16,7 +16,10 @@ app_name                                  : Front Row Trailers                  
 app_description                           : Watch the latest Movie Trailers for free, without ads!
 mac_lead                                  : "Check out the new Mac app for a nostalgia-inducing experience. ↓"
 mac_heading                               : "Designed for modern Macs, borrowing from the good old days.<br/>"
-mac_screenshot                            : assets/FrontRowTrailers-Mac-Framed.png
+ios_screenshot_url                        : assets/FRT-CoverFlow.jpg
+ios_screenshot_alt                        : "iPhone screenshot showing a movie details screen, with (from top to bottom) poster image and title, as well as metadata and Play Trailer button visible."
+mac_screenshot_url                        : assets/FrontRowTrailers-Mac-Framed.png
+mac_screenshot_alt                        : "Screenshot of macOS app. The screen is split vertically in two halves. The left half shows a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible. The right half of the screen contains a list of movie titles. The title in the middle of the list is highlighted with a blue box, it reads 'Sing 2'. The movie poster and information on the left is for this movie" 
 show_mac_app_store                        : true
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
@@ -27,7 +30,7 @@ enable_smart_app_banner                   : true                                
 your_name                                 : Christoph Parstorfer (CONATH)
 your_link                                 : https://github.com/conath
 your_city                                 : Munich, Germany
-email_address_href                        : "javascript:window.location.href='mailto:'+atob('cHJlc2VudGFueXRoaW5nQGljbG91ZC5jb20=');"
+email_address_href                        : "javascript:window.location.href='mailto:'+atob('Y2hyaXNAY29uYXRoLm1l');"
 twitter_username                          : "@_conath"
 github_username                           : conath
 #youtube_username                          :

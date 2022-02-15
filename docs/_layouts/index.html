@@ -16,14 +16,14 @@
                             </clipPath>
                         </svg>
                         
-                        <div class="videoContainer hidden">
+<!--
+						<div class="videoContainer hidden">
                             <video class="screenvideo" autoplay="autoplay" controls="controls">
                             </video>
                         </div>
+ -->
                         
-                        <img class="iphoneScreen hidden" src="" alt="">
-                            
-                            {% include screencontent.html %}
+                        <img class="iphoneScreen" src="{{site.ios_screenshot_url}}" alt="{{site.ios_screenshot_alt}}">
                             
                     </div>
                     <div class="appInfo">
@@ -39,7 +39,7 @@
                             </p>
                         </div>
                         <div class="downloadButtonsContainer">
-                            <a href="{{site.app_store_link}}"><img class="appStore" src="assets/badge_app_store.svg"></a>
+                            <a href="{{site.app_store_link}}"><img class="appStore" src="assets/badge_app_store.svg" alt="Download on the App Store"></a>
                             
                             {% if site.app_price %}
                             <h2 class="appPrice">
@@ -55,7 +55,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if site.mac_screenshot %}
+                    {% if site.mac_screenshot_url %}
                     <div class="macospitch">
                         {% if site.mac_heading %}
                         <h2 class="appName">
@@ -63,10 +63,10 @@
                         </h2>
                         {% endif %}
                         {% if site.show_mac_app_store %}
-                        <a class="macAppStoreLink" href="{{site.mac_app_store_link}}"><img class="appStore" src="assets/badge_mac_app_store.svg"></a>
+                        <a class="macAppStoreLink" href="{{site.mac_app_store_link}}"><img class="appStore" src="assets/badge_mac_app_store.svg" alt="Download on the Mac App Store"></a>
                         {% endif %}
                         <br/>
-                        <img src="{{ site.mac_screenshot }}" width="90%">
+                        <img src="{{site.mac_screenshot_url}}" width="90%" alt="{{site.mac_screenshot_alt}}">
                     </div>
                     {% endif %}
                     {% include features.html %}

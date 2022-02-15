@@ -1,6 +1,6 @@
 <footer>
 	{% if site.your_name %}
-	<p class="footerText">Made with ♡ by {% if site.your_link %}<a href="{{ site.your_link }}">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}</p>
+	<p class="footerText">Made with ♡ by {% if site.your_link %}<a href="{{ site.your_link }}">{% endif %}{{ site.your_name }}{% if site.your_link %}</a>{% endif %}{% if site.your_city %} in {{ site.your_city }}{% endif %}.</p>
 	{% endif %}
 	<div class="footerIcons">
 
@@ -41,7 +41,7 @@
 		{% endif %}
 
 		{% if site.email_address_href %}
-			<a href="{{ site.email_address }}">
+			<a href="{{ site.email_address_href }}">
 				<span class="fa-stack fa-1x">
 					<i class="socialIconBack fas fa-circle fa-stack-2x"></i>
 					<i class="socialIconTop fas fa-envelope fa-stack-1x"></i>
