@@ -22,7 +22,7 @@ On TV (via AirPlay or adapter):
 The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Theatricals".  
 
 
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/TheatricalTrailersIcon.png?raw=true" alt="App Icon. It is a green color with small white text on it that is inspired by the MPAA trailer age rating panel that appears before American movie trailers." width="500"/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
 
 To build from source, you need Xcode 12 and an Apple Developer account. Clone or download the repository, open the Xcode project and change the bunde identifier and development team. Then build and run.
 
@@ -52,8 +52,10 @@ This app does not collect any personally identifiable information. See [Privacy]
 
 See [License](LICENSE) for details about the source code license.
 
+The Front Row Trailers app icons are © 2022 Christoph Parstorfer. All rights reserved.
+
 Two XML files from iTunes Movie Trailers are included with the project for reference and educational purposes. The [License](LICENSE) does not cover these XML files.
-Four AIFF files from [Front Row](https://en.wikipedia.org/wiki/Front_Row_(software)) are included with the project. These files are also not covered by the [License](LICENSE).
+Four AIFF files from [Apple Front Row](https://en.wikipedia.org/wiki/Front_Row_(software)) are included with the project. These files are also not covered by the [License](LICENSE).
 
 The Apple Logo, AirPlay, iOS and iTunes are trademarks of Apple Inc., registered in the U.S. and other countries.  
 FRIENDSGIVING is © 2020 SABAN FILMS.
