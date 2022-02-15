@@ -56,7 +56,7 @@ The author does not actively monitor issues.
 
 ## Privacy
 
-This app does not collect any personally identifiable information. See [Privacy](Privacy.md) for details.
+This app does not collect any personally identifiable information. See the [Privacy Policy](https://frontrow-trailers.app/privacypolicy/) for details.
 
 ## Copyright
 
