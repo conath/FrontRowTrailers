@@ -6,16 +6,16 @@ Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watch
 ## Screenshots (iOS)
 
 On device:  
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Search.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Widgets.jpg?raw=true" alt="Screenshot of iOS home screen showing a search bar and three widgets. Each widget shows at least a movie title and corresponding poster image; while some show metadata, as well." width="300"/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-CoverFlow.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Search.jpg?raw=true" alt="Screenshot of iOS interface showing a movie details screen, with (from top to bottom) title and poster image, as well as metadata visible." width="300"/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Widgets.jpg?raw=true" alt="Screenshot of iOS home screen showing a search bar and three widgets. Each widget shows at least a movie title and corresponding poster image; while some show metadata, as well." width="300"/>
 
 On TV (via AirPlay or adapter):  
-![Screenshot of TV interface showing a movie poster on the left, the words "An Apple original" on the right in a video player, and metadata about a movie below.](Theatricals-AirPlay.jpg)
+![Screenshot of TV interface showing a movie poster on the left, the words "An Apple original" on the right in a video player, and metadata about a movie below.](docs/assets/FRT-AirPlay.jpg)
 
 ## Screenshot (Beta for macOS)
 
-<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/Theatricals-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
+<img src="https://github.com/conath/TheatricalMovieTrailers/blob/main/docs/assets/FRT-Mac-Beta.jpg?raw=true" alt="Screenshot of macOS app showing a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible."/>
 
 ## Installation
 
@@ -50,13 +50,15 @@ This app does not collect any personally identifiable information. See [Privacy]
 
 ## Copyright
 
-See [License](LICENSE) for details about the source code license.
+See [License](LICENSE) for details about the **source code** license, which covers the website (/docs) as well.
 
 The Front Row Trailers app icons are © 2022 Christoph Parstorfer. All rights reserved.
 
 Two XML files from iTunes Movie Trailers are included with the project for reference and educational purposes. The [License](LICENSE) does not cover these XML files.
 Four AIFF files from [Apple Front Row](https://en.wikipedia.org/wiki/Front_Row_(software)) are included with the project. These files are also not covered by the [License](LICENSE).
 
+The [Front Row Trailers website](https://frontrow-trailers.app/) is based on the ["Automatic App Landing Page" theme](https://github.com/emilbaehr/automatic-app-landing-page) by [emilbaehr](https://github.com/emilbaehr).
+
 The Apple Logo, AirPlay, iOS and iTunes are trademarks of Apple Inc., registered in the U.S. and other countries.  
-FRIENDSGIVING is © 2020 SABAN FILMS.
-All My Life is © 2020 Universal Pictures.
+FRIENDSGIVING is © 2020 SABAN FILMS.  
+All My Life is © 2020 Universal Pictures.  
