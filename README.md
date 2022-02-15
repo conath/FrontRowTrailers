@@ -1,5 +1,5 @@
-# Theatrical Trailers
-Free iOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone and iPad, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. This app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr).
+# Front Row Trailers
+Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone and iPad, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. Front Row Trailers is [available on the App Store](https://apps.apple.com/app/id1534845010).
 
 **New:** A preview of Theatricals for Mac is now available on [TestFlight](https://testflight.apple.com/join/2XJmjp1A).  
 
