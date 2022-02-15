@@ -67,8 +67,13 @@ struct ContentView: View {
                     .transition(.opacity)
                 }
                 if dataStore.isPlaying, dataStore.selectedTrailerModel?.trailerURL != nil {
-                    ZStack {
+                    ZStack(alignment: .topLeading) {
                         TrailerPlayerView(url: dataStore.selectedTrailerModel!.trailerURL!, isShown: $dataStore.isPlaying)
+                        XButton() {
+                            withAnimation {
+                                dataStore.isPlaying = false
+                            }
+                        }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black)
