@@ -47,26 +47,27 @@
                             </h2>
                             {% endif %}
                         </div>
-                        <div class="appDescriptionContainer">
-                            {% if site.mac_lead %}
-                            <h2 class="appDescription">
-                                {{ site.mac_lead }}
-                            </h2>
-                            {% endif %}
-                        </div>
                     </div>
                     {% if site.mac_screenshot_url %}
                     <div class="macospitch">
-                        {% if site.mac_heading %}
-                        <h2 class="appName">
-                            {{ site.mac_heading }}
+                        {% if site.mac_lead %}
+                        <h2 class="appDescription">
+                            {{ site.mac_lead }}
                         </h2>
+                        <br/>
+                        {% endif %}
+                        {% if site.mac_heading %}
+                        <p class="appDescription">
+                            {{ site.mac_heading }}
+                        </p>
                         {% endif %}
                         {% if site.show_mac_app_store %}
                         <a class="macAppStoreLink" href="{{site.mac_app_store_link}}"><img class="appStore" src="assets/badge_mac_app_store.svg" alt="Download on the Mac App Store"></a>
                         {% endif %}
                         <br/>
-                        <img src="{{site.mac_screenshot_url}}" width="90%" alt="{{site.mac_screenshot_alt}}">
+                        <div class="macosscreenshot">
+                        	<img src="{{site.mac_screenshot_url}}" width="90%" alt="{{site.mac_screenshot_alt}}">
+                    	</div>
                     </div>
                     {% endif %}
                     {% include features.html %}

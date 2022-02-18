@@ -14,7 +14,7 @@ app_icon                                  : assets/appicon.png                  
 app_name                                  : Front Row Trailers                        # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
 #app_price                                 : "Free, no ads."                                          # Automatically populates if not set and if iOS app ID is set.  Otherwise enter manually.
 app_description                           : Watch the latest Movie Trailers for free, without ads!
-mac_lead                                  : "Check out the new Mac app for a nostalgia-inducing experience. ↓"
+mac_lead                                  : "Check out the new Mac app for a nostalgia-inducing experience."
 mac_heading                               : "Designed for modern Macs, borrowing from the good old days.<br/>"
 ios_screenshot_url                        : assets/FRT-CoverFlow.jpg
 ios_screenshot_alt                        : "iPhone screenshot showing a movie details screen, with (from top to bottom) poster image and title, as well as metadata and Play Trailer button visible."
