@@ -112,11 +112,11 @@ struct ExternalView: View {
                     .transition(.opacity)
             } else {
                 /// Logo moves around the screen
-                Image("RatingLogo")
+                Image("TheatreLogo")
                     .resizable()
                     .frame(width: geo.size.height / 3, height: geo.size.height / 3)
                     .cornerRadius(geo.size.height / 20, antialiased: true)
-                    .shadow(color: Color("TMTGreen"), radius: 20, x: 0, y: 0)
+                    .shadow(color: Color("frontRowTrailersRed"), radius: 20, x: 0, y: 0)
                     .onChange(of: fps.time) { _ in
                         withAnimation {
                             updateOffset(geo)
