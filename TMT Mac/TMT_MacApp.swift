@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TelemetryClient
 
 @main
 struct TMT_MacApp: App {
@@ -15,6 +16,11 @@ struct TMT_MacApp: App {
             ContentView()
                 .environmentObject(dataStore)
                 .onAppear {
+                    /// initialize telemetry
+                    let configuration = TelemetryManagerConfiguration(appID: TelemetryAppId)
+                    TelemetryManager.initialize(with: configuration)
+                    TelemetryManager.send("appLaunchedRegularly")
+                    /// put window into full screen
                     DispatchQueue.main.asyncAfter(0.1) {
                         if let window = NSApplication.shared.windows.last {
                             window.toggleFullScreen(nil)

@@ -103,6 +103,8 @@
 		83FA29FF2748909B00445816 /* NSApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29FE2748909B00445816 /* NSApplication+version+build.swift */; };
 		83FA2A002748930100445816 /* CustomDarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CD8FA24ABEC36008EDC6F /* CustomDarkAppearance.swift */; };
 		83FA2A012748933F00445816 /* DispatchQueue+async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC6275255018F700197B0B /* DispatchQueue+async.swift */; };
+		83FD3F3927C2ACF00083F354 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055C2541B34A0069A8D1 /* Secrets.swift */; };
+		83FD3F3C27C2AE640083F354 /* AppStoreReviewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD3F3B27C2AE640083F354 /* AppStoreReviewsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +207,7 @@
 		83FA29EB274889C400445816 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		83FA29FC2748905800445816 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		83FA29FE2748909B00445816 /* NSApplication+version+build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSApplication+version+build.swift"; sourceTree = "<group>"; };
+		83FD3F3B27C2AE640083F354 /* AppStoreReviewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +364,7 @@
 		837E13E527680356004B564B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				83FD3F3B27C2AE640083F354 /* AppStoreReviewsManager.swift */,
 				837E13E627680374004B564B /* KeyEventHandling.swift */,
 			);
 			path = Utilities;
@@ -678,6 +682,7 @@
 				83FA29F7274889D900445816 /* MovieInfo.swift in Sources */,
 				83FA29FD2748905800445816 /* Settings.swift in Sources */,
 				83FA2A012748933F00445816 /* DispatchQueue+async.swift in Sources */,
+				83FD3F3C27C2AE640083F354 /* AppStoreReviewsManager.swift in Sources */,
 				833A78AB27B72B60009A91A6 /* MacFont.swift in Sources */,
 				8354861827760D8E0039A29C /* MoviePosterView.swift in Sources */,
 				837E13E12767FD5C004B564B /* MovieTrailerListView.swift in Sources */,
@@ -685,6 +690,7 @@
 				83FA29FA27488F2700445816 /* MovieInfoDataStore.swift in Sources */,
 				83FA29F6274889D900445816 /* SortingMode.swift in Sources */,
 				837E13E4276800A5004B564B /* SelectionIndicator.swift in Sources */,
+				83FD3F3927C2ACF00083F354 /* Secrets.swift in Sources */,
 				83FA29FF2748909B00445816 /* NSApplication+version+build.swift in Sources */,
 				83AB8429278CDF9800428FB4 /* MovieInfoContainerView.swift in Sources */,
 			);

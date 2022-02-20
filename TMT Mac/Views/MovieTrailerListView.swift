@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TelemetryClient
 
 struct MovieTrailerListView: View {
     @ObservedObject private var settings = Settings.instance
@@ -162,5 +163,6 @@ struct MovieTrailerListView: View {
             dataStore.selectedTrailerModel = movieInfo
             dataStore.isPlaying = true
         }
+        dataStore.setWatchedTrailer(movieInfo)
     }
 }
