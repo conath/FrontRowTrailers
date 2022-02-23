@@ -13,7 +13,7 @@ On TV (via AirPlay or adapter):
 
 ## Screenshot (macOS)
 
-<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-Mac.jpg?raw=true" alt="Screenshot of macOS app. The screen is split vertically in two halves. The left half shows a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible. The right half of the screen contains a list of movie titles. The title in the middle of the list is highlighted with a blue box, it reads "Sing 2". The movie poster and information on the left is for this movie."/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/docs/assets/FRT-Mac.jpg?raw=true" alt="Screenshot of macOS app. The screen is split vertically in two halves. The left half shows a movie details screen, with (from top to bottom) poster image, title, synoptis as well as metadata visible. The right half of the screen contains a list of movie titles. The title in the middle of the list is highlighted with a blue box, it reads 'Sing 2'. The movie poster and information on the left is for this movie."/>
 
 ## Installation
 
