@@ -20,7 +20,7 @@ On TV (via AirPlay or adapter):
 The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are sometimes available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Front Row".  
 
 
-<img src="https://github.com/conath/FrontRowTrailers/blob/main/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
+<img src="https://github.com/conath/FrontRowTrailers/blob/main/Design Assets/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
 
 To build from source, you need Xcode 12 and an Apple Developer account. Clone or download the repository, open the Xcode project and change the bunde identifier and development team. Then build and run.
 

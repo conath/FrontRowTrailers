@@ -78,6 +78,12 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black)
                     .transition(.opacity)
+                    .onDisappear {
+                        /// user played trailer, request review
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            AppStoreReviewsManager.requestReviewIfAppropriate()
+                        }
+                    }
                 }
             }
         )

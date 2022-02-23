@@ -15,43 +15,43 @@ struct ContentView: View {
     
     var body: some View {
         CoverFlowScrollView(model: $dataStore.model, sortingMode: $sortingMode)
-        .overlay(
-            Group {
-                if loading {
-                    ZStack {
-                        ProgressView("Loading Trailers…")
-                            .frame(width: 200, height: 44)
+            .overlay(
+                Group {
+                    if loading {
+                        ZStack {
+                            ProgressView("Loading Trailers…")
+                                .frame(width: 200, height: 44)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.init(UIColor.systemBackground))
+                        .edgesIgnoringSafeArea(.all)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.init(UIColor.systemBackground))
-                    .edgesIgnoringSafeArea(.all)
                 }
+            )
+            .alert(item: $dataStore.error, content: { error  -> Alert in
+                error.makeAlert()
+            })
+            .transition(.opacity)
+            .modifier(CustomDarkAppearance())
+            .statusBar(hidden: true)
+            .onChange(of: sortingMode) { sortingMode in
+                dataStore.model.sort(by: sortingMode.predicate)
             }
-        )
-        .alert(item: $dataStore.error, content: { error  -> Alert in
-            error.makeAlert()
-        })
-        .transition(.opacity)
-        .modifier(CustomDarkAppearance())
-        .statusBar(hidden: true)
-        .onChange(of: sortingMode) { sortingMode in
-            dataStore.model.sort(by: sortingMode.predicate)
-        }
-        .onAppear {
-            if !dataStore.moviesAvailable {
-                DispatchQueue.main.asyncAfter(0.5) {
-                    if !dataStore.moviesAvailable {
-                        withAnimation {
-                            loading = true
+            .onAppear {
+                if !dataStore.moviesAvailable {
+                    DispatchQueue.main.asyncAfter(0.5) {
+                        if !dataStore.moviesAvailable {
+                            withAnimation {
+                                loading = true
+                            }
                         }
                     }
                 }
             }
-        }
-        .onChange(of: dataStore.moviesAvailable, perform: { moviesAvailable in
-            withAnimation {
-                loading = !moviesAvailable
-            }
-        })
+            .onChange(of: dataStore.moviesAvailable, perform: { moviesAvailable in
+                withAnimation {
+                    loading = !moviesAvailable
+                }
+            })
     }
 }

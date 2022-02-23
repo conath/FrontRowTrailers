@@ -12,11 +12,7 @@ import TelemetryClient
 struct CoverFlowScrollView: View {
     private var scrollAnchor: UnitPoint {
         get {
-            if #available(iOS 15, *) {
-                return UnitPoint(x: 1.5, y: 2.0)
-            } else {
-                return UnitPoint(x: 0.5, y: 1.0)
-            }
+            return UnitPoint(x: 0.5, y: 2.0)
         }
     }
     
