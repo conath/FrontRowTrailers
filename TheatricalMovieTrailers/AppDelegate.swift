@@ -13,8 +13,8 @@ import TelemetryClient
 class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
     @Published var isExternalScreenConnected = false
     
-    var externalWindow: UIWindow?
-    var externalVC: UIViewController?
+    private var externalWindow: UIWindow?
+    private var externalVC: UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

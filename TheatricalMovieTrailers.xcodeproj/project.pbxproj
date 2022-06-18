@@ -27,7 +27,31 @@
 		831F1B7625499416008D24D4 /* TrailersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		831F1B892549BC86008D24D4 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055F2541C58E0069A8D1 /* AppError.swift */; };
 		831F1B942549C2D6008D24D4 /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
+		832ED2FE285A9FC100874411 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831F1B6725499412008D24D4 /* WidgetKit.framework */; };
+		832ED2FF285A9FC100874411 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831F1B6925499412008D24D4 /* SwiftUI.framework */; };
+		832ED302285A9FC100874411 /* MacWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832ED301285A9FC100874411 /* MacWidget.swift */; };
+		832ED305285A9FC100874411 /* MacWidgetAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 832ED304285A9FC100874411 /* MacWidgetAssets.xcassets */; };
+		832ED308285A9FC100874411 /* MacWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 832ED303285A9FC100874411 /* MacWidget.intentdefinition */; };
+		832ED309285A9FC100874411 /* MacWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 832ED303285A9FC100874411 /* MacWidget.intentdefinition */; };
+		832ED30C285A9FC100874411 /* MacWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832ED2FD285A9FC100874411 /* MacWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		832ED311285AA08100874411 /* MovieInfoDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29EA274889C400445816 /* MovieInfoDataStore.swift */; };
+		832ED312285AA08500874411 /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354861727760D8E0039A29C /* MoviePosterView.swift */; };
+		832ED313285AA08700874411 /* SortingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29E9274889C400445816 /* SortingMode.swift */; };
+		832ED314285AA08900874411 /* MovieInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29E8274889C400445816 /* MovieInfo.swift */; };
+		832ED315285AA08D00874411 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055F2541C58E0069A8D1 /* AppError.swift */; };
+		832ED316285AA09700874411 /* currentTrailers.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 831F1B5D2549792A008D24D4 /* currentTrailers.bundle */; };
+		832ED317285AA09F00874411 /* Image+MoviePosterPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356DBB92787AEB40073B37A /* Image+MoviePosterPlaceholder.swift */; };
+		832ED318285AA1F900874411 /* MoviePosterWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */; };
+		832ED319285AA21400874411 /* FramedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAC28D2538CC56004D59BC /* FramedImage.swift */; };
+		832ED31A285AA22A00874411 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29FC2748905800445816 /* Settings.swift */; };
+		832ED31B285AA23700874411 /* MoviePosterWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387DA6D254CBD720014B669 /* MoviePosterWithTitle.swift */; };
+		832ED31C285AA23B00874411 /* LargeMoviePosterWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8387DA77254CC3450014B669 /* LargeMoviePosterWithTitle.swift */; };
+		832ED31D285AA23E00874411 /* LargePosterReflectionWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */; };
+		832ED31E285AA25400874411 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8300055C2541B34A0069A8D1 /* Secrets.swift */; };
+		832ED31F285AA2F100874411 /* NSApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FA29FE2748909B00445816 /* NSApplication+version+build.swift */; };
 		8334EF7B252E697300A1EB87 /* ExternalMovieMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */; };
+		8339F295285B7062000D4CCE /* TelemetryClient in Frameworks */ = {isa = PBXBuildFile; productRef = 8339F294285B7062000D4CCE /* TelemetryClient */; };
+		8339F297285B720F000D4CCE /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8339F296285B720F000D4CCE /* AppKit.framework */; };
 		833A78AB27B72B60009A91A6 /* MacFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833A78AA27B72B60009A91A6 /* MacFont.swift */; };
 		833CB265253A147500E1D15C /* UIApplication+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833CB264253A147500E1D15C /* UIApplication+version+build.swift */; };
 		834ADB3D25398496002D9F1E /* CoverFlowRotatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */; };
@@ -115,6 +139,13 @@
 			remoteGlobalIDString = 831F1B6425499412008D24D4;
 			remoteInfo = TrailersWidgetExtension;
 		};
+		832ED30A285A9FC100874411 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8316E0D824A64AD300467F14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 832ED2FC285A9FC100874411;
+			remoteInfo = MacWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,6 +156,17 @@
 			dstSubfolderSpec = 13;
 			files = (
 				831F1B7625499416008D24D4 /* TrailersWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		832ED30D285A9FC100874411 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				832ED30C285A9FC100874411 /* MacWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,7 +196,14 @@
 		831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = TrailersWidget.intentdefinition; sourceTree = "<group>"; };
 		831F1B6F25499416008D24D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		831F1B7125499416008D24D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832ED2FD285A9FC100874411 /* MacWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MacWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		832ED301285A9FC100874411 /* MacWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacWidget.swift; sourceTree = "<group>"; };
+		832ED303285A9FC100874411 /* MacWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MacWidget.intentdefinition; sourceTree = "<group>"; };
+		832ED304285A9FC100874411 /* MacWidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MacWidgetAssets.xcassets; sourceTree = "<group>"; };
+		832ED306285A9FC100874411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832ED307285A9FC100874411 /* MacWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacWidget.entitlements; sourceTree = "<group>"; };
 		8334EF7A252E697300A1EB87 /* ExternalMovieMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMovieMetaView.swift; sourceTree = "<group>"; };
+		8339F296285B720F000D4CCE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		833A78AA27B72B60009A91A6 /* MacFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacFont.swift; sourceTree = "<group>"; };
 		833CB264253A147500E1D15C /* UIApplication+version+build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+version+build.swift"; sourceTree = "<group>"; };
 		834ADB3C25398496002D9F1E /* CoverFlowRotatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverFlowRotatingView.swift; sourceTree = "<group>"; };
@@ -229,6 +278,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		832ED2FA285A9FC100874411 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832ED2FF285A9FC100874411 /* SwiftUI.framework in Frameworks */,
+				8339F297285B720F000D4CCE /* AppKit.framework in Frameworks */,
+				8339F295285B7062000D4CCE /* TelemetryClient in Frameworks */,
+				832ED2FE285A9FC100874411 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83BAA7A5274872640064825F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,6 +307,7 @@
 				8316E0E224A64AD300467F14 /* TheatricalMovieTrailers */,
 				831F1B6B25499412008D24D4 /* TrailersWidget */,
 				83BAA7A9274872640064825F /* TMT Mac */,
+				832ED300285A9FC100874411 /* MacWidget */,
 				831F1B6625499412008D24D4 /* Frameworks */,
 				8316E0E124A64AD300467F14 /* Products */,
 			);
@@ -258,6 +319,7 @@
 				8316E0E024A64AD300467F14 /* TMT iOS.app */,
 				831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */,
 				83BAA7A8274872640064825F /* Front Row Trailers.app */,
+				832ED2FD285A9FC100874411 /* MacWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,6 +351,7 @@
 		831F1B6625499412008D24D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8339F296285B720F000D4CCE /* AppKit.framework */,
 				831F1B6725499412008D24D4 /* WidgetKit.framework */,
 				831F1B6925499412008D24D4 /* SwiftUI.framework */,
 			);
@@ -309,6 +372,18 @@
 				8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */,
 			);
 			path = TrailersWidget;
+			sourceTree = "<group>";
+		};
+		832ED300285A9FC100874411 /* MacWidget */ = {
+			isa = PBXGroup;
+			children = (
+				832ED301285A9FC100874411 /* MacWidget.swift */,
+				832ED303285A9FC100874411 /* MacWidget.intentdefinition */,
+				832ED304285A9FC100874411 /* MacWidgetAssets.xcassets */,
+				832ED306285A9FC100874411 /* Info.plist */,
+				832ED307285A9FC100874411 /* MacWidget.entitlements */,
+			);
+			path = MacWidget;
 			sourceTree = "<group>";
 		};
 		8356DBB72787AA2D0073B37A /* API Extensions */ = {
@@ -428,13 +503,13 @@
 			isa = PBXGroup;
 			children = (
 				8379A49F27870DEF00B61EE7 /* Theatrical-Trailers-Info.plist */,
+				83BAA7B3274872650064825F /* TMT_Mac.entitlements */,
 				83BAA7AA274872640064825F /* TMT_MacApp.swift */,
 				83BAA7AC274872640064825F /* ContentView.swift */,
 				837E13E22767FD69004B564B /* Views */,
 				837E13E527680356004B564B /* Utilities */,
 				83FA29FC2748905800445816 /* Settings.swift */,
 				83BAA7AE274872650064825F /* Assets.xcassets */,
-				83BAA7B3274872650064825F /* TMT_Mac.entitlements */,
 				83BAA7B0274872650064825F /* Preview Content */,
 				83FA29FE2748909B00445816 /* NSApplication+version+build.swift */,
 				833A78AA27B72B60009A91A6 /* MacFont.swift */,
@@ -495,6 +570,27 @@
 			productReference = 831F1B6525499412008D24D4 /* TrailersWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		832ED2FC285A9FC100874411 /* MacWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 832ED310285A9FC100874411 /* Build configuration list for PBXNativeTarget "MacWidgetExtension" */;
+			buildPhases = (
+				832ED2F9285A9FC100874411 /* Sources */,
+				832ED2FA285A9FC100874411 /* Frameworks */,
+				832ED2FB285A9FC100874411 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				839708E3285B77FC0021CCFB /* PBXTargetDependency */,
+			);
+			name = MacWidgetExtension;
+			packageProductDependencies = (
+				8339F294285B7062000D4CCE /* TelemetryClient */,
+			);
+			productName = MacWidgetExtension;
+			productReference = 832ED2FD285A9FC100874411 /* MacWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		83BAA7A7274872640064825F /* Front Row Trailers */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Front Row Trailers" */;
@@ -502,10 +598,12 @@
 				83BAA7A4274872640064825F /* Sources */,
 				83BAA7A5274872640064825F /* Frameworks */,
 				83BAA7A6274872640064825F /* Resources */,
+				832ED30D285A9FC100874411 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				832ED30B285A9FC100874411 /* PBXTargetDependency */,
 			);
 			name = "Front Row Trailers";
 			packageProductDependencies = (
@@ -521,7 +619,7 @@
 		8316E0D824A64AD300467F14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					8316E0DF24A64AD300467F14 = {
@@ -529,6 +627,9 @@
 					};
 					831F1B6425499412008D24D4 = {
 						CreatedOnToolsVersion = 12.1;
+					};
+					832ED2FC285A9FC100874411 = {
+						CreatedOnToolsVersion = 13.3;
 					};
 					83BAA7A7274872640064825F = {
 						CreatedOnToolsVersion = 13.1;
@@ -554,6 +655,7 @@
 				8316E0DF24A64AD300467F14 /* TMT iOS */,
 				831F1B6425499412008D24D4 /* TrailersWidgetExtension */,
 				83BAA7A7274872640064825F /* Front Row Trailers */,
+				832ED2FC285A9FC100874411 /* MacWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -582,6 +684,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		832ED2FB285A9FC100874411 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832ED305285A9FC100874411 /* MacWidgetAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83BAA7A6274872640064825F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -589,6 +699,7 @@
 				83FA29E2274887CF00445816 /* Assets.xcassets in Resources */,
 				837E13ED276818A2004B564B /* Selection.aif in Resources */,
 				837E13EF276818A2004B564B /* Exit.aif in Resources */,
+				832ED316285AA09700874411 /* currentTrailers.bundle in Resources */,
 				837E13EC276818A2004B564B /* SelectionChange.aif in Resources */,
 				83BAA7B2274872650064825F /* Preview Assets.xcassets in Resources */,
 				837E13EE276818A2004B564B /* Limit.aif in Resources */,
@@ -665,6 +776,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		832ED2F9285A9FC100874411 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832ED31B285AA23700874411 /* MoviePosterWithTitle.swift in Sources */,
+				832ED31E285AA25400874411 /* Secrets.swift in Sources */,
+				832ED312285AA08500874411 /* MoviePosterView.swift in Sources */,
+				832ED318285AA1F900874411 /* MoviePosterWithMetadata.swift in Sources */,
+				832ED311285AA08100874411 /* MovieInfoDataStore.swift in Sources */,
+				832ED308285A9FC100874411 /* MacWidget.intentdefinition in Sources */,
+				832ED302285A9FC100874411 /* MacWidget.swift in Sources */,
+				832ED31F285AA2F100874411 /* NSApplication+version+build.swift in Sources */,
+				832ED314285AA08900874411 /* MovieInfo.swift in Sources */,
+				832ED319285AA21400874411 /* FramedImage.swift in Sources */,
+				832ED313285AA08700874411 /* SortingMode.swift in Sources */,
+				832ED315285AA08D00874411 /* AppError.swift in Sources */,
+				832ED31A285AA22A00874411 /* Settings.swift in Sources */,
+				832ED31C285AA23B00874411 /* LargeMoviePosterWithTitle.swift in Sources */,
+				832ED31D285AA23E00874411 /* LargePosterReflectionWithTitle.swift in Sources */,
+				832ED317285AA09F00874411 /* Image+MoviePosterPlaceholder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83BAA7A4274872640064825F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -672,6 +806,7 @@
 				83BAA7AD274872640064825F /* ContentView.swift in Sources */,
 				8356DBBB2787AEB40073B37A /* Image+MoviePosterPlaceholder.swift in Sources */,
 				838646AD27B96BB60073D7E7 /* XButton.swift in Sources */,
+				832ED309285A9FC100874411 /* MacWidget.intentdefinition in Sources */,
 				837E13EB2768185F004B564B /* AudioFeedback.swift in Sources */,
 				83FA2A002748930100445816 /* CustomDarkAppearance.swift in Sources */,
 				83BAA7AB274872640064825F /* TMT_MacApp.swift in Sources */,
@@ -703,6 +838,15 @@
 			isa = PBXTargetDependency;
 			target = 831F1B6425499412008D24D4 /* TrailersWidgetExtension */;
 			targetProxy = 831F1B7425499416008D24D4 /* PBXContainerItemProxy */;
+		};
+		832ED30B285A9FC100874411 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 832ED2FC285A9FC100874411 /* MacWidgetExtension */;
+			targetProxy = 832ED30A285A9FC100874411 /* PBXContainerItemProxy */;
+		};
+		839708E3285B77FC0021CCFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 839708E2285B77FC0021CCFB /* TelemetryClient */;
 		};
 /* End PBXTargetDependency section */
 
@@ -942,9 +1086,76 @@
 			};
 			name = Release;
 		};
+		832ED30E285A9FC100874411 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MacWidget/MacWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = U96PJYMZWW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MacWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.MacWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		832ED30F285A9FC100874411 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = MacWidget/MacWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = U96PJYMZWW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MacWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MacWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt.MacWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		83BAA7B4274872650064825F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Mac";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -953,7 +1164,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TMT Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -968,7 +1179,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -980,6 +1191,7 @@
 		83BAA7B5274872650064825F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Mac";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -988,7 +1200,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TMT Mac/Preview Content\"";
 				DEVELOPMENT_TEAM = U96PJYMZWW;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1003,7 +1215,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.chrisp.tmt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1042,6 +1254,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		832ED310285A9FC100874411 /* Build configuration list for PBXNativeTarget "MacWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				832ED30E285A9FC100874411 /* Debug */,
+				832ED30F285A9FC100874411 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		83BAA7B6274872650064825F /* Build configuration list for PBXNativeTarget "Front Row Trailers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1065,6 +1286,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8339F294285B7062000D4CCE /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
+		839708E2285B77FC0021CCFB /* TelemetryClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */;
+			productName = TelemetryClient;
+		};
 		83B53B38258A7889003ACD7D /* TelemetryClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83B53B37258A7889003ACD7D /* XCRemoteSwiftPackageReference "SwiftClient" */;
