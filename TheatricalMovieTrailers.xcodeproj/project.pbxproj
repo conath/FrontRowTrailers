@@ -366,10 +366,6 @@
 				831F1B6E25499412008D24D4 /* TrailersWidget.intentdefinition */,
 				831F1B6F25499416008D24D4 /* Assets.xcassets */,
 				831F1B7125499416008D24D4 /* Info.plist */,
-				8387DA6D254CBD720014B669 /* MoviePosterWithTitle.swift */,
-				8387DA77254CC3450014B669 /* LargeMoviePosterWithTitle.swift */,
-				8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */,
-				8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */,
 			);
 			path = TrailersWidget;
 			sourceTree = "<group>";
@@ -408,6 +404,7 @@
 				83FA29EA274889C400445816 /* MovieInfoDataStore.swift */,
 				8354861727760D8E0039A29C /* MoviePosterView.swift */,
 				83FA29E9274889C400445816 /* SortingMode.swift */,
+				83F472A7285E896F005D89A2 /* Widget */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -523,6 +520,17 @@
 				83BAA7B1274872650064825F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		83F472A7285E896F005D89A2 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				8387DA6D254CBD720014B669 /* MoviePosterWithTitle.swift */,
+				8387DA77254CC3450014B669 /* LargeMoviePosterWithTitle.swift */,
+				8379E85D25A09CFB00A1CDF2 /* LargePosterReflectionWithTitle.swift */,
+				8387DA71254CBD7F0014B669 /* MoviePosterWithMetadata.swift */,
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
