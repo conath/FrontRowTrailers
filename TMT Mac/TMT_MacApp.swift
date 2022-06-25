@@ -32,6 +32,13 @@ struct TMT_MacApp: App {
                         }
                     }
                 }
+                .onOpenURL { url in
+                    print(url)
+                    if url.description.starts(with: MovieInfoDataStore.urlScheme) {
+                        // TODO show the app, select the movie and play the trailer
+                        // FIXME prevent new window from opening!
+                    }
+                }
         }
         .windowStyle(.hiddenTitleBar)
     }
