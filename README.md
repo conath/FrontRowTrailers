@@ -1,5 +1,5 @@
-# Front Row Trailers
-Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone, iPad, and Mac, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. Front Row Trailers is [available on the App Store](https://apps.apple.com/app/id1534845010).
+# Front Row Trailers (discontinued)
+Free iOS & macOS app written in SwiftUI that provides a nice movie trailer watching experience on iPhone, iPad, and Mac, plus via AirPlay to Apple TV and AirPlay 2-compatible TVs. Front Row Trailers is no longer [available on the App Store](https://apps.apple.com/app/id1534845010).
 
 ## Screenshots (iOS)
 
@@ -17,7 +17,7 @@ On TV (via AirPlay or adapter):
 
 ## Installation
 
-The latest release version of this app is [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are sometimes available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Front Row".  
+The latest release version of this app used to be [available on the App Store](https://apps.apple.com/app/id1534845010) and beta versions are sometimes available on [TestFlight](https://testflight.apple.com/join/Wnlesgzr). It appears on your homescreen as "Front Row".  
 
 
 <img src="https://github.com/conath/FrontRowTrailers/blob/main/Design Assets/FrontRowTrailersIcon.png?raw=true" alt="App Icon. It is dark red and black color with a white lens flare at the top. It is designed to resemble a movie theatre." width="500"/>
@@ -43,10 +43,12 @@ The project was first made available on the App Store in November 2020 as "Theat
 
 In January of 2022, work began to port the app to Mac. The iOS version ran very poorly on Apple Silicon Macs and had therefore not been available on the Mac App Store. The native Mac app, designed to replicate the Front Row and Apple TV 1 user experiences, was released in February of 2022 after a short beta testing period. At the same time, the project was renamed to Front Row Trailers, the [website](https://frontrow-trailers.app/) was created, and the app icon was redesigned.
 
+In September of 2023, Apple announced they would discontinue their iTunes Movie Trailers website in favor of the Trailers section in their Apple TV app. The website and XML API were taken offline shortly after. This marked the end of the Front Row Trailers app, as there was no longer a free, ad-free backend available.
+
 ## About the name
 
 The term "Front Row" was trademarked by Apple Inc. for [their media center software](https://en.wikipedia.org/wiki/Front_Row_(software) from 2006 to 2018.  
-Apple Inc. is not affiliated with the creators of Front Row Trailers, apart from distribution on the App Store.  
+Apple Inc. is not affiliated with the creators of Front Row Trailers, apart from (previously) distribution on the App Store.  
 
 
 ## Contributing
